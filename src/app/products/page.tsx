@@ -13,6 +13,8 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Card, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
 
 const productSections = [
   { title: 'Unisex Palm', slug: 'unisex-palm', category: 'Unisex Palm' },
@@ -125,51 +127,44 @@ export default function ProductsPage() {
         </aside>
 
         <main className="lg:col-span-3">
-          <div className="flex justify-between items-center mb-6">
-            <p className="text-muted-foreground">{filteredAndSortedProducts.length} products found</p>
-            <Select value={sortOrder} onValueChange={setSortOrder}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="rating-desc">Best Rating</SelectItem>
-                <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                <SelectItem value="name-asc">Name: A to Z</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
           {showSections ? (
-            <div className="space-y-12">
-              {productSections.map(section => {
-                const sectionProducts = products.filter(p => p.category === section.category);
-                return (
-                  <section key={section.title}>
-                    <div className="flex justify-between items-baseline mb-6">
-                        <h2 className="text-2xl font-bold tracking-tight cursor-pointer hover:underline" onClick={() => handleSectionClick(section.slug)}>{section.title}</h2>
-                         <Button variant="link" className="text-primary" onClick={() => handleSectionClick(section.slug)}>View All</Button>
-                    </div>
-                    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                      {sectionProducts.slice(0, 3).map(product => (
-                        <ProductCard key={product.id} product={product} />
-                      ))}
-                    </div>
-                  </section>
-                )
-              })}
-            </div>
-          ) : filteredAndSortedProducts.length > 0 ? (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredAndSortedProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                {productSections.map((section) => (
+                <Card key={section.slug} onClick={() => handleSectionClick(section.slug)} className="text-center p-6 hover:shadow-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer h-full flex flex-col justify-center items-center">
+                    <CardTitle className="text-lg">{section.title}</CardTitle>
+                </Card>
+                ))}
             </div>
           ) : (
-             <div className="text-center py-16 border-2 border-dashed rounded-lg">
-                <p className="text-xl font-semibold">No products found</p>
-                <p className="text-muted-foreground mt-2">Try adjusting your filters.</p>
-            </div>
+            <>
+                <div className="flex justify-between items-center mb-6">
+                <p className="text-muted-foreground">{filteredAndSortedProducts.length} products found</p>
+                <Select value={sortOrder} onValueChange={setSortOrder}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="rating-desc">Best Rating</SelectItem>
+                    <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                    <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                    <SelectItem value="name-asc">Name: A to Z</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {filteredAndSortedProducts.length > 0 ? (
+                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredAndSortedProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 border-2 border-dashed rounded-lg">
+                    <p className="text-xl font-semibold">No products found</p>
+                    <p className="text-muted-foreground mt-2">Try adjusting your filters.</p>
+                </div>
+              )}
+            </>
           )}
         </main>
       </div>
