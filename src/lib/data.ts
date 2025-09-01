@@ -1,46 +1,120 @@
 import type { Product, Category, Order } from '@/lib/types';
 
 export const categories: Category[] = [
-  { name: 'Unisex Palm', slug: 'unisex-palm' },
-  { name: 'Unisex Dinner', slug: 'unisex-dinner' },
-  { name: 'Unisex Galaxy', slug: 'unisex-galaxy' },
-  { name: 'Unisex Softy', slug: 'unisex-softy' },
+  { name: 'Unisex Palm', slug: 'unisex-palm', image: 'https://picsum.photos/600/400?random=20', dataAiHint: 'palm leaves' },
+  { name: 'Unisex Dinner', slug: 'unisex-dinner', image: 'https://picsum.photos/600/400?random=21', dataAiHint: 'dinner setting' },
+  { name: 'Unisex Galaxy', slug: 'unisex-galaxy', image: 'https://picsum.photos/600/400?random=22', dataAiHint: 'galaxy stars' },
+  { name: 'Unisex Softy', slug: 'unisex-softy', image: 'https://picsum.photos/600/400?random=23', dataAiHint: 'soft fabric' },
 ];
 
 export const products: Product[] = [
   {
     id: '9',
-    name: 'Palm alphabatic',
-    description: 'Comfortable palm alphabatic for all-day wear.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobility`,
-    price: 16.2,
-    image: '/Product1.png',
-    dataAiHint: 'Palm alphabatic',
+    name: 'Unisex Palm Slipper',
+    description: 'Comfortable palm slippers for all-day wear.',
+    longDescription: 'These unisex palm slippers are perfect for relaxing at home. Made with soft, breathable material, they provide ultimate comfort.',
+    price: 25.99,
+    image: 'https://picsum.photos/600/400?random=9',
+    dataAiHint: 'slippers palm',
     category: 'Unisex Palm',
     rating: 4.5,
     reviews: 120,
   },
   {
     id: '10',
-    name: 'Unisex Palm Black',
+    name: 'Unisex Palm Sandal',
     description: 'Stylish palm sandals for outdoor activities.',
-    longDescription:`Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobility`,
-    price: 16.2,
-    image: '/Product2.png',
-    dataAiHint: 'Unisex Palm Black',
+    longDescription: 'Durable and stylish unisex palm sandals, ideal for beach trips or casual outings. Features a sturdy sole and comfortable straps.',
+    price: 35.50,
+    image: 'https://picsum.photos/600/400?random=10',
+    dataAiHint: 'sandals beach',
     category: 'Unisex Palm',
     rating: 4.6,
     reviews: 95,
+  },
+  {
+    id: '23',
+    name: 'Unisex Palm Flip-Flops',
+    description: 'Lightweight and durable palm flip-flops.',
+    longDescription: 'The perfect companion for your summer adventures. These lightweight and durable flip-flops feature a cushioned footbed and a stylish palm-leaf pattern.',
+    price: 19.99,
+    image: 'https://picsum.photos/600/400?random=23',
+    dataAiHint: 'beach flip-flops',
+    category: 'Unisex Palm',
+    rating: 4.4,
+    reviews: 80,
+  },
+  {
+    id: '24',
+    name: 'Woven Palm Hat',
+    description: 'A stylish hat made from woven palm leaves.',
+    longDescription: 'Stay cool and shaded with this beautifully crafted hat made from natural woven palm leaves. Perfect for sunny days, it adds a touch of tropical elegance to any outfit.',
+    price: 42.00,
+    image: 'https://picsum.photos/600/400?random=24',
+    dataAiHint: 'straw hat',
+    category: 'Unisex Palm',
+    rating: 4.7,
+    reviews: 110,
+  },
+  {
+    id: '25',
+    name: 'Palm Leaf Tote Bag',
+    description: 'A spacious and eco-friendly tote bag.',
+    longDescription: 'Carry your essentials in style with this spacious and eco-friendly tote bag, featuring a chic palm leaf design. It\'s perfect for the beach, market, or everyday use.',
+    price: 38.50,
+    image: 'https://picsum.photos/600/400?random=25',
+    dataAiHint: 'tote bag',
+    category: 'Unisex Palm',
+    rating: 4.8,
+    reviews: 130,
+  },
+  {
+    id: '26',
+    name: 'Palm Accent Loafers',
+    description: 'Comfortable loafers with a palm tree accent.',
+    longDescription: 'These comfortable loafers are perfect for a casual yet sophisticated look. Made from high-quality materials, they feature a subtle embroidered palm tree accent.',
+    price: 65.00,
+    image: 'https://picsum.photos/600/400?random=26',
+    dataAiHint: 'casual loafers',
+    category: 'Unisex Palm',
+    rating: 4.6,
+    reviews: 90,
+  },
+  {
+    id: '27',
+    name: 'Tropical Espadrilles',
+    description: 'Classic espadrilles with a tropical twist.',
+    longDescription: 'Our classic espadrilles are given a tropical twist with a vibrant palm print. Lightweight and breathable, they are the perfect summer shoe for any occasion.',
+    price: 48.00,
+    image: 'https://picsum.photos/600/400?random=27',
+    dataAiHint: 'summer shoes',
+    category: 'Unisex Palm',
+    rating: 4.5,
+    reviews: 105,
+  },
+  {
+    id: '28',
+    name: 'Debossed Palm Wallet',
+    description: 'A sleek wallet with a debossed palm design.',
+    longDescription: 'This sleek and minimalist wallet is crafted from premium leather and features a subtle, debossed palm design. It has ample space for cards and cash.',
+    price: 55.00,
+    image: 'https://picsum.photos/600/400?random=28',
+    dataAiHint: 'leather wallet',
+    category: 'Unisex Palm',
+    rating: 4.7,
+    reviews: 150,
+  },
+  {
+    id: '29',
+    name: 'Palm Leaf Scarf',
+    description: 'A lightweight scarf with a palm leaf print.',
+    longDescription: 'Add a touch of tropical elegance to your look with this lightweight scarf. Made from a soft, breathable fabric, it features a beautiful all-over palm leaf print.',
+    price: 22.50,
+    image: 'https://picsum.photos/600/400?random=29',
+    dataAiHint: 'lightweight scarf',
+    category: 'Unisex Palm',
+    rating: 4.6,
+    reviews: 70,
   },
   {
     id: '11',
@@ -65,6 +139,30 @@ export const products: Product[] = [
     category: 'Unisex Dinner',
     rating: 4.7,
     reviews: 88,
+  },
+  {
+    id: '30',
+    name: 'Crystal Wine Glasses',
+    description: 'Set of 4 crystal wine glasses.',
+    longDescription: 'Elevate your dining experience with this set of 4 premium crystal wine glasses. Their timeless design is perfect for any occasion, from casual dinners to formal gatherings.',
+    price: 75.00,
+    image: 'https://picsum.photos/600/400?random=30',
+    dataAiHint: 'wine glasses',
+    category: 'Unisex Dinner',
+    rating: 4.8,
+    reviews: 60,
+  },
+  {
+    id: '31',
+    name: 'Linen Tablecloth',
+    description: 'A beautiful and durable tablecloth.',
+    longDescription: 'This high-quality linen tablecloth adds a touch of elegance to any dining table. It\'s durable, easy to clean, and available in various sizes to fit your needs.',
+    price: 89.99,
+    image: 'https://picsum.photos/600/400?random=31',
+    dataAiHint: 'linen tablecloth',
+    category: 'Unisex Dinner',
+    rating: 4.7,
+    reviews: 55,
   },
   {
     id: '13',
@@ -113,149 +211,6 @@ export const products: Product[] = [
     category: 'Unisex Softy',
     rating: 4.8,
     reviews: 220,
-  },
-  {
-    id: '17',
-    name: 'Unisex Palm Gray',
-    description: 'Lightweight and durable palm flip-flops.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product3.png',
-    dataAiHint: 'Unisex Palm Gray',
-    category: 'Unisex Palm',
-    rating: 4.4,
-    reviews: 80,
-  },
-  {
-    id: '18',
-    name: 'Unisex Palm Green',
-    description: 'A stylish hat made from woven palm leaves.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product4.png',
-    dataAiHint: 'Unisex Palm Green',
-    category: 'Unisex Palm',
-    rating: 4.7,
-    reviews: 110,
-  },
-  {
-    id: '19',
-    name: 'Unisex Palm Maroon',
-    description: 'A spacious and eco-friendly tote bag.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product5.png',
-    dataAiHint: 'Unisex Palm Maroon',
-    category: 'Unisex Palm',
-    rating: 4.8,
-    reviews: 130,
-  },
-  {
-    id: '20',
-    name: 'Unisex Palm Navy Blue',
-    description: 'Comfortable loafers with a palm tree accent.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product6.png',
-    dataAiHint: 'Unisex Palm Navy Blue',
-    category: 'Unisex Palm',
-    rating: 4.6,
-    reviews: 90,
-  },
-  {
-    id: '21',
-    name: 'Unisex Palm Olive Green',
-    description: 'Classic espadrilles with a tropical twist.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product7.png',
-    dataAiHint: 'Unisex Palm Olive Green',
-    category: 'Unisex Palm',
-    rating: 4.5,
-    reviews: 105,
-  },
-  {
-    id: '22',
-    name: 'Unisex Palm Royal Blue',
-    description: 'A sleek wallet with a debossed palm design.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,
-    price: 16.2,
-    image: '/Product8.png',
-    dataAiHint: 'Unisex Palm Royal Blue',
-    category: 'Unisex Palm',
-    rating: 4.7,
-    reviews: 150,
-  },
-  {
-    id: '23',
-    name: 'Unisex Palm Sky Blue',
-    description: 'A lightweight scarf with a palm leaf print.',
-    longDescription: `Unisex Design
-                      Modern V-Neck Top
-                      Multiple Pockets
-                      Comfortable Elastic Waistband
-                      Durable & Easy-Care Fabric
-                      Enhanced Mobilit`,    
-    price: 16.2,
-    image: '/Product9.png',
-    dataAiHint: 'Unisex Palm Sky Blue',
-    category: 'Unisex Palm',
-    rating: 4.6,
-    reviews: 70,
-  },
-  {
-    id: '24',
-    name: 'Unisex Dinner Wine Glasses',
-    description: 'Set of 4 crystal wine glasses.',
-    longDescription: 'A set of 4 crystal wine glasses, perfect for any occasion. The elegant design will complement any table setting.',
-    price: 39.99,
-    image: 'https://picsum.photos/600/400?random=24',
-    dataAiHint: 'wine glasses',
-    category: 'Unisex Dinner',
-    rating: 4.8,
-    reviews: 60,
-  },
-  {
-    id: '25',
-    name: 'Unisex Dinner Tablecloth',
-    description: 'A beautiful and durable tablecloth.',
-    longDescription: 'This tablecloth is made from a durable, stain-resistant fabric, making it perfect for everyday use or special occasions. Available in multiple colors.',
-    price: 29.99,
-    image: 'https://picsum.photos/600/400?random=25',
-    dataAiHint: 'tablecloth dining',
-    category: 'Unisex Dinner',
-    rating: 4.7,
-    reviews: 55,
   },
 ];
 

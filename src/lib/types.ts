@@ -14,6 +14,8 @@ export type Product = {
 export type Category = {
   name: string;
   slug: string;
+  image: string;
+  dataAiHint?: string;
 };
 
 export type Order = {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import type { Product } from '@/lib/types';
@@ -11,7 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { Search } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import { Card, CardTitle } from '@/components/ui/card';
 
 export default function ProductsPage() {
@@ -50,7 +51,7 @@ export default function ProductsPage() {
     });
   }, [searchTerm, sortOrder, selectedCategories, priceRange]);
 
-  const showSections = selectedCategories.length === 0 && searchTerm === '';
+  const showCategoryCards = selectedCategories.length === 0 && searchTerm === '';
 
   return (
     <div className="container py-8">
@@ -114,17 +115,35 @@ export default function ProductsPage() {
         </aside>
 
         <main className="lg:col-span-3">
-          {showSections ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                {categories.map((section) => (
-                <Card key={section.slug} onClick={() => setSelectedCategories([section.slug])} className="text-center p-6 hover:shadow-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer h-full flex flex-col justify-center items-center">
-                    <CardTitle className="text-lg">{section.name}</CardTitle>
+          {showCategoryCards ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {categories.map((category) => (
+                <Card 
+                  key={category.slug} 
+                  onClick={() => setSelectedCategories([category.slug])}
+                  className="relative group aspect-video rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                >
+                  <Image 
+                    src={category.image}
+                    alt={category.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    data-ai-hint={category.dataAiHint}
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+                  <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center text-white">
+                    <h3 className="text-3xl font-extrabold tracking-tight drop-shadow-lg">{category.name}</h3>
+                    <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full">
+                      <span>Explore</span>
+                      <ArrowRight className="h-4 w-4"/>
+                    </div>
+                  </div>
                 </Card>
-                ))}
+              ))}
             </div>
           ) : (
             <>
-                <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-6">
                 <p className="text-muted-foreground">{filteredAndSortedProducts.length} products found</p>
                 <Select value={sortOrder} onValueChange={setSortOrder}>
                   <SelectTrigger className="w-[180px]">
