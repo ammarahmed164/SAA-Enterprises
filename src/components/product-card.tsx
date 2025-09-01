@@ -1,0 +1,70 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { Star, Plus } from 'lucide-react';
+
+import type { Product } from '@/lib/types';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/hooks/use-cart';
+import { useToast } from '@/hooks/use-toast';
+import { Badge } from './ui/badge';
+
+interface ProductCardProps {
+  product: Product;
+}
+
+export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = () => {
+    addItem({ id: product.id, name: product.name, price: product.price, image: product.image });
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  return (
+    <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+      <CardHeader className="p-0 border-b">
+        <Link href={`/products/${product.id}`} className="block">
+          <div className="aspect-video relative overflow-hidden">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              data-ai-hint={product.dataAiHint}
+            />
+          </div>
+        </Link>
+      </CardHeader>
+      <CardContent className="p-4 flex-grow">
+        <Badge variant="secondary" className="mb-2">{product.category}</Badge>
+        <CardTitle className="text-lg leading-tight mb-2 h-14">
+          <Link href={`/products/${product.id}`} className="hover:text-primary transition-colors">
+            {product.name}
+          </Link>
+        </CardTitle>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-1">
+            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+            <span>{product.rating}</span>
+          </div>
+          <span>({product.reviews} reviews)</span>
+        </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0 flex justify-between items-center">
+        <p className="text-xl font-bold text-primary">${product.price.toFixed(2)}</p>
+        <Button size="icon" onClick={handleAddToCart}>
+          <Plus className="h-5 w-5" />
+          <span className="sr-only">Add to cart</span>
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
