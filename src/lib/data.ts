@@ -1,11 +1,6 @@
 import type { Product, Category, Order } from '@/lib/types';
 
 export const categories: Category[] = [
-  { name: 'Surgical Instruments', slug: 'surgical-instruments' },
-  { name: 'Medical Disposables', slug: 'medical-disposables' },
-  { name: 'Diagnostic Equipment', slug: 'diagnostic-equipment' },
-  { name: 'Hospital Furniture', slug: 'hospital-furniture' },
-  { name: 'Anesthesia Products', slug: 'anesthesia-products' },
   { name: 'Unisex Palm', slug: 'unisex-palm' },
   { name: 'Unisex Dinner', slug: 'unisex-dinner' },
   { name: 'Unisex Galaxy', slug: 'unisex-galaxy' },
@@ -13,102 +8,6 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
-  {
-    id: '1',
-    name: 'Precision Scalpel Set',
-    description: 'High-precision scalpels for various surgical procedures.',
-    longDescription: 'A complete set of high-precision scalpels made from German stainless steel, designed for a wide range of surgical applications. The ergonomic handles provide excellent control and comfort during long procedures.',
-    price: 129.99,
-    image: 'https://picsum.photos/600/400?random=1',
-    dataAiHint: 'surgical tools',
-    category: 'Surgical Instruments',
-    rating: 4.8,
-    reviews: 152,
-  },
-  {
-    id: '2',
-    name: 'Sterile Surgical Gloves',
-    description: 'Latex-free, powder-free sterile gloves for sensitive applications.',
-    longDescription: 'Box of 100 pairs of latex-free, powder-free sterile surgical gloves. Designed for maximum tactile sensitivity and comfort, they provide reliable barrier protection for medical professionals.',
-    price: 45.50,
-    image: 'https://picsum.photos/600/400?random=2',
-    dataAiHint: 'medical gloves',
-    category: 'Medical Disposables',
-    rating: 4.9,
-    reviews: 340,
-  },
-  {
-    id: '3',
-    name: 'Digital Blood Pressure Monitor',
-    description: 'Automatic upper arm monitor with large LCD display.',
-    longDescription: 'Clinically validated automatic upper arm blood pressure monitor. Features a large, easy-to-read LCD display, irregular heartbeat detection, and memory for two users.',
-    price: 89.95,
-    image: 'https://picsum.photos/600/400?random=3',
-    dataAiHint: 'medical equipment',
-    category: 'Diagnostic Equipment',
-    rating: 4.7,
-    reviews: 210,
-  },
-  {
-    id: '4',
-    name: 'Adjustable Hospital Bed',
-    description: 'Fully electric hospital bed with remote control.',
-    longDescription: 'A fully electric, adjustable hospital bed designed for patient comfort and caregiver convenience. Features include remote-controlled head, foot, and height adjustments, as well as safety side rails.',
-    price: 1850.00,
-    image: 'https://picsum.photos/600/400?random=4',
-    dataAiHint: 'hospital bed',
-    category: 'Hospital Furniture',
-    rating: 4.6,
-    reviews: 45,
-  },
-  {
-    id: '5',
-    name: 'Laryngeal Mask Airway',
-    description: 'Single-use, sterile LMA for anesthesia.',
-    longDescription: 'A single-use, sterile laryngeal mask airway for use in anesthesia and emergency medicine. Its innovative design ensures a secure and effective airway with minimal trauma.',
-    price: 25.00,
-    image: 'https://picsum.photos/600/400?random=5',
-    dataAiHint: 'anesthesia equipment',
-    category: 'Anesthesia Products',
-    rating: 4.8,
-    reviews: 98,
-  },
-  {
-    id: '6',
-    name: 'Forceps & Clamps Kit',
-    description: 'Comprehensive kit of essential surgical forceps and clamps.',
-    longDescription: 'A durable carrying case contains a comprehensive assortment of surgical-grade stainless steel forceps and clamps. Ideal for operating rooms and surgical centers.',
-    price: 299.99,
-    image: 'https://picsum.photos/600/400?random=6',
-    dataAiHint: 'surgical forceps',
-    category: 'Surgical Instruments',
-    rating: 4.9,
-    reviews: 112,
-  },
-  {
-    id: '7',
-    name: 'IV Catheter Needles',
-    description: 'Pack of 50 sterile IV catheters of various gauges.',
-    longDescription: 'A box of 50 sterile, single-use IV catheters. The pack includes a variety of gauges to suit different patient needs and clinical situations. Features a sharp, smooth needle for easy insertion.',
-    price: 75.00,
-    image: 'https://picsum.photos/600/400?random=7',
-    dataAiHint: 'medical needles',
-    category: 'Medical Disposables',
-    rating: 4.7,
-    reviews: 180,
-  },
-  {
-    id: '8',
-    name: 'Professional Stethoscope',
-    description: 'Dual-head stethoscope for superior acoustics.',
-    longDescription: 'A professional-grade, dual-head stethoscope offering superior acoustics for clear and reliable diagnosis. Features a tunable diaphragm, comfortable earpieces, and durable, latex-free tubing.',
-    price: 150.00,
-    image: 'https://picsum.photos/600/400?random=8',
-    dataAiHint: 'stethoscope medical',
-    category: 'Diagnostic Equipment',
-    rating: 4.9,
-    reviews: 450,
-  },
   {
     id: '9',
     name: 'Unisex Palm Slipper',
@@ -207,35 +106,4 @@ export const products: Product[] = [
   },
 ];
 
-export const orders: Order[] = [
-  {
-    id: 'ORD-001',
-    date: '2023-10-25',
-    status: 'Delivered',
-    total: 175.49,
-    items: [
-      { product: products[0], quantity: 1 },
-      { product: products[1], quantity: 1 },
-    ],
-  },
-  {
-    id: 'ORD-002',
-    date: '2023-11-10',
-    status: 'Shipped',
-    total: 89.95,
-    items: [{ product: products[2], quantity: 1 }],
-  },
-  {
-    id: 'ORD-003',
-    date: '2023-11-20',
-    status: 'Pending',
-    total: 474.99,
-    items: [
-      { product: products[5], quantity: 1 },
-      { product: products[6], quantity: 2 },
-      { product: products[4], quantity: 1 },
-    ],
-  },
-];
-
-    
+export const orders: Order[] = [];

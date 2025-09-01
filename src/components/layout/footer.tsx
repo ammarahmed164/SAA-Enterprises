@@ -15,7 +15,7 @@ export default function Footer() {
               <span className="text-xl font-bold">MediShop</span>
             </Link>
             <p className="text-muted-foreground text-sm">
-              The future of surgical supply purchasing, combining quality, reliability, and innovation.
+              The future of lifestyle product purchasing, combining quality, reliability, and innovation.
             </p>
           </div>
           <div className="space-y-3">
@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold">Categories</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              {categories.slice(0, 4).map(category => (
+              {categories.map(category => (
                 <li key={category.slug}>
                   <Link href={`/products?category=${category.slug}`} className="hover:text-primary transition-colors">
                     {category.name}

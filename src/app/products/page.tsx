@@ -12,16 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
 import { Card, CardTitle } from '@/components/ui/card';
-import Link from 'next/link';
-
-const productSections = [
-  { title: 'Unisex Palm', slug: 'unisex-palm', category: 'Unisex Palm' },
-  { title: 'Unisex Dinner', slug: 'unisex-dinner', category: 'Unisex Dinner' },
-  { title: 'Unisex Galaxy', slug: 'unisex-galaxy', category: 'Unisex Galaxy' },
-  { title: 'Unisex Softy', slug: 'unisex-softy', category: 'Unisex Softy' },
-]
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -30,7 +21,7 @@ export default function ProductsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     searchParams.get('category') ? [searchParams.get('category') as string] : []
   );
-  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [priceRange, setPriceRange] = useState([0, 200]);
 
   const handleCategoryChange = (categorySlug: string) => {
     setSelectedCategories(prev =>
@@ -61,15 +52,11 @@ export default function ProductsPage() {
 
   const showSections = selectedCategories.length === 0 && searchTerm === '';
 
-  const handleSectionClick = (slug: string) => {
-    setSelectedCategories([slug]);
-  };
-
   return (
     <div className="container py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">Our Products</h1>
-        <p className="mt-4 text-lg text-muted-foreground">Browse our extensive catalog of high-quality surgical supplies.</p>
+        <p className="mt-4 text-lg text-muted-foreground">Browse our extensive catalog of high-quality products.</p>
       </div>
       <div className="grid lg:grid-cols-4 gap-8">
         <aside className="lg:col-span-1">
@@ -106,9 +93,9 @@ export default function ProductsPage() {
                 <AccordionTrigger className="text-lg font-medium">Price Range</AccordionTrigger>
                 <AccordionContent className="pt-4">
                   <Slider
-                    defaultValue={[0, 2000]}
-                    max={2000}
-                    step={50}
+                    defaultValue={[0, 200]}
+                    max={200}
+                    step={10}
                     onValueCommit={setPriceRange}
                   />
                   <div className="flex justify-between mt-2 text-sm text-muted-foreground">
@@ -121,7 +108,7 @@ export default function ProductsPage() {
              <Button className="w-full" onClick={() => {
                 setSearchTerm('');
                 setSelectedCategories([]);
-                setPriceRange([0, 2000]);
+                setPriceRange([0, 200]);
              }}>Clear Filters</Button>
           </div>
         </aside>
@@ -129,9 +116,9 @@ export default function ProductsPage() {
         <main className="lg:col-span-3">
           {showSections ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                {productSections.map((section) => (
-                <Card key={section.slug} onClick={() => handleSectionClick(section.slug)} className="text-center p-6 hover:shadow-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer h-full flex flex-col justify-center items-center">
-                    <CardTitle className="text-lg">{section.title}</CardTitle>
+                {categories.map((section) => (
+                <Card key={section.slug} onClick={() => setSelectedCategories([section.slug])} className="text-center p-6 hover:shadow-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer h-full flex flex-col justify-center items-center">
+                    <CardTitle className="text-lg">{section.name}</CardTitle>
                 </Card>
                 ))}
             </div>
