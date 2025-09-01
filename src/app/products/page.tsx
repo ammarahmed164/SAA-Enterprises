@@ -15,10 +15,10 @@ import { Search } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 const productSections = [
-  { title: 'Unisex Palm', category: 'Unisex Palm' },
-  { title: 'Unisex Dinner', category: 'Unisex Dinner' },
-  { title: 'Unisex Galaxy', category: 'Unisex Galaxy' },
-  { title: 'Unisex Softy', category: 'Unisex Softy' },
+  { title: 'Unisex Palm', slug: 'unisex-palm', category: 'Unisex Palm' },
+  { title: 'Unisex Dinner', slug: 'unisex-dinner', category: 'Unisex Dinner' },
+  { title: 'Unisex Galaxy', slug: 'unisex-galaxy', category: 'Unisex Galaxy' },
+  { title: 'Unisex Softy', slug: 'unisex-softy', category: 'Unisex Softy' },
 ]
 
 export default function ProductsPage() {
@@ -58,6 +58,10 @@ export default function ProductsPage() {
   }, [searchTerm, sortOrder, selectedCategories, priceRange]);
 
   const showSections = selectedCategories.length === 0 && searchTerm === '';
+
+  const handleSectionClick = (slug: string) => {
+    setSelectedCategories([slug]);
+  };
 
   return (
     <div className="container py-8">
@@ -139,27 +143,21 @@ export default function ProductsPage() {
           {showSections ? (
             <div className="space-y-12">
               {productSections.map(section => {
-                const sectionProducts = products.filter(p => p.category === section.category).slice(0, 3);
+                const sectionProducts = products.filter(p => p.category === section.category);
                 return (
                   <section key={section.title}>
-                    <h2 className="text-2xl font-bold tracking-tight mb-6">{section.title}</h2>
+                    <div className="flex justify-between items-baseline mb-6">
+                        <h2 className="text-2xl font-bold tracking-tight cursor-pointer hover:underline" onClick={() => handleSectionClick(section.slug)}>{section.title}</h2>
+                         <Button variant="link" className="text-primary" onClick={() => handleSectionClick(section.slug)}>View All</Button>
+                    </div>
                     <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                      {sectionProducts.map(product => (
+                      {sectionProducts.slice(0, 3).map(product => (
                         <ProductCard key={product.id} product={product} />
                       ))}
                     </div>
                   </section>
                 )
               })}
-              <Separator />
-               <section>
-                <h2 className="text-2xl font-bold tracking-tight mb-6">All Products</h2>
-                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {filteredAndSortedProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </section>
             </div>
           ) : filteredAndSortedProducts.length > 0 ? (
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -178,5 +176,3 @@ export default function ProductsPage() {
     </div>
   );
 }
-
-    
