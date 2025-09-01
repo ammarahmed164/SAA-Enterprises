@@ -12,6 +12,14 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+
+const productSections = [
+  { title: 'Unisex Palm', category: 'Unisex Palm' },
+  { title: 'Unisex Dinner', category: 'Unisex Dinner' },
+  { title: 'Unisex Galaxy', category: 'Unisex Galaxy' },
+  { title: 'Unisex Softy', category: 'Unisex Softy' },
+]
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -48,6 +56,8 @@ export default function ProductsPage() {
       }
     });
   }, [searchTerm, sortOrder, selectedCategories, priceRange]);
+
+  const showSections = selectedCategories.length === 0 && searchTerm === '';
 
   return (
     <div className="container py-8">
@@ -125,7 +135,33 @@ export default function ProductsPage() {
               </SelectContent>
             </Select>
           </div>
-          {filteredAndSortedProducts.length > 0 ? (
+
+          {showSections ? (
+            <div className="space-y-12">
+              {productSections.map(section => {
+                const sectionProducts = products.filter(p => p.category === section.category).slice(0, 3);
+                return (
+                  <section key={section.title}>
+                    <h2 className="text-2xl font-bold tracking-tight mb-6">{section.title}</h2>
+                    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {sectionProducts.map(product => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
+                    </div>
+                  </section>
+                )
+              })}
+              <Separator />
+               <section>
+                <h2 className="text-2xl font-bold tracking-tight mb-6">All Products</h2>
+                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredAndSortedProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </section>
+            </div>
+          ) : filteredAndSortedProducts.length > 0 ? (
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredAndSortedProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
@@ -142,3 +178,5 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+    
