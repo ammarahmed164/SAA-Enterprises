@@ -14,6 +14,41 @@ import ProductCard from '@/components/product-card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 80,
+      damping: 15,
+    },
+  },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1], // easeOutQuint
+    },
+  },
+};
+
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
@@ -24,13 +59,13 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const imageRef = useRef<HTMLDivElement>(null);
 
   const product = products.find(p => p.id === params.id);
-
-  const [activeImage, setActiveImage] = useState(product?.image || '');
-
+  
   if (!product) {
     notFound();
   }
   
+  const [activeImage, setActiveImage] = useState(product.images[0] || product.image);
+
   const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   const handleAddToCart = () => {
@@ -56,15 +91,22 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   };
 
   return (
-    <div className="container py-12">
-      <div className="grid md:grid-cols-2 gap-12 items-start">
-        <div className="flex flex-col-reverse md:flex-row gap-4 sticky top-24">
+    <div className="container py-12 md:py-16">
+      <motion.div 
+        className="grid md:grid-cols-2 gap-12 items-start"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={itemVariants} className="flex flex-col-reverse md:flex-row gap-4 sticky top-24">
           <div className="flex md:flex-col gap-3 justify-center">
             {product.images.map((img, idx) => (
-              <button
+              <motion.button
                 key={idx}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={cn(
-                  "relative w-16 h-16 rounded-md overflow-hidden border-2 transition-all",
+                  "relative w-16 h-16 rounded-md overflow-hidden border-2 transition-all duration-300",
                   activeImage === img ? "border-primary shadow-lg" : "border-transparent hover:border-primary/50"
                 )}
                 onClick={() => setActiveImage(img)}
@@ -76,16 +118,18 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   className="object-cover"
                   sizes="64px"
                 />
-              </button>
+              </motion.button>
             ))}
           </div>
           <div className="flex-1">
-            <div 
+            <motion.div 
+                key={activeImage}
+                variants={imageVariants}
+                className="aspect-square relative rounded-lg overflow-hidden border shadow-lg group cursor-crosshair"
                 ref={imageRef}
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsZoomVisible(true)}
                 onMouseLeave={() => setIsZoomVisible(false)}
-                className="aspect-square relative rounded-lg overflow-hidden border shadow-lg group cursor-crosshair"
             >
                 <Image
                   src={activeImage}
@@ -94,7 +138,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   className="object-contain transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   data-ai-hint={product.dataAiHint}
-                  key={activeImage} 
+                  priority
                 />
                 <AnimatePresence>
                 {isZoomVisible && (
@@ -102,7 +146,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
                         className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
                         style={{
                             backgroundImage: `url(${activeImage})`,
@@ -113,10 +157,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     />
                 )}
                 </AnimatePresence>
-            </div>
+            </motion.div>
           </div>
-        </div>
-        <div className="space-y-6">
+        </motion.div>
+        
+        <motion.div variants={itemVariants} className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{product.name}</h1>
             <div className="flex items-center gap-4 text-muted-foreground">
@@ -152,17 +197,23 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <span className="font-medium">Ships within 24 hours</span>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       
-      <div className="mt-24">
+      <motion.div 
+        className="mt-24"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 className="text-2xl font-bold tracking-tight mb-8">Related Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedProducts.map(p => (
               <ProductCard key={p.id} product={p} />
             ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
