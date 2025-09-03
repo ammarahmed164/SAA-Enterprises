@@ -1,213 +1,406 @@
 import type { Product, Category, Order } from '@/lib/types';
 
 export const categories: Category[] = [
-  { name: 'Unisex Palm', slug: 'unisex-palm', image: 'https://picsum.photos/600/400?random=20', dataAiHint: 'palm leaves' },
-  { name: 'Unisex Dinner', slug: 'unisex-dinner', image: 'https://picsum.photos/600/400?random=21', dataAiHint: 'dinner setting' },
-  { name: 'Unisex Galaxy', slug: 'unisex-galaxy', image: 'https://picsum.photos/600/400?random=22', dataAiHint: 'galaxy stars' },
-  { name: 'Unisex Softy', slug: 'unisex-softy', image: 'https://picsum.photos/600/400?random=23', dataAiHint: 'soft fabric' },
+  { name: 'Unisex Palm', slug: 'unisex-palm', image: '/PalmHeader.png', dataAiHint: 'palm surgicals Products' },
+  { name: 'Unisex Dinner', slug: 'unisex-dinner', image: '/DinnerFront.png', dataAiHint: 'dinner surgicals Products' },
+  { name: 'Unisex Galaxy', slug: 'unisex-galaxy', image: '/GalaxyFront.png', dataAiHint: 'galaxy surgicals Products' },
+  { name: 'Unisex Softy', slug: 'unisex-softy', image: '/SoftyFront.png', dataAiHint: 'soft surgicals Products' },
 ];
 
 export const products: Product[] = [
   {
     id: '9',
-    name: 'Unisex Palm Slipper',
+    name: 'Palm alphabatic',
     description: 'Comfortable palm slippers for all-day wear.',
-    longDescription: 'These unisex palm slippers are perfect for relaxing at home. Made with soft, breathable material, they provide ultimate comfort.',
-    price: 25.99,
-    image: 'https://picsum.photos/600/400?random=9',
-    dataAiHint: 'slippers palm',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,
+    price: 16.2,
+    image: '/product1.png',
+    dataAiHint: 'Palm alphabatic',
     category: 'Unisex Palm',
     rating: 4.5,
     reviews: 120,
   },
   {
     id: '10',
-    name: 'Unisex Palm Sandal',
+    name: 'Unisex Palm Black',
     description: 'Stylish palm sandals for outdoor activities.',
-    longDescription: 'Durable and stylish unisex palm sandals, ideal for beach trips or casual outings. Features a sturdy sole and comfortable straps.',
-    price: 35.50,
-    image: 'https://picsum.photos/600/400?random=10',
-    dataAiHint: 'sandals beach',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product2.png',
+    dataAiHint: 'Unisex Palm Black',
     category: 'Unisex Palm',
     rating: 4.6,
     reviews: 95,
   },
   {
-    id: '23',
-    name: 'Unisex Palm Flip-Flops',
+    id: '11',
+    name: 'Unisex Palm Grey',
     description: 'Lightweight and durable palm flip-flops.',
-    longDescription: 'The perfect companion for your summer adventures. These lightweight and durable flip-flops feature a cushioned footbed and a stylish palm-leaf pattern.',
-    price: 19.99,
-    image: 'https://picsum.photos/600/400?random=23',
-    dataAiHint: 'beach flip-flops',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product3.png',
+    dataAiHint: 'Unisex Palm Grey',
     category: 'Unisex Palm',
     rating: 4.4,
     reviews: 80,
   },
   {
-    id: '24',
-    name: 'Woven Palm Hat',
+    id: '12',
+    name: 'Unisex Palm Green',
     description: 'A stylish hat made from woven palm leaves.',
-    longDescription: 'Stay cool and shaded with this beautifully crafted hat made from natural woven palm leaves. Perfect for sunny days, it adds a touch of tropical elegance to any outfit.',
-    price: 42.00,
-    image: 'https://picsum.photos/600/400?random=24',
-    dataAiHint: 'straw hat',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product4.png',
+    dataAiHint: 'Unisex Palm Green',
     category: 'Unisex Palm',
     rating: 4.7,
     reviews: 110,
   },
   {
-    id: '25',
-    name: 'Palm Leaf Tote Bag',
+    id: '13',
+    name: 'Unisex Palm Maroon',
     description: 'A spacious and eco-friendly tote bag.',
-    longDescription: 'Carry your essentials in style with this spacious and eco-friendly tote bag, featuring a chic palm leaf design. It\'s perfect for the beach, market, or everyday use.',
-    price: 38.50,
-    image: 'https://picsum.photos/600/400?random=25',
-    dataAiHint: 'tote bag',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product5.png',
+    dataAiHint: 'Unisex Palm Maroon',
     category: 'Unisex Palm',
     rating: 4.8,
     reviews: 130,
   },
   {
-    id: '26',
-    name: 'Palm Accent Loafers',
+    id: '14',
+    name: 'Unisex Palm Navy Blue',
     description: 'Comfortable loafers with a palm tree accent.',
-    longDescription: 'These comfortable loafers are perfect for a casual yet sophisticated look. Made from high-quality materials, they feature a subtle embroidered palm tree accent.',
-    price: 65.00,
-    image: 'https://picsum.photos/600/400?random=26',
-    dataAiHint: 'casual loafers',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product6.png',
+    dataAiHint: 'Unisex Palm Navy Blue',
     category: 'Unisex Palm',
     rating: 4.6,
     reviews: 90,
   },
   {
-    id: '27',
-    name: 'Tropical Espadrilles',
+    id: '15',
+    name: 'Unisex Palm Olive Green',
     description: 'Classic espadrilles with a tropical twist.',
-    longDescription: 'Our classic espadrilles are given a tropical twist with a vibrant palm print. Lightweight and breathable, they are the perfect summer shoe for any occasion.',
-    price: 48.00,
-    image: 'https://picsum.photos/600/400?random=27',
-    dataAiHint: 'summer shoes',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product7.png',
+    dataAiHint: 'Unisex Palm Olive Green',
     category: 'Unisex Palm',
     rating: 4.5,
     reviews: 105,
   },
   {
-    id: '28',
-    name: 'Debossed Palm Wallet',
+    id: '16',
+    name: 'Unisex Palm Royal Blue',
     description: 'A sleek wallet with a debossed palm design.',
-    longDescription: 'This sleek and minimalist wallet is crafted from premium leather and features a subtle, debossed palm design. It has ample space for cards and cash.',
-    price: 55.00,
-    image: 'https://picsum.photos/600/400?random=28',
-    dataAiHint: 'leather wallet',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product8.png',
+    dataAiHint: 'Unisex Palm Royal Blue',
     category: 'Unisex Palm',
     rating: 4.7,
     reviews: 150,
   },
   {
-    id: '29',
-    name: 'Palm Leaf Scarf',
+    id: '17',
+    name: 'Unisex Palm Sky Blue',
     description: 'A lightweight scarf with a palm leaf print.',
-    longDescription: 'Add a touch of tropical elegance to your look with this lightweight scarf. Made from a soft, breathable fabric, it features a beautiful all-over palm leaf print.',
-    price: 22.50,
-    image: 'https://picsum.photos/600/400?random=29',
-    dataAiHint: 'lightweight scarf',
+    longDescription: `Unisex Design
+                      Modern V-Neck Top
+                      Multiple Pockets
+                      Comfortable Elastic Waistband
+                      Durable & Easy-Care Fabric
+                      Enhanced Mobility`,    
+    price: 16.2,
+    image: '/product9.png',
+    dataAiHint: 'Unisex Palm Sky Blue',
     category: 'Unisex Palm',
     rating: 4.6,
     reviews: 70,
   },
+
+
   {
-    id: '11',
-    name: 'Unisex Dinner Plate Set',
+    id: '18',
+    name: 'Unisex Dinner Black',
     description: 'Elegant dinner plate set for special occasions.',
-    longDescription: 'A set of 4 elegant dinner plates that will impress your guests. Made from high-quality ceramic, these plates are both microwave and dishwasher safe.',
-    price: 59.99,
-    image: 'https://picsum.photos/600/400?random=11',
-    dataAiHint: 'dinner plates',
+    longDescription: `Crafted from a soft, breathable fabric for all-day wear and unrestricted movement
+                      Multiple pockets on both the top and pants for easy access to tools and essentials
+                      Streamlined Fit
+                      Fade-Resistant Color
+                      High-quality stitching and fabric
+                      V-neck top and straight-leg pants`,
+    price: 16.2,
+    image: '/product1Din.png',
+    dataAiHint: 'Unisex Dinner Black',
     category: 'Unisex Dinner',
     rating: 4.8,
     reviews: 75,
   },
   {
-    id: '12',
-    name: 'Unisex Dinner Cutlery Set',
+    id: '19',
+    name: 'Unisex Dinner White',
     description: 'Premium stainless steel cutlery set.',
-    longDescription: 'This 16-piece cutlery set includes forks, knives, spoons, and teaspoons. Made from premium stainless steel with a modern design.',
-    price: 49.99,
-    image: 'https://picsum.photos/600/400?random=12',
-    dataAiHint: 'cutlery set',
+    longDescription: `Crafted from a soft, breathable fabric for all-day wear and unrestricted movement
+                      Multiple pockets on both the top and pants for easy access to tools and essentials
+                      Streamlined Fit
+                      Fade-Resistant Color
+                      High-quality stitching and fabric
+                      V-neck top and straight-leg pants`,   
+    price: 16.2,
+    image: '/product2Din.png',
+    dataAiHint: 'Unisex Dinner White',
     category: 'Unisex Dinner',
     rating: 4.7,
     reviews: 88,
   },
   {
-    id: '30',
-    name: 'Crystal Wine Glasses',
+    id: '20',
+    name: 'Unisex Dinner Purple',
     description: 'Set of 4 crystal wine glasses.',
-    longDescription: 'Elevate your dining experience with this set of 4 premium crystal wine glasses. Their timeless design is perfect for any occasion, from casual dinners to formal gatherings.',
-    price: 75.00,
-    image: 'https://picsum.photos/600/400?random=30',
-    dataAiHint: 'wine glasses',
+    longDescription: `Crafted from a soft, breathable fabric for all-day wear and unrestricted movement
+                      Multiple pockets on both the top and pants for easy access to tools and essentials
+                      Streamlined Fit
+                      Fade-Resistant Color
+                      High-quality stitching and fabric
+                      V-neck top and straight-leg pants`,    
+    price: 16.2,
+    image: '/product3Din.png',
+    dataAiHint: 'Unisex Dinner Purple',
     category: 'Unisex Dinner',
     rating: 4.8,
     reviews: 60,
   },
   {
-    id: '31',
-    name: 'Linen Tablecloth',
+    id: '21',
+    name: 'Unisex Dinner Teal',
     description: 'A beautiful and durable tablecloth.',
-    longDescription: 'This high-quality linen tablecloth adds a touch of elegance to any dining table. It\'s durable, easy to clean, and available in various sizes to fit your needs.',
-    price: 89.99,
-    image: 'https://picsum.photos/600/400?random=31',
-    dataAiHint: 'linen tablecloth',
+    longDescription: `Crafted from a soft, breathable fabric for all-day wear and unrestricted movement
+                      Multiple pockets on both the top and pants for easy access to tools and essentials
+                      Streamlined Fit
+                      Fade-Resistant Color
+                      High-quality stitching and fabric
+                      V-neck top and straight-leg pants`,    
+    price: 16.2,
+    image: '/product4Din.png',
+    dataAiHint:'Unisex Dinner Teal',
     category: 'Unisex Dinner',
     rating: 4.7,
     reviews: 55,
   },
+
+
   {
-    id: '13',
-    name: 'Unisex Galaxy Projector',
+    id: '22',
+    name: 'Unisex Galaxy Black',
     description: 'Transform your room into a starry night sky.',
-    longDescription: 'This galaxy projector displays a mesmerizing array of stars and nebulae on your ceiling. It comes with a remote control and multiple color options.',
-    price: 79.95,
-    image: 'https://picsum.photos/600/400?random=13',
-    dataAiHint: 'galaxy projector',
+    longDescription: `Experience the gentle touch of our Galaxy fabric against your skin, providing all-day comfort
+                      Comfortable Fit for Every Body
+                      V-neck scrub top
+                      Double-pocket design on the lower front
+                      Moisture-Wicking Fabric
+                      Wrinkle-Resistant`,
+    price: 16.2,
+    image: '/product1GAL.png',
+    dataAiHint: 'Unisex Galaxy Black',
     category: 'Unisex Galaxy',
     rating: 4.9,
     reviews: 250,
   },
   {
-    id: '14',
-    name: 'Unisex Galaxy T-Shirt',
+    id: '23',
+    name: 'Unisex Galaxy Charcoal Gray',
     description: 'A cool t-shirt with a vibrant galaxy print.',
-    longDescription: 'Made from 100% cotton, this t-shirt features a stunning all-over galaxy print. It\'s comfortable, durable, and perfect for space lovers.',
-    price: 29.99,
-    image: 'https://picsum.photos/600/400?random=14',
-    dataAiHint: 'galaxy shirt',
+    longDescription: `Experience the gentle touch of our Galaxy fabric against your skin, providing all-day comfort
+                      Comfortable Fit for Every Body
+                      V-neck scrub top
+                      Double-pocket design on the lower front
+                      Moisture-Wicking Fabric
+                      Wrinkle-Resistant`,    
+    price: 16.2,
+    image: '/product2GAL.png',
+    dataAiHint: 'Unisex Galaxy Charcoal Gray',
     category: 'Unisex Galaxy',
     rating: 4.6,
     reviews: 150,
   },
   {
-    id: '15',
-    name: 'Unisex Softy Blanket',
+    id: '24',
+    name: 'Unisex Galaxy Grey',
+    description: 'A cool t-shirt with a vibrant galaxy print.',
+    longDescription: `Experience the gentle touch of our Galaxy fabric against your skin, providing all-day comfort
+                      Comfortable Fit for Every Body
+                      V-neck scrub top
+                      Double-pocket design on the lower front
+                      Moisture-Wicking Fabric
+                      Wrinkle-Resistant`,    
+    price: 16.2,
+    image: '/product3GAL.png',
+    dataAiHint: 'Unisex Galaxy Grey',
+    category: 'Unisex Galaxy',
+    rating: 4.6,
+    reviews: 150,
+  },
+  {
+    id: '25',
+    name: 'Unisex Galaxy Navy Blue',
+    description: 'A cool t-shirt with a vibrant galaxy print.',
+    longDescription: `Experience the gentle touch of our Galaxy fabric against your skin, providing all-day comfort
+                      Comfortable Fit for Every Body
+                      V-neck scrub top
+                      Double-pocket design on the lower front
+                      Moisture-Wicking Fabric
+                      Wrinkle-Resistant`,    
+    price: 16.2,
+    image: '/product4GAL.png',
+    dataAiHint: 'Unisex Galaxy Navy Blue',
+    category: 'Unisex Galaxy',
+    rating: 4.6,
+    reviews: 150,
+  },
+  {
+    id: '26',
+    name: 'Unisex Galaxy Royal blue',
+    description: 'A cool t-shirt with a vibrant galaxy print.',
+    longDescription: `Experience the gentle touch of our Galaxy fabric against your skin, providing all-day comfort
+                      Comfortable Fit for Every Body
+                      V-neck scrub top
+                      Double-pocket design on the lower front
+                      Moisture-Wicking Fabric
+                      Wrinkle-Resistant`,    
+    price: 16.2,
+    image: '/product5GAL.png',
+    dataAiHint: 'Unisex Galaxy Royal blue',
+    category: 'Unisex Galaxy',
+    rating: 4.6,
+    reviews: 150,
+  },
+
+
+  {
+    id: '27',
+    name: 'Softy Black',
     description: 'A super soft and cozy fleece blanket.',
-    longDescription: 'Wrap yourself in warmth with this incredibly soft fleece blanket. It\'s perfect for cuddling on the couch or adding an extra layer of comfort to your bed.',
-    price: 39.99,
-    image: 'https://picsum.photos/600/400?random=15',
+    longDescription: `Premium "Softy" Fabric
+                      Modern, Tailored Fit
+                      Wrinkle-Resistant
+                      Four-Way Stretch
+                      Moisture-Wicking Technology
+                      Fade & Shrink Resistant`,
+    price: 16.2,
+    image: '/product1Sof.png',
     dataAiHint: 'soft blanket',
-    category: 'Unisex Softy',
+    category: ' Softy Black',
     rating: 4.9,
     reviews: 300,
   },
   {
-    id: '16',
-    name: 'Unisex Softy Pillow',
+    id: '28',
+    name: 'Softy dark blue',
     description: 'A plush pillow for ultimate relaxation.',
-    longDescription: 'This plush pillow is filled with a hypoallergenic down alternative, providing the perfect balance of softness and support for a restful night\'s sleep.',
-    price: 24.99,
-    image: 'https://picsum.photos/600/400?random=16',
-    dataAiHint: 'plush pillow',
+    longDescription: `Premium "Softy" Fabric
+                      Modern, Tailored Fit
+                      Wrinkle-Resistant
+                      Four-Way Stretch
+                      Moisture-Wicking Technology
+                      Fade & Shrink Resistant`,    
+    price: 16.2,
+    image: '/product2Sof.png',
+    dataAiHint: 'Softy dark blue',
+    category: 'Unisex Softy',
+    rating: 16.2,
+    reviews: 220,
+  },
+  {
+    id: '29',
+    name: 'Softy Gray',
+    description: 'A plush pillow for ultimate relaxation.',
+    longDescription: `Premium "Softy" Fabric
+                      Modern, Tailored Fit
+                      Wrinkle-Resistant
+                      Four-Way Stretch
+                      Moisture-Wicking Technology
+                      Fade & Shrink Resistant`,    
+    price: 16.2,
+    image: '/product3Sof.png',
+    dataAiHint: 'Softy Gray',
+    category: 'Unisex Softy',
+    rating: 16.2,
+    reviews: 220,
+  },
+  {
+    id: '30',
+    name: 'Softy maroon',
+    description: 'A plush pillow for ultimate relaxation.',
+    longDescription: `Premium "Softy" Fabric
+                      Modern, Tailored Fit
+                      Wrinkle-Resistant
+                      Four-Way Stretch
+                      Moisture-Wicking Technology
+                      Fade & Shrink Resistant`,    
+    price: 16.2,
+    image: '/product4Sof.png',
+    dataAiHint: 'Softy maroon',
+    category: 'Unisex Softy',
+    rating: 4.8,
+    reviews: 220,
+  },
+  {
+    id: '31',
+    name: 'Softy olive green',
+    description: 'A plush pillow for ultimate relaxation.',
+    longDescription: `Premium "Softy" Fabric
+                      Modern, Tailored Fit
+                      Wrinkle-Resistant
+                      Four-Way Stretch
+                      Moisture-Wicking Technology
+                      Fade & Shrink Resistant`,    
+    price: 16.2,
+    image: '/product5Sof.png',
+    dataAiHint: 'Softy olive green',
     category: 'Unisex Softy',
     rating: 4.8,
     reviews: 220,

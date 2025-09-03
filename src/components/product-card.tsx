@@ -30,13 +30,13 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
       <CardHeader className="p-0 border-b">
-        <Link href={`/products/${product.id}`} className="block">
-          <div className="aspect-video relative overflow-hidden">
+        <Link href={`/products/${product.id}`} className="block bg-muted/30">
+          <div className="aspect-square relative overflow-hidden p-4">
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+              className="object-contain group-hover:scale-105 transition-transform duration-500 ease-in-out drop-shadow-md"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               data-ai-hint={product.dataAiHint}
             />
