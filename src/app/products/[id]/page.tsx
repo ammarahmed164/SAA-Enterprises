@@ -1,8 +1,9 @@
+
 'use client';
 
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useRef, type MouseEvent } from 'react';
 import { Star, Plus, Minus, CheckCircle } from 'lucide-react';
 import { products } from '@/lib/data';
 import { Button } from '@/components/ui/button';
@@ -10,11 +11,16 @@ import { useCart } from '@/hooks/use-cart';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 import ProductCard from '@/components/product-card';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
   const { toast } = useToast();
+
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [isZoomVisible, setIsZoomVisible] = useState(false);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   const product = products.find(p => p.id === params.id);
 
@@ -33,20 +39,54 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
     });
   };
 
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (imageRef.current) {
+      const rect = imageRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      
+      setZoomPosition({ x: xPercent, y: yPercent });
+    }
+  };
+
   return (
     <div className="container py-12">
       <div className="grid md:grid-cols-2 gap-12">
-        <div>
-          <div className="aspect-square relative rounded-lg overflow-hidden border shadow-lg">
+        <div 
+            ref={imageRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsZoomVisible(true)}
+            onMouseLeave={() => setIsZoomVisible(false)}
+            className="aspect-square relative rounded-lg overflow-hidden border shadow-lg group cursor-crosshair"
+        >
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-cover"
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 50vw"
               data-ai-hint={product.dataAiHint}
             />
-          </div>
+            <AnimatePresence>
+            {isZoomVisible && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
+                    style={{
+                        backgroundImage: `url(${product.image})`,
+                        backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '250%',
+                    }}
+                />
+            )}
+            </AnimatePresence>
         </div>
         <div className="space-y-6">
           <div className="space-y-2">
@@ -61,7 +101,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             </div>
           </div>
           <p className="text-3xl font-bold text-primary">${product.price.toFixed(2)}</p>
-          <p className="text-muted-foreground">{product.longDescription}</p>
+          <p className="text-muted-foreground whitespace-pre-line">{product.longDescription}</p>
           <div className="flex items-center gap-4">
             <div className="flex items-center border rounded-md">
               <Button variant="ghost" size="icon" onClick={() => setQuantity(q => Math.max(1, q - 1))}>
