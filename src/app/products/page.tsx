@@ -123,17 +123,18 @@ export default function ProductsPage() {
                   onClick={() => setSelectedCategories([category.slug])}
                   className="relative group aspect-video rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105"
                 >
+                  <div className="absolute inset-0 bg-muted/50 z-0"/>
                   <Image 
                     src={category.image}
                     alt={category.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-contain transition-transform duration-500 group-hover:scale-105 p-4 drop-shadow-lg"
                     data-ai-hint={category.dataAiHint}
                   />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
-                  <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  <div className="relative z-10 flex flex-col items-start justify-end h-full p-6 text-white">
                     <h3 className="text-3xl font-extrabold tracking-tight drop-shadow-lg">{category.name}</h3>
-                    <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full">
+                    <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full">
                       <span>Explore</span>
                       <ArrowRight className="h-4 w-4"/>
                     </div>
