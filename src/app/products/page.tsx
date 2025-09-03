@@ -13,7 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Search, ArrowRight } from 'lucide-react';
-import { Card, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -121,21 +121,20 @@ export default function ProductsPage() {
                 <Card 
                   key={category.slug} 
                   onClick={() => setSelectedCategories([category.slug])}
-                  className="relative group aspect-video rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                  className="relative group aspect-[4/3] rounded-lg overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
                 >
-                  <div className="absolute inset-0 bg-muted/50 z-0"/>
                   <Image 
                     src={category.image}
                     alt={category.name}
                     fill
-                    className="object-contain transition-transform duration-500 group-hover:scale-105 p-4 drop-shadow-lg"
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                     data-ai-hint={category.dataAiHint}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  <div className="relative z-10 flex flex-col items-start justify-end h-full p-6 text-white">
-                    <h3 className="text-3xl font-extrabold tracking-tight drop-shadow-lg">{category.name}</h3>
-                    <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full">
-                      <span>Explore</span>
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
+                  <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center text-white">
+                    <h3 className="text-3xl lg:text-4xl font-extrabold tracking-tight drop-shadow-md">{category.name}</h3>
+                    <div className="mt-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 -translate-y-4 transition-all duration-300 flex items-center gap-2 text-sm bg-white/20 backdrop-blur-sm py-1 px-3 rounded-full">
+                      <span>Explore Collection</span>
                       <ArrowRight className="h-4 w-4"/>
                     </div>
                   </div>
