@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -77,7 +78,7 @@ export default function Header() {
                 href={link.href}
                 className={cn(
                   "transition-colors hover:text-foreground/80",
-                  pathname === link.href ? "text-foreground" : "text-foreground/60"
+                  pathname === link.href ? "text-foreground font-semibold" : "text-foreground/60"
                 )}
               >
                 {link.label}
@@ -96,7 +97,7 @@ export default function Header() {
               {cartCount > 0 && (
                 <Badge
                   variant="destructive"
-                  className="absolute -top-1 -right-1 h-5 w-5 justify-center rounded-full p-0 text-xs"
+                  className="absolute -top-1 -right-1 h-5 w-5 justify-center rounded-full p-0 text-xs bg-accent text-accent-foreground"
                 >
                   {cartCount}
                 </Badge>
