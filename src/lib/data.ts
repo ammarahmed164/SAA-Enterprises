@@ -36,7 +36,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product2.png',
+    image: '/Product2.png',
     dataAiHint: 'Unisex Palm Black',
     category: 'Unisex Palm',
     rating: 4.6,
@@ -53,7 +53,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product3.png',
+    image: '/Product3.png',
     dataAiHint: 'Unisex Palm Grey',
     category: 'Unisex Palm',
     rating: 4.4,
@@ -70,7 +70,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product4.png',
+    image: '/Product4.png',
     dataAiHint: 'Unisex Palm Green',
     category: 'Unisex Palm',
     rating: 4.7,
@@ -87,7 +87,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product5.png',
+    image: '/Product5.png',
     dataAiHint: 'Unisex Palm Maroon',
     category: 'Unisex Palm',
     rating: 4.8,
@@ -104,7 +104,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product6.png',
+    image: '/Product6.png',
     dataAiHint: 'Unisex Palm Navy Blue',
     category: 'Unisex Palm',
     rating: 4.6,
@@ -121,7 +121,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product7.png',
+    image: '/Product7.png',
     dataAiHint: 'Unisex Palm Olive Green',
     category: 'Unisex Palm',
     rating: 4.5,
@@ -138,7 +138,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product8.png',
+    image: '/Product8.png',
     dataAiHint: 'Unisex Palm Royal Blue',
     category: 'Unisex Palm',
     rating: 4.7,
@@ -155,7 +155,7 @@ export const products: Product[] = [
                       Durable & Easy-Care Fabric
                       Enhanced Mobility`,    
     price: 16.2,
-    image: '/product9.png',
+    image: '/Product9.png',
     dataAiHint: 'Unisex Palm Sky Blue',
     category: 'Unisex Palm',
     rating: 4.6,
