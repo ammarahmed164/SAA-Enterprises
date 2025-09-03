@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 import ProductCard from '@/components/product-card';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [quantity, setQuantity] = useState(1);
@@ -23,6 +24,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const imageRef = useRef<HTMLDivElement>(null);
 
   const product = products.find(p => p.id === params.id);
+
+  const [activeImage, setActiveImage] = useState(product?.image || '');
 
   if (!product) {
     notFound();
@@ -54,39 +57,64 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="container py-12">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div 
-            ref={imageRef}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsZoomVisible(true)}
-            onMouseLeave={() => setIsZoomVisible(false)}
-            className="aspect-square relative rounded-lg overflow-hidden border shadow-lg group cursor-crosshair"
-        >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-contain transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              data-ai-hint={product.dataAiHint}
-            />
-            <AnimatePresence>
-            {isZoomVisible && (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
-                    style={{
-                        backgroundImage: `url(${product.image})`,
-                        backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '250%',
-                    }}
+      <div className="grid md:grid-cols-2 gap-12 items-start">
+        <div className="flex flex-col-reverse md:flex-row gap-4 sticky top-24">
+          <div className="flex md:flex-col gap-3 justify-center">
+            {product.images.map((img, idx) => (
+              <button
+                key={idx}
+                className={cn(
+                  "relative w-16 h-16 rounded-md overflow-hidden border-2 transition-all",
+                  activeImage === img ? "border-primary shadow-lg" : "border-transparent hover:border-primary/50"
+                )}
+                onClick={() => setActiveImage(img)}
+              >
+                <Image
+                  src={img}
+                  alt={`${product.name} thumbnail ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="64px"
                 />
-            )}
-            </AnimatePresence>
+              </button>
+            ))}
+          </div>
+          <div className="flex-1">
+            <div 
+                ref={imageRef}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsZoomVisible(true)}
+                onMouseLeave={() => setIsZoomVisible(false)}
+                className="aspect-square relative rounded-lg overflow-hidden border shadow-lg group cursor-crosshair"
+            >
+                <Image
+                  src={activeImage}
+                  alt={product.name}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  data-ai-hint={product.dataAiHint}
+                  key={activeImage} 
+                />
+                <AnimatePresence>
+                {isZoomVisible && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
+                        style={{
+                            backgroundImage: `url(${activeImage})`,
+                            backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: '250%',
+                        }}
+                    />
+                )}
+                </AnimatePresence>
+            </div>
+          </div>
         </div>
         <div className="space-y-6">
           <div className="space-y-2">
