@@ -6,9 +6,12 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Stethoscope, Microscope, Syringe, HeartPulse } from 'lucide-react';
-import { products, categories } from '@/lib/data';
+import { products } from '@/lib/data';
 import ProductCard from '@/components/product-card';
 import { motion } from 'framer-motion';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+import React from 'react';
 
 const fadeIn = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
@@ -33,11 +36,15 @@ const staggerContainer = {
 };
 
 export default function Home() {
+    const plugin = React.useRef(
+        Autoplay({ delay: 2000, stopOnInteraction: true })
+    )
+
   const whyChooseUsItems = [
-    { icon: Stethoscope, title: 'Precision Instruments', description: 'Top-tier surgical tools for unparalleled accuracy and reliability in every procedure.' },
-    { icon: Microscope, title: 'Advanced Diagnostics', description: 'Cutting-edge diagnostic equipment to ensure accurate and timely patient assessments.' },
-    { icon: Syringe, title: 'Sterile Consumables', description: 'A complete range of sterile, single-use products that meet the highest safety standards.' },
-    { icon: HeartPulse, title: 'Patient Care Solutions', description: 'Innovative products designed to enhance patient comfort and improve recovery outcomes.' },
+    { icon: Stethoscope, title: 'Precision Instruments', description: 'Top-tier surgical tools for unparalleled accuracy.' },
+    { icon: Microscope, title: 'Advanced Diagnostics', description: 'Cutting-edge diagnostic equipment for accurate assessments.' },
+    { icon: Syringe, title: 'Sterile Consumables', description: 'A complete range of sterile, single-use products.' },
+    { icon: HeartPulse, title: 'Patient Care Solutions', description: 'Innovative products to enhance patient comfort and recovery.' },
   ];
 
   return (
@@ -69,6 +76,9 @@ export default function Home() {
                 >
                     <Button asChild size="lg" className="transition-transform hover:scale-105 shadow-lg shadow-primary/20">
                         <Link href="/products">Shop All Products</Link>
+                    </Button>
+                    <Button asChild size="lg" variant="outline" className="transition-transform hover:scale-105 border-accent text-accent hover:bg-accent/10">
+                        <Link href="#">Contact Sales</Link>
                     </Button>
                 </motion.div>
             </div>
@@ -136,13 +146,26 @@ export default function Home() {
               <Link href="/products">View All Products <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.slice(0, 4).map(product => (
-               <motion.div key={product.id} variants={fadeIn()}>
-                  <ProductCard product={product} />
-               </motion.div>
-            ))}
-          </div>
+
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+            opts={{
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {products.slice(0, 8).map((product, index) => (
+                <CarouselItem key={index} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="p-1">
+                    <ProductCard product={product} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
       </motion.section>
 
