@@ -3,8 +3,9 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Users, Target, ShieldCheck, HeartPulse, Building, Lightbulb, TrendingUp } from 'lucide-react';
+import { Users, Target, ShieldCheck, HeartPulse, Building, Lightbulb, TrendingUp, Handshake, UsersRound, CalendarDays } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 const fadeIn = (direction = 'up', delay = 0, duration = 0.5) => ({
   hidden: { 
@@ -50,22 +51,34 @@ const timeline = [
     { year: '2014', event: 'Introduced our first line of proprietary sterile instruments.', icon: Lightbulb },
     { year: '2018', event: 'Expanded operations to serve healthcare systems nationwide.', icon: TrendingUp },
     { year: '2023', event: 'Launched our AI-powered inventory management system for partners.', icon: Target },
-]
+];
+
+const facts = [
+    { icon: Handshake, number: '500+', label: 'Happy Clients' },
+    { icon: UsersRound, number: '50+', label: 'Team Members' },
+    { icon: CalendarDays, number: '10+', label: 'Years in Business' },
+];
 
 export default function AboutPage() {
   return (
-    <div className="overflow-x-hidden bg-background">
+    <div className="bg-background text-foreground">
       <motion.section 
-        className="relative pt-28 pb-20 md:pt-40 md:pb-28 text-center bg-gradient-to-b from-primary/5 to-transparent"
+        className="relative h-[50vh] min-h-[400px] flex items-center justify-center text-white"
         initial="hidden"
         animate="visible"
-        variants={staggerContainer(0.3)}
+        variants={staggerContainer()}
       >
-        <div className="container relative z-10">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">About SAA Scrubs</motion.h1>
-            <motion.p variants={fadeIn('up', 0.1)} className="mt-6 max-w-3xl mx-auto text-lg text-muted-foreground">
-                Welcome to SAA Scrubs, your trusted partner in high-quality medical apparel and surgical items.
-            </motion.p>
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
+        <Image
+            src="https://picsum.photos/1920/1080?random=medical-team"
+            alt="About SAA Scrubs"
+            fill
+            className="object-cover"
+            priority
+            data-ai-hint="medical team working"
+        />
+        <div className="container relative z-20 text-center">
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter">About Us</motion.h1>
         </div>
       </motion.section>
 
@@ -78,21 +91,9 @@ export default function AboutPage() {
       >
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              variants={fadeIn('right')}
-              className="relative aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
-            >
-              <Image
-                src="https://picsum.photos/800/1000?random=medical"
-                alt="Medical professionals"
-                fill
-                className="object-cover"
-                data-ai-hint="medical professional"
-              />
-            </motion.div>
-            <motion.div variants={fadeIn('left')} className="space-y-6">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Our Commitment to Excellence</h2>
-              <div className="text-muted-foreground space-y-4 text-lg">
+            <motion.div variants={fadeIn('right')} className="space-y-6">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">SAA Scrubs - A trusted partner</h2>
+              <div className="text-muted-foreground space-y-4">
                 <p>
                   At SAA Scrubs, we understand that medical professionals need more than just a uniform—they need comfortable, durable, and functional workwear that performs under pressure. Our commitment is to provide meticulously crafted scrubs that combine superior quality with a professional aesthetic.
                 </p>
@@ -104,45 +105,57 @@ export default function AboutPage() {
                 </p>
               </div>
             </motion.div>
+             <motion.div
+                variants={fadeIn('left', 0.2)}
+                className="max-w-4xl mx-auto"
+              >
+                <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0">
+                  <div className="aspect-video bg-black rounded-2xl">
+                    <iframe
+                      className="w-full h-full rounded-2xl"
+                      src="https://www.youtube.com/embed/6JBtgw1Ib2Q"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </Card>
+              </motion.div>
           </div>
         </div>
       </motion.section>
 
-      <motion.section
-        className="py-16 lg:py-24 bg-gradient-to-b from-accent/5 to-transparent"
+      <motion.section 
+        className="py-16 lg:py-24 bg-muted/30"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer()}
       >
         <div className="container">
-          <motion.div variants={fadeIn('up')} className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight">Our Story in Motion</h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
-              Watch our journey and see our commitment to excellence in action.
-            </p>
+          <motion.div variants={fadeIn('up')} className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight text-primary">Facts and Figures</h2>
+            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">A quick look at our journey and impact.</p>
           </motion.div>
-          <motion.div
-            variants={fadeIn('up', 0.2)}
-            className="max-w-4xl mx-auto"
+          <motion.div 
+            variants={staggerContainer(0.1)}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto"
           >
-            <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0">
-              <div className="aspect-video bg-black rounded-t-2xl">
-                <iframe
-                  className="w-full h-full rounded-t-2xl"
-                  src="https://www.youtube.com/embed/6JBtgw1Ib2Q"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </Card>
+            {facts.map((fact, index) => (
+              <motion.div variants={fadeIn('up')} key={index}>
+                <Card className="text-center p-8 h-full bg-card shadow-lg flex flex-col items-center justify-center">
+                  <fact.icon className="h-12 w-12 text-accent mb-4" />
+                  <p className="text-4xl font-extrabold text-primary">{fact.number}</p>
+                  <p className="text-muted-foreground mt-1">{fact.label}</p>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </motion.section>
-      
-       <motion.section 
+
+      <motion.section
         className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
@@ -151,41 +164,10 @@ export default function AboutPage() {
       >
         <div className="container">
           <motion.div variants={fadeIn('up')} className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight">Our Journey</h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Tracing the path of our commitment to surgical excellence.</p>
-          </motion.div>
-          <motion.div 
-            variants={staggerContainer(0.3)}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            {timeline.map((item, index) => (
-                <motion.div key={item.year} variants={fadeIn('up', index * 0.1)}>
-                    <Card className="p-6 h-full text-center hover:shadow-lg transition-shadow duration-300 border-border/60 bg-card flex flex-col items-center">
-                        <div className="mb-4">
-                            <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center">
-                                <item.icon className="h-8 w-8" />
-                            </div>
-                        </div>
-                        <h3 className="font-bold text-2xl text-primary mb-2">{item.year}</h3>
-                        <p className="text-muted-foreground flex-grow">{item.event}</p>
-                    </Card>
-                </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <motion.section 
-        className="py-16 lg:py-24 bg-primary/5"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={staggerContainer()}
-      >
-        <div className="container">
-          <motion.div variants={fadeIn('up')} className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Our Core Values</h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">The principles that guide every decision we make.</p>
+            <h2 className="text-3xl font-bold tracking-tight text-primary">Our Values</h2>
+            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
+              The principles that guide our work and our commitment to the healthcare community.
+            </p>
           </motion.div>
           <motion.div 
             variants={staggerContainer(0.1)}
@@ -193,9 +175,9 @@ export default function AboutPage() {
           >
             {values.map((item, index) => (
               <motion.div variants={fadeIn('up')} key={item.title}>
-                 <Card className="text-left p-6 h-full hover:shadow-accent/10 hover:shadow-lg transition-shadow duration-300 bg-card border-border/50">
-                    <div className="p-3 bg-accent/10 rounded-lg mb-4 inline-block">
-                        <item.icon className="h-6 w-6 text-accent" />
+                 <Card className="text-center p-6 h-full hover:shadow-accent/10 hover:shadow-lg transition-shadow duration-300 bg-card border-border/50 flex flex-col items-center">
+                    <div className="p-4 bg-accent/10 rounded-full mb-4 inline-block">
+                        <item.icon className="h-8 w-8 text-accent" />
                     </div>
                     <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
                     <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
@@ -205,9 +187,50 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </motion.section>
+
+       <motion.section 
+        className="py-16 lg:py-24 bg-muted/30"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={staggerContainer()}
+      >
+        <div className="container">
+          <motion.div variants={fadeIn('up')} className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-primary">Our History</h2>
+            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Tracing the path of our commitment to surgical excellence.</p>
+          </motion.div>
+          <div className="relative max-w-5xl mx-auto">
+              <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-border"></div>
+              <motion.div 
+                className="space-y-16"
+                variants={staggerContainer()}
+              >
+                {timeline.map((item, index) => (
+                    <motion.div 
+                      key={item.year} 
+                      variants={fadeIn(index % 2 === 0 ? 'left' : 'right')}
+                      className="flex items-center relative"
+                    >
+                        <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left order-2'}`}>
+                          <p className="font-bold text-2xl text-primary mb-1">{item.year}</p>
+                          <p className="text-muted-foreground">{item.event}</p>
+                        </div>
+                        <div className="w-1/2 flex justify-center absolute left-1/2 -translate-x-1/2">
+                           <div className="z-10 w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center border-4 border-background">
+                                <item.icon className="h-8 w-8" />
+                            </div>
+                        </div>
+                         <div className={`w-1/2 ${index % 2 === 0 ? 'order-2' : ''}`}></div>
+                    </motion.div>
+                ))}
+              </motion.div>
+          </div>
+        </div>
+      </motion.section>
       
       <motion.section
-        className="py-16 lg:py-24 bg-gradient-to-t from-accent/5 to-transparent"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -215,7 +238,7 @@ export default function AboutPage() {
       >
         <div className="container">
           <motion.div variants={fadeIn('up')} className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Meet Our Leadership</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary">Executive Board</h2>
             <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">The experienced mind guiding SAA Scrubs forward.</p>
           </motion.div>
           <div className="flex justify-center">
@@ -225,7 +248,7 @@ export default function AboutPage() {
                   <Image src={member.image} alt={member.name} data-ai-hint={member.dataAiHint} fill className="object-cover" />
                 </div>
                 <h3 className="font-bold text-2xl tracking-tight">{member.name}</h3>
-                <p className="text-primary text-lg font-medium">{member.role}</p>
+                <p className="text-accent text-lg font-medium">{member.role}</p>
               </motion.div>
             ))}
           </div>
@@ -235,3 +258,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
