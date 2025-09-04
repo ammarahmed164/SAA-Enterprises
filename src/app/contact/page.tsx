@@ -37,9 +37,9 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 });
 
 const contactInfo = [
-    { icon: Mail, label: 'Email Us', value: 'support@medishop.com', href: 'mailto:support@medishop.com' },
-    { icon: Phone, label: 'Call Us', value: '+1 (800) 555-0199', href: 'tel:+18005550199' },
-    { icon: MapPin, label: 'Our Address', value: '123 Medical Plaza, Suite 456, Medville, MD 54321' },
+    { icon: Mail, label: 'Email Us', value: 'info@saa-scrubs.com', href: 'mailto:info@saa-scrubs.com' },
+    { icon: Phone, label: 'Call Us', value: '+92 314 2949734', href: 'tel:+923142949734' },
+    { icon: MapPin, label: 'Our Address', value: 'Shop No# 4, Plot SB-2/65, Al Maskan Building, Near CIA Flats, Lucky Star Saddar Karachi' },
 ];
 
 export default function ContactPage() {
@@ -47,7 +47,7 @@ export default function ContactPage() {
     <div className="bg-background text-foreground min-h-screen">
       {/* New Hero Section */}
       <motion.section 
-        className="relative bg-gradient-to-br from-accent/10 to-primary/10 overflow-hidden"
+        className="relative bg-gradient-to-br from-orange-100 via-background to-blue-100 overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
