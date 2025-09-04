@@ -30,9 +30,6 @@ const staggerContainer = {
 
 const teamMembers = [
   { name: 'Dr. Evelyn Reed', role: 'Founder & CEO', image: 'https://picsum.photos/400/400?random=1', dataAiHint:"person photo" },
-  { name: 'Dr. Marcus Thorne', role: 'Chief Medical Officer', image: 'https://picsum.photos/400/400?random=2', dataAiHint:"person photo" },
-  { name: 'Aria Chen', role: 'Head of Operations', image: 'https://picsum.photos/400/400?random=3', dataAiHint:"person photo" },
-  { name: 'Leo Martinez', role: 'Lead Product Designer', image: 'https://picsum.photos/400/400?random=4', dataAiHint:"person photo" },
 ];
 
 const values = [
@@ -201,9 +198,9 @@ export default function AboutPage() {
         <div className="container">
           <motion.div variants={fadeIn()} className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight">Meet Our Leadership</h2>
-            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">The experienced minds guiding MediShop forward.</p>
+            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">The experienced mind guiding SAA Scrubs forward.</p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div variants={fadeIn(index * 0.1)} key={member.name} className="text-center">
                 <div className="relative aspect-square w-full max-w-[250px] mx-auto mb-4 overflow-hidden rounded-full shadow-lg">
@@ -220,5 +217,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-    
