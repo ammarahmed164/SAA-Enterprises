@@ -77,34 +77,34 @@ export default function AboutPage() {
         variants={staggerContainer()}
       >
         <div className="container">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <motion.div 
-                    variants={fadeIn('right')} 
-                    className="relative aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
-                >
-                    <Image 
-                        src="https://picsum.photos/800/1000?random=medical" 
-                        alt="Medical professionals" 
-                        fill 
-                        className="object-cover" 
-                        data-ai-hint="medical professional"
-                    />
-                </motion.div>
-                <motion.div variants={fadeIn('left')} className="space-y-6">
-                    <h2 className="text-3xl font-bold tracking-tight text-primary">Our Commitment to Excellence</h2>
-                    <div className="text-muted-foreground space-y-4 text-lg">
-                        <p>
-                            At SAA Scrubs, we understand that medical professionals need more than just a uniform—they need comfortable, durable, and functional workwear that performs under pressure. Our commitment is to provide meticulously crafted scrubs that combine superior quality with a professional aesthetic.
-                        </p>
-                        <p>
-                            We take pride in overseeing every step of the manufacturing process, from selecting the finest fabrics to ensuring precision in every stitch, to guarantee that each garment meets our high standards.
-                        </p>
-                        <p>
-                            Our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
-                        </p>
-                    </div>
-                </motion.div>
-            </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              variants={fadeIn('right')}
+              className="relative aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <Image
+                src="https://picsum.photos/800/1000?random=medical"
+                alt="Medical professionals"
+                fill
+                className="object-cover"
+                data-ai-hint="medical professional"
+              />
+            </motion.div>
+            <motion.div variants={fadeIn('left')} className="space-y-6">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">Our Commitment to Excellence</h2>
+              <div className="text-muted-foreground space-y-4 text-lg">
+                <p>
+                  At SAA Scrubs, we understand that medical professionals need more than just a uniform—they need comfortable, durable, and functional workwear that performs under pressure. Our commitment is to provide meticulously crafted scrubs that combine superior quality with a professional aesthetic.
+                </p>
+                <p>
+                  We take pride in overseeing every step of the manufacturing process, from selecting the finest fabrics to ensuring precision in every stitch, to guarantee that each garment meets our high standards.
+                </p>
+                <p>
+                  Our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
