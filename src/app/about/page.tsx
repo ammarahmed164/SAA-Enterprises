@@ -61,17 +61,20 @@ export default function AboutPage() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <motion.div variants={fadeIn()}>
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">About MediShop</h1>
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">About SAA Scrubs</h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                  Pioneering the future of surgical supplies with a commitment to quality, innovation, and the professionals we serve.
+                Welcome to SAA Scrubs, your trusted partner in high-quality medical apparel and surgical items. As a leading manufacturer and supplier, we are proud to offer our exclusive "SAA" brand of scrubs, designed to meet the rigorous demands of the healthcare industry.
               </p>
             </motion.div>
              <motion.div variants={fadeIn(0.2)} className="text-lg space-y-4 text-muted-foreground">
                  <p>
-                    To empower healthcare professionals with the highest quality surgical tools and supplies, fostering an environment where they can perform at their best and ensure optimal patient outcomes. 
+                    At SAA Scrubs, we understand that medical professionals need more than just a uniform—they need comfortable, durable, and functional workwear that performs under pressure. Our commitment is to provide meticulously crafted scrubs that combine superior quality with a professional aesthetic. We take pride in overseeing every step of the manufacturing process, from selecting the finest fabrics to ensuring precision in every stitch, to guarantee that each garment meets our high standards.
                 </p>
                 <p>
-                    We believe that by providing reliable and innovative products, we can play a vital role in advancing medical procedures worldwide.
+                    In addition to our premium SAA brand scrubs, we offer a comprehensive range of surgical items, catering to the diverse needs of hospitals, clinics, and individual practitioners. Our goal is to be a one-stop solution for all your medical apparel and supply needs, providing products that enhance safety, comfort, and efficiency in the workplace.
+                </p>
+                 <p>
+                    At SAA Scrubs, our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order. 
                 </p>
             </motion.div>
           </div>
@@ -217,3 +220,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
