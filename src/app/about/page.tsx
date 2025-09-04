@@ -92,7 +92,11 @@ export default function AboutPage() {
         <div className="container">
           <div className="grid lg:grid-cols-5 gap-12 items-center">
             <motion.div variants={fadeIn('right')} className="space-y-6 lg:col-span-2">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Welcome to SAA Scrubs</h2>
+              <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+                  Welcome to SAA Enterprises
+                </span>
+              </h2>
               <div className="text-muted-foreground space-y-4">
                  <p>
                     Welcome to SAA Scrubs, your trusted partner in high-quality medical apparel and surgical items. As a leading manufacturer and supplier, we are proud to offer our exclusive "SAA" brand of scrubs, designed to meet the rigorous demands of the healthcare industry.
