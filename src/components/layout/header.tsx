@@ -32,9 +32,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container">
+      <div className="container px-4 sm:px-6 lg:px-8">
         {/* Top bar for search, logo, and actions */}
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Left: Search Bar */}
           <div className="hidden lg:flex items-center flex-1">
             <div className="relative w-full max-w-sm">
@@ -44,7 +44,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="flex items-center lg:hidden flex-1">
+          <div className="flex items-center lg:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -52,7 +52,7 @@ export default function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background">
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background p-0">
                 <div className="p-6">
                   <Link
                     href="/"
@@ -78,12 +78,18 @@ export default function Header() {
                     ))}
                   </nav>
                 </div>
+                 <div className="absolute bottom-6 left-6 right-6">
+                    <div className="relative w-full">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input placeholder="Search..." className="pl-9" />
+                    </div>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
 
           {/* Center: Logo */}
-          <div className="flex justify-center flex-shrink-0">
+          <div className="flex-shrink-0">
               <Link href="/" className="flex items-center gap-2">
                 <Logo className="h-8 w-8 text-primary" />
                 <span className="text-2xl font-bold sm:inline-block">SAA Scrubs</span>
@@ -91,7 +97,7 @@ export default function Header() {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center justify-end gap-4 flex-1">
+          <div className="flex items-center justify-end gap-2 sm:gap-4 flex-1">
             <Button variant="ghost" className="hidden sm:flex items-center gap-2">
               <User className="h-5 w-5" />
               <div className="text-left text-sm">
@@ -118,18 +124,23 @@ export default function Header() {
                 <span className="sr-only">Shopping Cart</span>
               </Link>
             </Button>
+             <Button variant="ghost" size="icon" className="sm:hidden">
+              <User className="h-6 w-6" />
+               <span className="sr-only">Account</span>
+            </Button>
           </div>
         </div>
 
+      </div>
         {/* Bottom bar for navigation */}
-        <nav className="hidden lg:flex justify-center items-center h-12 border-t">
+        <nav className="hidden lg:flex justify-center items-center h-12 border-t bg-muted/30">
             {navLinks.map((link, index) => (
                <div key={link.href} className="flex items-center h-full">
                 <Link
                     href={link.href}
                     className={cn(
                     "px-6 text-sm font-medium transition-colors hover:text-primary h-full flex items-center",
-                    pathname === link.href ? "text-primary" : "text-foreground/80"
+                    pathname === link.href ? "text-primary font-semibold" : "text-foreground/80"
                     )}
                 >
                     {link.label}
@@ -140,7 +151,6 @@ export default function Header() {
                </div>
           ))}
         </nav>
-      </div>
     </header>
   );
 }
