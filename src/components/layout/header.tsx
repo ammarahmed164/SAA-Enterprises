@@ -1,21 +1,20 @@
+"use client";
 
-'use client';
-
-import Link from 'next/link';
-import { Search, ShoppingCart, User } from 'lucide-react';
-import { Logo } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { useCart } from '@/hooks/use-cart';
-import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { Search, ShoppingCart, User } from "lucide-react";
+import { Logo } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/hooks/use-cart";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/products', label: 'Products' },
-  { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact Us' },
-  { href: '/orders', label: 'My Orders' },
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Products" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
+  { href: "/orders", label: "My Orders" },
 ];
 
 export default function Header() {
@@ -23,72 +22,89 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-100 via-white to-blue-100 backdrop-blur">
       <div className="container flex flex-col">
+        {/* -------- Row 1: Search | Logo | Icons -------- */}
         <div className="flex h-20 items-center w-full">
-          <div className="flex-1 flex justify-start">
+          {/* Left: Search Bar */}
+          <div className="flex flex-1 items-center">
+            <input
+              type="text"
+              placeholder="Search for products..."
+              className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:border-blue-500 shadow-sm"
+            />
+            <Button
+              variant="default"
+              size="icon"
+              className="rounded-r-full bg-blue-500 hover:bg-blue-600 text-white shadow-md"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+          </div>
+
+          {/* Middle: Logo */}
+          <div className="flex flex-1 justify-center">
             <Link href="/" className="flex items-center gap-2">
-              <Logo className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold hidden sm:inline-block">SAA Scrubs</span>
+              <Logo className="h-10 w-10 text-blue-600" />
+              <span className="text-2xl font-extrabold bg-gradient-to-r from-orange-500 to-blue-600 bg-clip-text text-transparent">
+                SAA Scrubs
+              </span>
             </Link>
           </div>
 
-          <nav className="hidden md:flex flex-1 justify-center items-center gap-2 mx-auto">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md",
-                    pathname === link.href ? "bg-muted text-primary font-semibold" : "text-foreground/80 hover:bg-muted/50"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
-          </nav>
-          
-          <div className="flex-1 flex justify-end items-center gap-3">
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
+          {/* Right: Account + Cart */}
+          <div className="flex flex-1 justify-end items-center gap-3 relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:bg-orange-200 rounded-full"
+            >
+              <User className="h-5 w-5 text-blue-600" />
               <span className="sr-only">Account</span>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
-                <Link href="/cart">
-                  <ShoppingCart className="h-5 w-5" />
-                  {cartCount > 0 && (
-                    <Badge
-                      variant="destructive"
-                      className="absolute top-1 right-1 h-4 w-4 justify-center rounded-full p-0 text-xs bg-accent text-accent-foreground"
-                    >
-                      {cartCount}
-                    </Badge>
-                  )}
-                  <span className="sr-only">Shopping Cart</span>
-                </Link>
-              </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              asChild
+              className="hover:bg-orange-200 rounded-full"
+            >
+              <Link href="/cart" className="relative">
+                <ShoppingCart className="h-5 w-5 text-blue-600" />
+                {cartCount > 0 && (
+                  <Badge
+                    variant="destructive"
+                    className="absolute -top-1 -right-1 h-4 w-4 justify-center rounded-full p-0 text-xs bg-orange-500 text-white"
+                  >
+                    {cartCount}
+                  </Badge>
+                )}
+                <span className="sr-only">Shopping Cart</span>
+              </Link>
+            </Button>
           </div>
         </div>
-        
-        <nav className="md:hidden flex flex-wrap justify-center items-center gap-x-2 gap-y-2 pb-4 border-t pt-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md",
-                  pathname === link.href ? "bg-muted text-primary font-semibold" : "text-foreground/80 hover:bg-muted/50"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
+
+        {/* -------- Row 2: Navigation Menu -------- */}
+        <nav className="flex justify-center gap-4 py-3 border-t">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "text-sm font-medium px-4 py-2 rounded-full transition-all duration-300",
+                pathname === link.href
+                  ? "bg-blue-500 text-white shadow-md scale-105"
+                  : "bg-orange-100 text-blue-700 hover:bg-blue-100 hover:text-blue-900"
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>
   );
 }
+
+
