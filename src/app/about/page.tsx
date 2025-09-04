@@ -72,9 +72,8 @@ export default function AboutPage() {
         <Image
             src="/PalmHeader.png"
             alt="About SAA Scrubs"
-            width={1920}
-            height={1080}
-            className="object-contain"
+            fill
+            className="object-cover"
             priority
             data-ai-hint="medical team working"
         />
