@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, type FormEvent } from 'react';
@@ -19,7 +20,7 @@ type Message = {
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: '1', text: "Hello! I'm the MediShop assistant. How can I help you today with your surgical supply needs?", sender: 'bot' },
+    { id: '1', text: "Hello! I'm the SAA Scrubs assistant. How can I help you today with your surgical supply needs?", sender: 'bot' },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +77,7 @@ export default function Chatbot() {
                   <Avatar>
                     <AvatarFallback className="bg-primary text-primary-foreground"><Bot className="h-5 w-5" /></AvatarFallback>
                   </Avatar>
-                  <CardTitle>MediShop Assistant</CardTitle>
+                  <CardTitle>SAA Scrubs Assistant</CardTitle>
                 </div>
                 <Button variant="ghost" size="icon" onClick={toggleChat}>
                   <X className="h-4 w-4" />

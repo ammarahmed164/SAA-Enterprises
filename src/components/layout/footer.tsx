@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ export default function Footer() {
           <div className="space-y-4 md:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2">
               <Logo className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold">MediShop</span>
+              <span className="text-xl font-bold">SAA Scrubs</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               The future of lifestyle product purchasing, combining quality, reliability, and innovation.
@@ -51,7 +52,7 @@ export default function Footer() {
       </div>
       <div className="bg-muted/60 py-4">
         <div className="container text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} MediShop. All Rights Reserved.
+          &copy; {new Date().getFullYear()} SAA Scrubs. All Rights Reserved.
         </div>
       </div>
     </footer>

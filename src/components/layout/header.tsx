@@ -60,7 +60,7 @@ export default function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <Logo className="h-8 w-8 text-primary" />
-                    <span className="font-bold text-xl">MediShop</span>
+                    <span className="font-bold text-xl">SAA Scrubs</span>
                   </Link>
                   <nav className="grid gap-4 text-lg font-medium">
                     {navLinks.map(link => (
@@ -86,7 +86,7 @@ export default function Header() {
           <div className="flex justify-center flex-shrink-0">
               <Link href="/" className="flex items-center gap-2">
                 <Logo className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold sm:inline-block">MediShop</span>
+                <span className="text-2xl font-bold sm:inline-block">SAA Scrubs</span>
               </Link>
           </div>
 

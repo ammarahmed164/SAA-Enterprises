@@ -8,7 +8,7 @@ import Chatbot from '@/components/chatbot';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'MediShop',
+  title: 'SAA Scrubs',
   description: 'Your one-stop shop for surgical business products.',
 };
 
