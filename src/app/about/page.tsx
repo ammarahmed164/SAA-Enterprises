@@ -78,7 +78,7 @@ export default function AboutPage() {
             data-ai-hint="medical team working"
         />
         <div className="container relative z-20 text-center">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter">About SAA Scrubs</motion.h1>
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-gradient-to-r from-orange-400 to-blue-500 bg-clip-text text-transparent">About SAA Scrubs</motion.h1>
         </div>
       </motion.section>
 
