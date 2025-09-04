@@ -38,7 +38,6 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
   },
 });
 
-
 const contactInfo = [
     { icon: Mail, label: 'Email Us', value: 'support@medishop.com', href: 'mailto:support@medishop.com' },
     { icon: Phone, label: 'Call Us', value: '+1 (800) 555-0199', href: 'tel:+18005550199' },
@@ -47,82 +46,73 @@ const contactInfo = [
 
 export default function ContactPage() {
   return (
-    <div className="bg-slate-50 min-h-screen overflow-hidden">
+    <div className="bg-background text-foreground min-h-screen">
         <motion.section 
-            className="pt-24 pb-20 md:pt-32 md:pb-28 bg-gradient-to-br from-background via-blue-50 to-orange-50"
+            className="pt-24 pb-16 md:pt-32 md:pb-24 text-center"
             initial="hidden"
             animate="visible"
             variants={staggerContainer()}
         >
-            <div className="container text-center">
-                <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Get In Touch</motion.h1>
+            <div className="container">
+                <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">Contact Us</motion.h1>
                 <motion.p variants={fadeIn('down', 0.1)} className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Have a question or need assistance? We're here to help. Reach out to us, and we'll get back to you as soon as possible.
+                    We're here to help. Reach out with questions, comments, or for support.
                 </motion.p>
             </div>
         </motion.section>
 
         <motion.section 
-            className="py-16 lg:py-24"
+            className="pb-16 lg:pb-24"
             variants={staggerContainer()}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
         >
             <div className="container">
-                <div className="grid lg:grid-cols-5 gap-12">
+                <div className="grid lg:grid-cols-3 gap-12 bg-muted/40 p-8 md:p-12 rounded-2xl border">
                     {/* Contact Form */}
                     <motion.div 
                         variants={fadeIn('right')}
-                        className="lg:col-span-3"
+                        className="lg:col-span-2"
                     >
-                        <Card className="p-8 shadow-2xl rounded-2xl border-0 hover:shadow-primary/10 transition-shadow duration-500">
-                            <CardHeader className="p-0 mb-6">
-                                <CardTitle className="text-3xl font-bold tracking-tight">Send a Message</CardTitle>
-                                <CardDescription>Fill out the form and our team will get back to you shortly.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <form className="space-y-6">
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="first-name">First Name</Label>
-                                            <Input id="first-name" placeholder="John" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="last-name">Last Name</Label>
-                                            <Input id="last-name" placeholder="Doe" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Input id="email" type="email" placeholder="john.doe@example.com" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="subject">Subject</Label>
-                                        <Input id="subject" placeholder="Question about an order" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="message">Message</Label>
-                                        <Textarea id="message" placeholder="Please type your message here..." rows={5} />
-                                    </div>
-                                    <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-base font-bold group">
-                                        Send Message <Send className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                                    </Button>
-                                </form>
-                            </CardContent>
-                        </Card>
+                        <h2 className="text-3xl font-bold tracking-tight mb-6">Send a Message</h2>
+                        <form className="space-y-6">
+                            <div className="grid sm:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="first-name">First Name</Label>
+                                    <Input id="first-name" placeholder="John" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="last-name">Last Name</Label>
+                                    <Input id="last-name" placeholder="Doe" />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="email">Email</Label>
+                                <Input id="email" type="email" placeholder="john.doe@example.com" />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="subject">Subject</Label>
+                                <Input id="subject" placeholder="Question about an order" />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="message">Message</Label>
+                                <Textarea id="message" placeholder="Please type your message here..." rows={5} />
+                            </div>
+                            <Button type="submit" size="lg" className="w-full sm:w-auto text-base font-bold group">
+                                Send Message <Send className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </Button>
+                        </form>
                     </motion.div>
 
-                     {/* Contact Info & Map */}
+                     {/* Contact Info */}
                     <motion.div 
                         variants={fadeIn('left', 0.2)}
-                        className="lg:col-span-2 space-y-8"
+                        className="lg:col-span-1 space-y-8"
                     >
-                        <Card className="shadow-xl rounded-2xl border-0">
-                            <CardHeader>
-                                <CardTitle className="text-2xl font-bold">Contact Details</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
+                        <div>
+                            <h2 className="text-3xl font-bold tracking-tight mb-6">Contact Details</h2>
+                            <div className="space-y-6">
                                 {contactInfo.map((item) => (
                                     <div key={item.label} className="flex items-start gap-4 group">
                                         <div className="flex-shrink-0 w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
@@ -138,15 +128,22 @@ export default function ContactPage() {
                                         </div>
                                     </div>
                                 ))}
-                            </CardContent>
-                        </Card>
-                        <Card className="shadow-xl rounded-2xl border-0 overflow-hidden">
-                            <div className="aspect-video w-full">
-                                <Image src="https://picsum.photos/800/450?random=map" alt="Map to our location" width={800} height={450} className="w-full h-full object-cover" data-ai-hint="map location" />
                             </div>
-                        </Card>
+                        </div>
                     </motion.div>
                 </div>
+            </div>
+        </motion.section>
+        
+        <motion.section
+            className="container pb-16 lg:pb-24"
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.8}}
+        >
+            <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl border">
+                <Image src="https://picsum.photos/1200/600?random=map" alt="Map to our location" width={1200} height={600} className="w-full h-full object-cover" data-ai-hint="map location" />
             </div>
         </motion.section>
     </div>
