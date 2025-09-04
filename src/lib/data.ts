@@ -1,3 +1,4 @@
+
 import type { Product, Category, Order } from '@/lib/types';
 
 export const categories: Category[] = [
@@ -430,35 +431,6 @@ export const products: Product[] = [
   },
 ];
 
-export const orders: Order[] = [
-    {
-        id: '#MED-1734',
-        date: 'June 15, 2024',
-        status: 'Delivered',
-        total: 72.50,
-        items: [
-            { product: products[0], quantity: 1 },
-            { product: products[2], quantity: 2 },
-        ]
-    },
-    {
-        id: '#MED-1733',
-        date: 'June 12, 2024',
-        status: 'Shipped',
-        total: 120.00,
-        items: [
-            { product: products[4], quantity: 1 },
-            { product: products[5], quantity: 3 },
-            { product: products[7], quantity: 1 },
-        ]
-    },
-    {
-        id: '#MED-1732',
-        date: 'June 11, 2024',
-        status: 'Pending',
-        total: 45.99,
-        items: [
-            { product: products[10], quantity: 1 },
-        ]
-    }
-];
+export const orders: Order[] = [];
+
+    
