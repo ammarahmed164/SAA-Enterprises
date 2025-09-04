@@ -36,7 +36,7 @@ const staggerContainer = (staggerChildren = 0.2, delayChildren = 0) => ({
 });
 
 const teamMembers = [
-  { name: 'Dr. Evelyn Reed', role: 'Founder & CEO', image: '/faisal.png', dataAiHint:"person photo" },
+  { name: 'M.Faisal Shah', role: 'Founder & CEO', image: '/faisal.png', dataAiHint:"person photo" },
 ];
 
 const values = [
@@ -78,7 +78,7 @@ export default function AboutPage() {
             data-ai-hint="medical team working"
         />
         <div className="container relative z-20 text-center">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>About SAA Scrubs</motion.h1>
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-accent" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>About SAA Scrubs</motion.h1>
         </div>
       </motion.section>
 
