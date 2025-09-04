@@ -1,60 +1,111 @@
+
+'use client';
+
 import Link from 'next/link';
 import { orders } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowRight } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { ArrowRight, ShoppingBag, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export default function OrdersPage() {
-  return (
-    <div className="container py-12">
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Your Orders</h1>
-        <p className="mt-2 text-muted-foreground">Review your past purchases and check their status.</p>
-      </div>
 
-      <Card>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="hidden sm:table-cell">Order ID</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-                <TableHead className="w-[100px]"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {orders.map(order => (
-                <TableRow key={order.id}>
-                  <TableCell className="hidden sm:table-cell font-medium">{order.id}</TableCell>
-                  <TableCell>{order.date}</TableCell>
-                  <TableCell>
-                    <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'}
-                      className={cn(
-                        order.status === 'Delivered' && 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                        order.status === 'Shipped' && 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-                        order.status === 'Pending' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                      )}
-                    >
-                      {order.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">${order.total.toFixed(2)}</TableCell>
-                  <TableCell className="text-right">
-                    <Button asChild variant="ghost" size="sm">
-                        <Link href="#">View <ArrowRight className="ml-2 h-4 w-4"/></Link>
+  if (orders.length === 0) {
+    return (
+        <div className="container py-24 text-center">
+            <ShoppingBag className="mx-auto h-24 w-24 text-muted-foreground/50" />
+            <h1 className="mt-8 text-3xl font-bold">You have no orders yet</h1>
+            <p className="mt-2 text-muted-foreground">When you place an order, it will appear here.</p>
+            <Button asChild className="mt-6">
+                <Link href="/products">Start Shopping</Link>
+            </Button>
+        </div>
+    )
+  }
+
+  return (
+    <div className="bg-muted/30">
+        <div className="container py-12 md:py-16">
+        <div className="mb-10 text-center">
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter">Your Orders</h1>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+            Review your past purchases, check their status, and track your deliveries.
+            </p>
+        </div>
+
+        <div className="space-y-8">
+            {orders.map(order => (
+            <Card key={order.id} className="overflow-hidden shadow-lg hover:shadow-primary/10 transition-shadow duration-300">
+                <CardHeader className="bg-muted/50 p-4 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm w-full'>
+                        <div>
+                            <p className="text-muted-foreground font-semibold">ORDER ID</p>
+                            <p className="font-mono text-primary">{order.id}</p>
+                        </div>
+                        <div>
+                            <p className="text-muted-foreground font-semibold">DATE PLACED</p>
+                            <p>{order.date}</p>
+                        </div>
+                        <div>
+                            <p className="text-muted-foreground font-semibold">TOTAL AMOUNT</p>
+                            <p className="font-bold">${order.total.toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <p className="text-muted-foreground font-semibold">STATUS</p>
+                             <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'}
+                                className={cn(
+                                    'w-fit',
+                                    order.status === 'Delivered' && 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-green-200',
+                                    order.status === 'Shipped' && 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border-blue-200',
+                                    order.status === 'Pending' && 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 border-yellow-200'
+                                )}
+                                >
+                                {order.status}
+                            </Badge>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="p-4 md:p-6">
+                    <div className="space-y-4">
+                    {order.items.map(item => (
+                        <div key={item.product.id} className="flex items-center gap-4">
+                            <div className="relative w-20 h-20 rounded-md overflow-hidden bg-muted">
+                                <Image 
+                                    src={item.product.image} 
+                                    alt={item.product.name} 
+                                    fill 
+                                    className="object-contain"
+                                    sizes="80px"
+                                />
+                            </div>
+                            <div>
+                                <p className="font-semibold">{item.product.name}</p>
+                                <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                            </div>
+                            <p className="ml-auto font-medium">${(item.product.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                    ))}
+                    </div>
+                </CardContent>
+                <CardFooter className="bg-muted/50 p-4 md:p-6 flex justify-end gap-3">
+                    <Button variant="outline">
+                        <ArrowRight className="mr-2 h-4 w-4"/>
+                        View Details
                     </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+                    {order.status === 'Shipped' && (
+                        <Button>
+                            <Truck className="mr-2 h-4 w-4"/>
+                            Track Package
+                        </Button>
+                    )}
+                </CardFooter>
+            </Card>
+            ))}
+        </div>
+        </div>
     </div>
   );
 }
