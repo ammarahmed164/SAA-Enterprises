@@ -93,11 +93,11 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-5 gap-12 items-center">
             <motion.div variants={fadeIn('right')} className="space-y-6 lg:col-span-2">
               <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-                  Welcome to SAA Enterprises
+                <span className="bg-gradient-to-r from-teal-500 to-sky-500 bg-clip-text text-transparent">
+                    Your Trusted Partner in Healthcare Apparel
                 </span>
               </h2>
-              <div className="text-muted-foreground space-y-4">
+              <div className="text-muted-foreground space-y-4 text-justify">
                  <p>
                     Welcome to SAA Scrubs, your trusted partner in high-quality medical apparel and surgical items. As a leading manufacturer and supplier, we are proud to offer our exclusive "SAA" brand of scrubs, designed to meet the rigorous demands of the healthcare industry.
                  </p>
@@ -128,7 +128,7 @@ export default function AboutPage() {
                 </Card>
               </motion.div>
           </div>
-           <div className="text-muted-foreground space-y-4 mt-8">
+           <div className="text-muted-foreground space-y-4 mt-8 text-justify">
              <p>
                 In addition to our premium SAA brand scrubs, we offer a comprehensive range of surgical items, catering to the diverse needs of hospitals, clinics, and individual practitioners. Our goal is to be a one-stop solution for all your medical apparel and supply needs, providing products that enhance safety, comfort, and efficiency in the workplace.
              </p>
@@ -274,3 +274,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
