@@ -110,10 +110,14 @@ export default function AboutPage() {
             </motion.div>
              <motion.div
                 variants={fadeIn('left', 0.2)}
-                className="max-w-4xl mx-auto"
+                className="max-w-5xl mx-auto"
               >
                 <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0">
-                  <div className="aspect-video bg-black rounded-2xl">
+                  <motion.div 
+                    className="aspect-video bg-black rounded-2xl"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  >
                     <iframe
                       className="w-full h-full rounded-2xl"
                       src="https://www.youtube.com/embed/6JBtgw1Ib2Q"
@@ -122,7 +126,7 @@ export default function AboutPage() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
-                  </div>
+                  </motion.div>
                 </Card>
               </motion.div>
           </div>
