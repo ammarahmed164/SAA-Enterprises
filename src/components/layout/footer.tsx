@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-3">
               <Image src="/logo.png" alt="SAA Enterprises" width={56} height={56} className="h-14 w-14 rounded-full" />
-              <span className="text-2xl font-bold text-white">SAA Scrubs</span>
+              <span className="text-2xl font-bold text-white">SAA Enterprises</span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm">
               The future of lifestyle product purchasing, combining quality, reliability, and innovation.
