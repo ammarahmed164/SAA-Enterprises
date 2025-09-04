@@ -70,8 +70,8 @@ export default function AboutPage() {
       >
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <Image
-            src="https://picsum.photos/1920/1080?random=medical-team"
-            alt="About SAA Scrubs"
+            src="/Product7.png"
+            alt="About SAA Enterprises"
             fill
             className="object-cover"
             priority
@@ -133,7 +133,7 @@ export default function AboutPage() {
                 In addition to our premium SAA brand scrubs, we offer a comprehensive range of surgical items, catering to the diverse needs of hospitals, clinics, and individual practitioners. Our goal is to be a one-stop solution for all your medical apparel and supply needs, providing products that enhance safety, comfort, and efficiency in the workplace.
              </p>
              <p>
-                At SAA Scrubs, our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
+                At SAA Enterprises, our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
              </p>
           </div>
         </div>
@@ -252,7 +252,7 @@ export default function AboutPage() {
         <div className="container">
           <motion.div variants={fadeIn('up')} className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight text-primary">Executive Board</h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">The experienced mind guiding SAA Scrubs forward.</p>
+            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">The experienced mind guiding SAA Enterprises forward.</p>
           </motion.div>
           <div className="flex justify-center">
             {teamMembers.map((member, index) => (
@@ -274,5 +274,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-    
