@@ -36,13 +36,15 @@ export default function Header() {
         {/* Top bar for search, logo, and actions */}
         <div className="flex h-20 items-center justify-between">
           {/* Left: Search Bar */}
-          <div className="relative hidden lg:flex items-center w-1/3">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search for products..." className="pl-9 w-full max-w-sm bg-muted/50 border-none focus-visible:ring-primary focus-visible:bg-background" />
+          <div className="hidden lg:flex items-center flex-1">
+            <div className="relative w-full max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input placeholder="Search for products..." className="pl-9 bg-muted/50 border-none focus-visible:ring-primary focus-visible:bg-background" />
+            </div>
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="flex items-center lg:hidden">
+          <div className="flex items-center lg:hidden flex-1">
             <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -81,7 +83,7 @@ export default function Header() {
           </div>
 
           {/* Center: Logo */}
-          <div className="flex justify-center w-1/3">
+          <div className="flex justify-center flex-shrink-0">
               <Link href="/" className="flex items-center gap-2">
                 <Logo className="h-8 w-8 text-primary" />
                 <span className="text-2xl font-bold sm:inline-block">MediShop</span>
@@ -89,7 +91,7 @@ export default function Header() {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center justify-end gap-4 w-1/3">
+          <div className="flex items-center justify-end gap-4 flex-1">
             <Button variant="ghost" className="hidden sm:flex items-center gap-2">
               <User className="h-5 w-5" />
               <div className="text-left text-sm">
