@@ -247,11 +247,14 @@ export default function AboutPage() {
           <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div variants={fadeIn('up', index * 0.1)} key={member.name} className="text-center group">
-                <div className="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full shadow-lg transition-all duration-500 group-hover:shadow-primary/20 group-hover:scale-105">
+                <motion.div 
+                    className="relative w-64 h-64 mx-auto mb-4 overflow-hidden rounded-full shadow-lg transition-all duration-500"
+                    whileHover={{ scale: 1.05, shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)" }}
+                >
                   <Image src={member.image} alt={member.name} data-ai-hint={member.dataAiHint} fill className="object-cover" />
-                </div>
-                <h3 className="font-bold text-2xl tracking-tight">{member.name}</h3>
-                <p className="text-accent text-lg font-medium">{member.role}</p>
+                </motion.div>
+                <h3 className="font-bold text-3xl tracking-tight mt-6">{member.name}</h3>
+                <p className="text-accent text-xl font-medium">{member.role}</p>
               </motion.div>
             ))}
           </div>
