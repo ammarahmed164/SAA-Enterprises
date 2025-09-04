@@ -53,43 +53,28 @@ export default function AboutPage() {
   return (
     <div className="overflow-x-hidden">
       <motion.section 
-        className="bg-muted/40 pt-24 pb-20 md:pt-32 md:pb-28"
+        className="bg-muted/40 py-20 md:py-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
-        <div className="container text-center">
-            <motion.h1 variants={fadeIn()} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">About MediShop</motion.h1>
-            <motion.p variants={fadeIn(0.1)} className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-                Pioneering the future of surgical supplies with a commitment to quality, innovation, and the professionals we serve.
-            </motion.p>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className="py-16 lg:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
-      >
-        <div className="container grid lg:grid-cols-2 gap-16 items-center">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             <motion.div variants={fadeIn()}>
-                <Image
-                    src="https://picsum.photos/800/600?random=mission"
-                    alt="Our Mission"
-                    width={800}
-                    height={600}
-                    className="rounded-lg shadow-xl"
-                    data-ai-hint="teamwork collaboration"
-                />
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-primary">About MediShop</h1>
+              <p className="mt-4 text-lg text-muted-foreground">
+                  Pioneering the future of surgical supplies with a commitment to quality, innovation, and the professionals we serve.
+              </p>
             </motion.div>
-            <motion.div variants={fadeIn(0.2)} className="space-y-4">
-                <h2 className="text-3xl font-bold tracking-tight">Our Mission</h2>
-                <p className="text-muted-foreground text-lg">
-                    To empower healthcare professionals with the highest quality surgical tools and supplies, fostering an environment where they can perform at their best and ensure optimal patient outcomes. We believe that by providing reliable and innovative products, we can play a vital role in advancing medical procedures worldwide.
+             <motion.div variants={fadeIn(0.2)} className="text-lg space-y-4 text-muted-foreground">
+                 <p>
+                    To empower healthcare professionals with the highest quality surgical tools and supplies, fostering an environment where they can perform at their best and ensure optimal patient outcomes. 
+                </p>
+                <p>
+                    We believe that by providing reliable and innovative products, we can play a vital role in advancing medical procedures worldwide.
                 </p>
             </motion.div>
+          </div>
         </div>
       </motion.section>
       
