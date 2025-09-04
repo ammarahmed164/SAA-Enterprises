@@ -156,7 +156,7 @@ export default function ContactPage() {
           <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl border">
               <iframe
                   className="w-full h-full"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.678901234567!2d-77.036870!3d38.907192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM4jCsDU0JzI1LjkiTiA3N8KwMDInMTIuNyJX!5e0!3m2!1sen!2sus!4v1622559600000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.836458034882!2d67.02701957593609!3d24.86942917792263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e6b48503cc5%3A0x948add2f15e8b264!2sLucky%20Star%20Bus%20Stop!5e0!3m2!1sen!2s!4v1718884976722!5m2!1sen!2s"
                   allowFullScreen={false}
                   loading="lazy"
                   title="Our Location"
