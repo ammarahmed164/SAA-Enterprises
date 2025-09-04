@@ -36,7 +36,7 @@ const staggerContainer = (staggerChildren = 0.2, delayChildren = 0) => ({
 });
 
 const teamMembers = [
-  { name: 'Dr. Evelyn Reed', role: 'Founder & CEO', image: 'https://picsum.photos/400/400?random=1', dataAiHint:"person photo" },
+  { name: 'Dr. Evelyn Reed', role: 'Founder & CEO', image: '/faisal.png', dataAiHint:"person photo" },
 ];
 
 const values = [
