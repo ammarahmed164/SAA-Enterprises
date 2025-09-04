@@ -90,8 +90,8 @@ export default function AboutPage() {
         variants={staggerContainer()}
       >
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div variants={fadeIn('right')} className="space-y-6">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
+            <motion.div variants={fadeIn('right')} className="space-y-6 lg:col-span-2">
               <h2 className="text-3xl font-bold tracking-tight text-primary">Welcome to SAA Scrubs</h2>
               <div className="text-muted-foreground space-y-4">
                  <p>
@@ -100,17 +100,11 @@ export default function AboutPage() {
                  <p>
                     At SAA Scrubs, we understand that medical professionals need more than just a uniform—they need comfortable, durable, and functional workwear that performs under pressure. Our commitment is to provide meticulously crafted scrubs that combine superior quality with a professional aesthetic. We take pride in overseeing every step of the manufacturing process, from selecting the finest fabrics to ensuring precision in every stitch, to guarantee that each garment meets our high standards.
                  </p>
-                 <p>
-                    In addition to our premium SAA brand scrubs, we offer a comprehensive range of surgical items, catering to the diverse needs of hospitals, clinics, and individual practitioners. Our goal is to be a one-stop solution for all your medical apparel and supply needs, providing products that enhance safety, comfort, and efficiency in the workplace.
-                 </p>
-                 <p>
-                    At SAA Scrubs, our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
-                 </p>
               </div>
             </motion.div>
              <motion.div
                 variants={fadeIn('left', 0.2)}
-                className="max-w-5xl mx-auto"
+                className="lg:col-span-3"
               >
                 <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0">
                   <motion.div 
@@ -129,6 +123,14 @@ export default function AboutPage() {
                   </motion.div>
                 </Card>
               </motion.div>
+          </div>
+           <div className="text-muted-foreground space-y-4 mt-8">
+             <p>
+                In addition to our premium SAA brand scrubs, we offer a comprehensive range of surgical items, catering to the diverse needs of hospitals, clinics, and individual practitioners. Our goal is to be a one-stop solution for all your medical apparel and supply needs, providing products that enhance safety, comfort, and efficiency in the workplace.
+             </p>
+             <p>
+                At SAA Scrubs, our mission is to support the heroes of healthcare with the best possible gear. We are dedicated to providing excellent products and exceptional service, building lasting relationships with our clients who trust us to deliver quality and reliability with every order.
+             </p>
           </div>
         </div>
       </motion.section>
