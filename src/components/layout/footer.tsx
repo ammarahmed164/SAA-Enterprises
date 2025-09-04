@@ -46,6 +46,7 @@ export default function Footer() {
                 <li><Link href="/orders" className="hover:text-accent transition-colors">Your Orders</Link></li>
                 <li><Link href="/about" className="hover:text-accent transition-colors">About Us</Link></li>
                 <li><Link href="/contact" className="hover:text-accent transition-colors">Contact</Link></li>
+                <li><Link href="/faq" className="hover:text-accent transition-colors">FAQ</Link></li>
               </ul>
             </div>
             <div className="space-y-4">
@@ -84,7 +85,7 @@ export default function Footer() {
         <div className="container text-center text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-2">
           <span>&copy; {new Date().getFullYear()} SAA Enterprises. All Rights Reserved.</span>
           <div className="flex gap-x-4">
-            <Link href="/terms-and-conditions" className="hover:text-accent transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/terms-and-conditions" className="hover:text-accent transition-colors">Terms & Conditions</Link>
             <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy Policy</Link>
           </div>
         </div>
