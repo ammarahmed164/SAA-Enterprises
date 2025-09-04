@@ -78,7 +78,7 @@ export default function AboutPage() {
             data-ai-hint="medical team working"
         />
         <div className="container relative z-20 text-center">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter">About Us</motion.h1>
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter">About SAA Scrubs</motion.h1>
         </div>
       </motion.section>
 
@@ -127,7 +127,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section 
-        className="py-16 lg:py-24 bg-muted/20"
+        className="py-16 lg:py-24 bg-gradient-to-br from-accent/10 via-background to-background"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -258,3 +258,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
