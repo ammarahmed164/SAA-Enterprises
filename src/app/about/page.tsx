@@ -70,9 +70,10 @@ export default function AboutPage() {
       >
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <Image
-            src="https://picsum.photos/1920/1080?random=1"
+            src="/PalmHeader.png"
             alt="About SAA Scrubs"
-            fill
+            width={1920}
+            height={1080}
             className="object-contain"
             priority
             data-ai-hint="medical team working"
