@@ -143,7 +143,13 @@ export default function ContactPage() {
             transition={{duration: 0.8}}
         >
             <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl border">
-                <Image src="https://picsum.photos/1200/600?random=map" alt="Map to our location" width={1200} height={600} className="w-full h-full object-cover" data-ai-hint="map location" />
+                <iframe
+                    className="w-full h-full"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.678901234567!2d-77.036870!3d38.907192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM4jCsDU0JzI1LjkiTiA3N8KwMDInMTIuNyJX!5e0!3m2!1sen!2sus!4v1622559600000!5m2!1sen!2sus"
+                    allowFullScreen={false}
+                    loading="lazy"
+                    title="Our Location"
+                ></iframe>
             </div>
         </motion.section>
     </div>
