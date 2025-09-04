@@ -45,10 +45,7 @@ export default function Header() {
           {/* Middle: Logo */}
           <div className="flex flex-1 justify-center">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="https://storage.googleapis.com/project-os-frontend/studio-users/667447a1375d3167c13a0a6d/6674519f375d3167c13a0b5c.png" alt="SAA Scrubs Logo" width={64} height={64} className="h-16 w-16" />
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-orange-500 to-blue-600 bg-clip-text text-transparent">
-                SAA Scrubs
-              </span>
+              <Image src="/logo.png" alt="SAA Enterprises" width={64} height={64} className="h-16 w-16" />
             </Link>
           </div>
 
