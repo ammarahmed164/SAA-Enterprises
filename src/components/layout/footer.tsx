@@ -1,10 +1,10 @@
 
 import Link from 'next/link';
-import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { categories } from '@/lib/data';
 import { Github, Twitter, Linkedin, Send } from 'lucide-react';
+import Image from "next/image";
 
 export default function Footer() {
   const socialLinks = [
@@ -20,7 +20,7 @@ export default function Footer() {
           {/* Brand & Socials */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-3">
-              <Logo className="h-10 w-10 text-accent" />
+              <Image src="https://storage.googleapis.com/project-os-frontend/studio-users/667447a1375d3167c13a0a6d/6674519f375d3167c13a0b5c.png" alt="SAA Scrubs Logo" width={56} height={56} className="h-14 w-14 rounded-full" />
               <span className="text-2xl font-bold text-white">SAA Scrubs</span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm">
