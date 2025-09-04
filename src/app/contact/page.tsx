@@ -47,7 +47,7 @@ export default function ContactPage() {
     <div className="bg-background text-foreground min-h-screen">
       {/* New Hero Section */}
       <motion.section 
-        className="relative bg-muted/30 overflow-hidden"
+        className="relative bg-gradient-to-br from-accent/10 to-primary/10 overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
