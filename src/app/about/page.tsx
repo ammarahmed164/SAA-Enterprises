@@ -92,6 +92,54 @@ export default function AboutPage() {
             </motion.div>
         </div>
       </motion.section>
+      
+       <motion.section 
+        className="py-16 lg:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={staggerContainer}
+      >
+        <div className="container">
+          <motion.div variants={fadeIn()} className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight">Our Journey</h2>
+            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">Tracing the path of our commitment to surgical excellence.</p>
+          </motion.div>
+          <div className="relative">
+             <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border -translate-x-1/2" aria-hidden="true"></div>
+             <motion.div variants={staggerContainer} className="space-y-16">
+                {timeline.map((item, index) => (
+                    <div key={item.year} className="flex items-center justify-center relative">
+                       <div className="flex flex-col items-center w-full">
+                          <motion.div 
+                            variants={fadeIn(index * 0.2)}
+                            className="w-full flex items-center"
+                            style={{
+                              flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
+                            }}
+                          >
+                            <div className="w-5/12">
+                                <Card className="p-6 hover:shadow-lg transition-shadow duration-300">
+                                    <h3 className="font-bold text-lg mb-1">{item.year}</h3>
+                                    <p className="text-muted-foreground">{item.event}</p>
+                                </Card>
+                            </div>
+                            <div className="w-2/12 flex justify-center">
+                                <div className="z-10 bg-background p-2 rounded-full border-2 border-primary">
+                                    <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+                                        <item.icon className="h-5 w-5" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-5/12"></div>
+                          </motion.div>
+                       </div>
+                    </div>
+                ))}
+             </motion.div>
+          </div>
+        </div>
+      </motion.section>
 
       <motion.section 
         className="py-16 lg:py-24 bg-muted/40"
