@@ -77,9 +77,43 @@ export default function AboutPage() {
           </div>
         </div>
       </motion.section>
+
+      <motion.section
+        className="py-16 lg:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={staggerContainer}
+      >
+        <div className="container">
+          <motion.div variants={fadeIn()} className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">Our Story in Motion</h2>
+            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
+              Watch our journey and see our commitment to excellence in action.
+            </p>
+          </motion.div>
+          <motion.div
+            variants={fadeIn(0.2)}
+            className="max-w-4xl mx-auto"
+          >
+            <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-lg">
+              <div className="aspect-video">
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/6JBtgw1Ib2Q"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </motion.section>
       
        <motion.section 
-        className="py-16 lg:py-24"
+        className="py-16 lg:py-24 bg-muted/40"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -127,7 +161,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section 
-        className="py-16 lg:py-24 bg-muted/40"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -141,7 +175,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((item, index) => (
               <motion.div variants={fadeIn(index * 0.1)} key={item.title}>
-                 <Card className="text-center p-6 flex flex-col items-center h-full hover:shadow-lg transition-shadow duration-300 border-0 bg-background/50">
+                 <Card className="text-center p-6 flex flex-col items-center h-full hover:shadow-lg transition-shadow duration-300 border-0 bg-muted/40">
                     <div className="p-4 bg-primary/10 rounded-full mb-4">
                         <item.icon className="h-8 w-8 text-primary" />
                     </div>
@@ -155,7 +189,7 @@ export default function AboutPage() {
       </motion.section>
       
       <motion.section
-        className="py-16 lg:py-24"
+        className="py-16 lg:py-24 bg-muted/40"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
