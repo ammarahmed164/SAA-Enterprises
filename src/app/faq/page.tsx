@@ -12,28 +12,16 @@ import { HelpCircle } from "lucide-react";
 
 const faqItems = [
     {
-        question: "What are your shipping options?",
-        answer: "We offer several shipping options to meet your needs, including standard, expedited, and overnight shipping. Costs and delivery times vary depending on the option selected and your location. You can see all available options during checkout."
+        question: "What services does your company offers?",
+        answer: "Our company specializes in consulting, product development, and customer support. We tailor our services to fit the unique needs of businesses across various sectors, helping them grow and succeed in a competitive market."
     },
     {
-        question: "How do I track my order?",
-        answer: "Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website. You can also find tracking information in your order history by logging into your account on our website."
+        question: "How can I Contact customer Support?",
+        answer: "You can reach our customer support team by emailing info@saa-scrubs.com, calling +92 314 2949734, or using the live chat on our website. Our dedicated team is available 24/7 to assist with any inquiries or issues. We’re committed to providing prompt and effective solutions to ensure your satisfaction."
     },
     {
-        question: "What is your return policy?",
-        answer: "We accept returns on most items within 30 days of delivery. Items must be in their original condition and packaging. To initiate a return, please visit our returns portal or contact our customer support team for assistance."
-    },
-    {
-        question: "Do you offer international shipping?",
-        answer: "Yes, we ship to many countries around the world. International shipping rates and times vary by destination. Please note that customers are responsible for any customs fees, duties, or taxes imposed by their country."
-    },
-    {
-        question: "How can I contact customer support?",
-        answer: "Our customer support team is here to help! You can reach us via email at support@saa-enterprises.com, by phone at +92 314 2949734, or through the contact form on our website. We strive to respond to all inquiries within 24 hours."
-    },
-    {
-        question: "What payment methods do you accept?",
-        answer: "We accept all major credit cards (Visa, MasterCard, American Express), as well as PayPal and other secure payment gateways. All transactions are encrypted for your security."
+        question: "What is your Return Policy?",
+        answer: "We offer a 30-day return policy for all products. Items must be in their original condition, unused, and include the receipt or proof of purchase. Refunds are processed within 5-7 business days of receiving the returned item."
     }
 ]
 
