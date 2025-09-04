@@ -81,8 +81,12 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-black/30 py-6">
-        <div className="container text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} SAA Scrubs. All Rights Reserved.
+        <div className="container text-center text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-2">
+          <span>&copy; {new Date().getFullYear()} SAA Enterprises. All Rights Reserved.</span>
+          <div className="flex gap-x-4">
+            <Link href="/terms-and-conditions" className="hover:text-accent transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy Policy</Link>
+          </div>
         </div>
       </div>
     </footer>
