@@ -59,7 +59,7 @@ export default function Home() {
 
        {/* New Hero Section */}
        <motion.section
-        className="w-full bg-slate-50"
+        className="w-full bg-gradient-to-br from-blue-50 to-orange-50"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
