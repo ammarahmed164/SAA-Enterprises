@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart, User, Menu } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, LogOut, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
@@ -20,6 +20,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/use-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 const navLinks = [
@@ -32,7 +40,7 @@ const navLinks = [
 
 export default function Header() {
   const { cartCount } = useCart();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -55,6 +63,11 @@ export default function Header() {
     }
     return <User className="h-6 w-6" />;
   };
+
+  const handleSignOut = () => {
+    logout();
+    router.push('/');
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-400 via-rose-300 to-blue-400 shadow-md backdrop-blur-lg">
@@ -138,10 +151,10 @@ export default function Header() {
           {/* Right: Account + Cart */}
           <div className="flex w-1/3 justify-end items-center gap-2">
             <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" asChild className="group relative">
-                    <Link href={user ? "/orders" : "/login"}>
+              {user ? (
+                 <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                     <Button variant="ghost" size="icon" className="group relative">
                       <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
                       <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
                         <Avatar className="h-10 w-10">
@@ -149,13 +162,47 @@ export default function Header() {
                         </Avatar>
                       </div>
                       <span className="sr-only">Account</span>
-                    </Link>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{user ? "My Account" : "Login / Signup"}</p>
-                </TooltipContent>
-              </Tooltip>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <p className="font-bold truncate">{user.name}</p>
+                      <p className="text-xs text-muted-foreground font-normal truncate">{user.email}</p>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href="/orders">
+                        <Package className="mr-2 h-4 w-4" />
+                        My Orders
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" asChild className="group relative">
+                      <Link href="/login">
+                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+                        <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                          <Avatar className="h-10 w-10">
+                            <AvatarFallback className="bg-slate-900 text-white font-bold">{getUserInitial()}</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <span className="sr-only">Account</span>
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Login / Signup</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
 
               <Tooltip>
                 <TooltipTrigger asChild>
