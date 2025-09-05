@@ -282,11 +282,22 @@ export default function Home() {
         variants={staggerContainer()}
       >
         <div className="container">
-          <motion.div variants={fadeIn('up')} className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-primary">Why Choose SAA Enterprises?</h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
+          <motion.div 
+            variants={staggerContainer(0.2, 0.1)}
+            className="text-center mb-12"
+          >
+            <motion.h2 
+              variants={fadeIn('down')} 
+              className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            >
+              Why Choose SAA Enterprises?
+            </motion.h2>
+            <motion.p 
+              variants={fadeIn('up', 0.1)}
+              className="mt-3 text-muted-foreground max-w-2xl mx-auto"
+            >
               Precision, quality, and reliability you can depend on for every shift.
-            </p>
+            </motion.p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUsItems.map((item, index) => (
