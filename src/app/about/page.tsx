@@ -80,19 +80,35 @@ export default function AboutPage() {
                 Pioneering the future of medical apparel with a commitment to quality, innovation, and the healthcare professionals we serve.
               </p>
             </motion.div>
-            <motion.div variants={fadeIn('left', 0.2)} className="relative h-80 md:h-96">
-               <Card className="w-full h-full overflow-hidden shadow-2xl rounded-2xl border-0 bg-gradient-to-br from-blue-50 to-orange-50 p-4">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src="/product1Din.png"
-                      alt="About SAA Scrubs"
-                      fill
-                      className="object-contain drop-shadow-2xl"
-                      priority
-                      data-ai-hint="medical scrub"
-                    />
-                  </div>
-                </Card>
+            <motion.div 
+              variants={fadeIn('left', 0.2)}
+              animate={{
+                  y: [0, -20, 0],
+              }}
+              transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+              }}
+              className="relative h-80 md:h-96"
+            >
+               <motion.div 
+                  className="w-full h-full p-1 bg-gradient-to-br from-primary via-accent to-orange-400 rounded-lg shadow-2xl"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Card className="w-full h-full overflow-hidden rounded-md border-0 bg-gradient-to-br from-blue-50 to-orange-50 p-4">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="/product1Din.png"
+                        alt="About SAA Scrubs"
+                        fill
+                        className="object-contain drop-shadow-2xl"
+                        priority
+                        data-ai-hint="medical scrub"
+                      />
+                    </div>
+                  </Card>
+               </motion.div>
             </motion.div>
           </div>
         </div>
