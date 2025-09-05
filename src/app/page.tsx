@@ -57,6 +57,53 @@ export default function Home() {
   return (
     <div className="flex flex-col overflow-hidden bg-background text-foreground">
 
+      {/* Featured Products Section */}
+      <motion.section 
+        className="py-16 lg:py-24 bg-background"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={staggerContainer()}
+      >
+        <div className="container">
+          <motion.div variants={fadeIn('up')} className="flex flex-col sm:flex-row justify-between items-baseline mb-12">
+            <div className="text-center sm:text-left">
+              <h2 className="text-3xl font-bold tracking-tight text-primary">Featured Products</h2>
+              <p className="mt-2 text-muted-foreground">Top-rated and bestselling items from our catalog.</p>
+            </div>
+            <Button asChild variant="link" className="text-primary hidden sm:flex text-base hover:text-accent mt-4 sm:mt-0">
+              <Link href="/products">View All Products <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </motion.div>
+
+          <motion.div variants={fadeIn('up', 0.2)}>
+            <Carousel
+              plugins={[featuredProductsPlugin.current]}
+              className="w-full"
+              onMouseEnter={featuredProductsPlugin.current.stop}
+              onMouseLeave={featuredProductsPlugin.current.reset}
+              opts={{
+                loop: true,
+                align: 'start',
+              }}
+            >
+              <CarouselContent className="-ml-4">
+                {products.slice(0, 8).map((product, index) => (
+                  <CarouselItem key={index} className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                    <ProductCard product={product} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </motion.div>
+           <div className="text-center mt-8 sm:hidden">
+              <Button asChild variant="outline">
+                  <Link href="/products">View All Products</Link>
+              </Button>
+            </div>
+        </div>
+      </motion.section>
+
       {/* Hero Section */}
        <motion.section
         className="relative w-full h-screen min-h-[700px] flex items-center justify-center"
@@ -107,53 +154,6 @@ export default function Home() {
               </Button>
             </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Featured Products Section */}
-      <motion.section 
-        className="py-16 lg:py-24 bg-background"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={staggerContainer()}
-      >
-        <div className="container">
-          <motion.div variants={fadeIn('up')} className="flex flex-col sm:flex-row justify-between items-baseline mb-12">
-            <div className="text-center sm:text-left">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Featured Products</h2>
-              <p className="mt-2 text-muted-foreground">Top-rated and bestselling items from our catalog.</p>
-            </div>
-            <Button asChild variant="link" className="text-primary hidden sm:flex text-base hover:text-accent mt-4 sm:mt-0">
-              <Link href="/products">View All Products <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
-          </motion.div>
-
-          <motion.div variants={fadeIn('up', 0.2)}>
-            <Carousel
-              plugins={[featuredProductsPlugin.current]}
-              className="w-full"
-              onMouseEnter={featuredProductsPlugin.current.stop}
-              onMouseLeave={featuredProductsPlugin.current.reset}
-              opts={{
-                loop: true,
-                align: 'start',
-              }}
-            >
-              <CarouselContent className="-ml-4">
-                {products.slice(0, 8).map((product, index) => (
-                  <CarouselItem key={index} className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                    <ProductCard product={product} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </motion.div>
-           <div className="text-center mt-8 sm:hidden">
-              <Button asChild variant="outline">
-                  <Link href="/products">View All Products</Link>
-              </Button>
-            </div>
         </div>
       </motion.section>
       
