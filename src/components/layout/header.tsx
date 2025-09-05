@@ -85,18 +85,23 @@ export default function Header() {
           <div className="flex w-1/3 justify-center items-center">
             <Link href="/" className="flex items-center group">
               <motion.div 
-                className="p-1.5 rounded-full bg-white/50 shadow-lg group-hover:shadow-xl border-2 border-white/80"
+                className="p-1 rounded-full bg-gradient-to-tr from-orange-400 via-blue-500 to-teal-400 shadow-lg group-hover:shadow-2xl transition-shadow duration-500"
                 whileHover={{ scale: 1.05 }}
-                animate={{ scale: [1, 1.03, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ 
+                  scale: [1, 1.03, 1],
+                  rotate: [0, 1, -1, 0]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Image
-                  src="/logo.png"
-                  alt="SAA Scrubs Logo"
-                  width={110}
-                  height={110}
-                  className="h-24 w-24 object-contain"
-                />
+                 <div className="bg-white/80 p-1.5 rounded-full">
+                    <Image
+                      src="/logo.png"
+                      alt="SAA Scrubs Logo"
+                      width={120}
+                      height={120}
+                      className="h-28 w-28 object-contain"
+                    />
+                 </div>
               </motion.div>
             </Link>
           </div>
