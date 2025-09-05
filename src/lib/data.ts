@@ -1,5 +1,5 @@
 
-import type { Product, Category, Order } from '@/lib/types';
+import type { Product, Category } from '@/lib/types';
 
 export const categories: Category[] = [
   { name: 'Unisex Palm', slug: 'unisex-palm', image: '/PalmHeader.png', dataAiHint: 'palm surgicals Products' },
@@ -430,7 +430,3 @@ export const products: Product[] = [
     reviews: 220,
   },
 ];
-
-export const orders: Order[] = [];
-
-    

@@ -2,16 +2,16 @@
 'use client';
 
 import Link from 'next/link';
-import { orders } from '@/lib/data';
+import { useOrders } from '@/hooks/use-orders';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import { ArrowRight, ShoppingBag, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 export default function OrdersPage() {
+  const { orders } = useOrders();
 
   if (orders.length === 0) {
     return (
@@ -26,6 +26,9 @@ export default function OrdersPage() {
     )
   }
 
+  // Sort orders from most recent to oldest
+  const sortedOrders = [...orders].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
   return (
     <div className="bg-muted/30">
         <div className="container py-12 md:py-16">
@@ -37,17 +40,17 @@ export default function OrdersPage() {
         </div>
 
         <div className="space-y-8">
-            {orders.map(order => (
+            {sortedOrders.map(order => (
             <Card key={order.id} className="overflow-hidden shadow-lg hover:shadow-primary/10 transition-shadow duration-300">
                 <CardHeader className="bg-muted/50 p-4 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm w-full'>
                         <div>
                             <p className="text-muted-foreground font-semibold">ORDER ID</p>
-                            <p className="font-mono text-primary">{order.id}</p>
+                            <p className="font-mono text-primary">#{order.id.slice(0,6)}</p>
                         </div>
                         <div>
                             <p className="text-muted-foreground font-semibold">DATE PLACED</p>
-                            <p>{order.date}</p>
+                            <p>{new Date(order.date).toLocaleDateString()}</p>
                         </div>
                         <div>
                             <p className="text-muted-foreground font-semibold">TOTAL AMOUNT</p>
@@ -71,21 +74,21 @@ export default function OrdersPage() {
                 <CardContent className="p-4 md:p-6">
                     <div className="space-y-4">
                     {order.items.map(item => (
-                        <div key={item.product.id} className="flex items-center gap-4">
+                        <div key={item.id} className="flex items-center gap-4">
                             <div className="relative w-20 h-20 rounded-md overflow-hidden bg-muted">
                                 <Image 
-                                    src={item.product.image} 
-                                    alt={item.product.name} 
+                                    src={item.image} 
+                                    alt={item.name} 
                                     fill 
                                     className="object-contain"
                                     sizes="80px"
                                 />
                             </div>
                             <div>
-                                <p className="font-semibold">{item.product.name}</p>
+                                <p className="font-semibold">{item.name}</p>
                                 <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
                             </div>
-                            <p className="ml-auto font-medium">${(item.product.price * item.quantity).toFixed(2)}</p>
+                            <p className="ml-auto font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                     ))}
                     </div>

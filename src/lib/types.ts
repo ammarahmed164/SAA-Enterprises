@@ -1,3 +1,4 @@
+
 export type Product = {
   id: string;
   name: string;
@@ -24,10 +25,7 @@ export type Order = {
   date: string;
   status: 'Pending' | 'Shipped' | 'Delivered';
   total: number;
-  items: {
-    product: Product;
-    quantity: number;
-  }[];
+  items: CartItem[];
 };
 
 export type CartItem = {
