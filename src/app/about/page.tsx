@@ -64,7 +64,7 @@ export default function AboutPage() {
   return (
     <div className="bg-background text-foreground">
       <motion.section 
-        className="bg-gradient-to-br from-gray-100 to-blue-50 py-20 md:py-28"
+        className="bg-[#dbeafe] py-20 md:py-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
