@@ -23,7 +23,7 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-accent/90 text-accent-foreground border-t border-accent/20">
       <div className="container py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-12">
           {/* Brand & Socials */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export default function Footer() {
           </div>
 
           {/* Our Commitment & Payments */}
-          <div className="lg:col-span-5 grid grid-cols-1 gap-8">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
              <div className="space-y-4">
               <h4 className="font-semibold text-white tracking-wider uppercase flex items-center gap-2"><Award className="h-5 w-5 text-accent"/> Our Commitment</h4>
               <p className="text-sm text-muted-foreground">
@@ -65,23 +65,6 @@ export default function Footer() {
             </div>
           </div>
           
-          {/* Newsletter */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-semibold text-white tracking-wider uppercase">Stay Updated</h4>
-            <p className="text-sm text-muted-foreground">Subscribe for the latest deals and product announcements.</p>
-            <form action="#" className="flex w-full max-w-sm items-center space-x-2">
-              <Input 
-                type="email" 
-                placeholder="your.email@example.com" 
-                className="bg-white/5 border-white/20 text-white placeholder:text-muted-foreground focus:ring-accent focus:border-accent"
-                required
-              />
-              <Button type="submit" size="icon" className="bg-accent hover:bg-accent/90 text-white flex-shrink-0">
-                <Send className="h-4 w-4" />
-                <span className="sr-only">Subscribe</span>
-              </Button>
-            </form>
-          </div>
         </div>
       </div>
       <div className="bg-black/30 py-6">
