@@ -24,7 +24,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -51,13 +51,9 @@ export default function Chatbot() {
   };
   
   useEffect(() => {
-    // This is a workaround to make scroll area scroll to bottom.
-    setTimeout(() => {
-      const scrollableViewport = scrollAreaRef.current?.querySelector('[data-radix-scroll-area-viewport]');
-      if (scrollableViewport) {
-        scrollableViewport.scrollTo({ top: scrollableViewport.scrollHeight, behavior: 'smooth' });
-      }
-    }, 100);
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTo({ top: scrollViewportRef.current.scrollHeight, behavior: 'smooth' });
+    }
   }, [messages]);
 
   return (
@@ -83,8 +79,8 @@ export default function Chatbot() {
                   <X className="h-4 w-4" />
                 </Button>
               </CardHeader>
-              <CardContent className="flex-grow p-0">
-                <ScrollArea className="h-full" ref={scrollAreaRef}>
+              <CardContent className="flex-grow p-0 overflow-hidden">
+                <ScrollArea className="h-full" viewportRef={scrollViewportRef}>
                   <div className="space-y-4 p-4">
                     {messages.map((message) => (
                       <div key={message.id} className={`flex items-end gap-2 ${message.sender === 'user' ? 'justify-end' : ''}`}>
