@@ -69,9 +69,8 @@ export default function Home() {
             <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
               <motion.div 
                 className="relative w-full h-full"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
+                animate={{ y: ["0%", "-3%", "0%"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
                 <Image
                   src={products[0].image}
@@ -80,6 +79,7 @@ export default function Home() {
                   height={500}
                   className="object-contain drop-shadow-2xl w-full h-full"
                   data-ai-hint={products[0].dataAiHint}
+                  priority
                 />
               </motion.div>
             </motion.div>
