@@ -18,8 +18,6 @@ type OrdersContextType = {
 
 const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
 
-// All orders will be stored under a single key, but as an object
-// where each property is a user ID.
 const ORDERS_DB_KEY = 'userOrdersDatabase';
 
 type OrdersDatabase = {
@@ -48,19 +46,17 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
 
-  // Load orders for the logged-in user
   useEffect(() => {
     if (user) {
       const db = getOrdersDatabase();
       setOrders(db[user.id] || []);
     } else {
-      // If no user, clear the orders from state
       setOrders([]);
     }
   }, [user]);
 
   const addOrder = useCallback((payload: NewOrderPayload) => {
-    if (!user) return; // Can't add an order without a logged-in user
+    if (!user) return;
 
     const newOrder: Order = {
       id: new Date().getTime().toString(),
@@ -82,8 +78,10 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
   const clearOrders = useCallback(() => {
     if (!user) return;
     const db = getOrdersDatabase();
-    delete db[user.id];
-    saveOrdersDatabase(db);
+    if (db[user.id]) {
+      delete db[user.id];
+      saveOrdersDatabase(db);
+    }
     setOrders([]);
   }, [user]);
 
