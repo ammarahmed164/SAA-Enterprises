@@ -25,12 +25,12 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900 text-gray-300 relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-[#1a1a1a] via-[#2c2c2c] to-[#1a1a1a] text-gray-300 relative overflow-hidden">
       {/* Aurora Background Effect */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+      <div className="absolute inset-0 z-0 opacity-20">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/40 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/40 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
       </div>
       
       {/* Wavy Top Separator */}
@@ -60,7 +60,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="group relative"
                     >
-                      <div className="absolute -inset-1.5 bg-gradient-to-r from-primary to-accent rounded-full blur-md opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                      <div className="absolute -inset-1.5 bg-gradient-to-r from-orange-600 to-accent rounded-full blur-md opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                       <Button asChild variant="outline" size="icon" className="relative bg-gray-800/80 border-white/20 text-white hover:bg-gray-700/80 hover:text-white rounded-full transition-all duration-300 transform hover:scale-110">
                           <div>
                               <social.icon className="h-5 w-5" />
@@ -78,7 +78,7 @@ export default function Footer() {
             <ul className="space-y-3">
                 {mainLinks.map(link => (
                     <li key={link.name}>
-                        <Link href={link.href} className="text-gray-400 text-sm hover:text-white transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full">
+                        <Link href={link.href} className="text-gray-400 text-sm hover:text-white transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-orange-500 after:bottom-0 after:left-0 after:transition-all after:duration-300 hover:after:w-full">
                             {link.name}
                         </Link>
                     </li>
@@ -110,7 +110,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-black/30 py-4 relative z-20">
-        <div className="container text-center text-sm text-gray-500">
+        <div className="container text-center">
           <span className="font-semibold tracking-wider text-gray-400">&copy; {new Date().getFullYear()} SAA Enterprises. All Rights Reserved.</span>
         </div>
       </div>
