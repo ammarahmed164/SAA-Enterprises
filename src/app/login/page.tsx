@@ -8,8 +8,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import { KeyRound, Mail } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
+import { useState, FormEvent } from 'react';
 
 export default function LoginPage() {
+  const { login } = useAuth();
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+    login({ email }); // Mock login
+    router.push('/checkout');
+  };
+
   return (
     <div className="flex min-h-[calc(100vh-200px)] items-center justify-center bg-gradient-to-br from-blue-100 via-orange-50 to-white p-4">
       <motion.div
@@ -29,30 +42,40 @@ export default function LoginPage() {
             <CardTitle className="text-3xl font-extrabold mt-4">Welcome Back!</CardTitle>
             <CardDescription>Sign in to access your account</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input id="email" type="email" placeholder="Email" className="pl-10" />
-            </div>
-            <div className="relative">
-              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input id="password" type="password" placeholder="Password" className="pl-10" />
-            </div>
-            <div className="flex items-center justify-end">
-                <Link href="#" className="text-sm text-primary hover:underline">
-                    Forgot your password?
+          <form onSubmit={handleLogin}>
+            <CardContent className="space-y-6">
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="Email" 
+                  className="pl-10" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </div>
+              <div className="relative">
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input id="password" type="password" placeholder="Password" className="pl-10" required />
+              </div>
+              <div className="flex items-center justify-end">
+                  <Link href="#" className="text-sm text-primary hover:underline">
+                      Forgot your password?
+                  </Link>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button type="submit" className="w-full text-lg font-bold py-6">Login</Button>
+              <div className="text-center text-sm text-muted-foreground">
+                Don&apos;t have an account?{' '}
+                <Link href="/signup" className="font-semibold text-primary hover:underline">
+                  Sign up
                 </Link>
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full text-lg font-bold py-6">Login</Button>
-            <div className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{' '}
-              <Link href="/signup" className="font-semibold text-primary hover:underline">
-                Sign up
-              </Link>
-            </div>
-          </CardFooter>
+              </div>
+            </CardFooter>
+          </form>
         </Card>
       </motion.div>
     </div>

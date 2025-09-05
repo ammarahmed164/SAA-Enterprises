@@ -8,8 +8,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import { UserPlus, Mail, KeyRound } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
+import { useState, FormEvent } from 'react';
 
 export default function SignupPage() {
+  const { login } = useAuth();
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+
+  const handleSignup = (e: FormEvent) => {
+    e.preventDefault();
+    login({ email }); // Mock signup and login
+    router.push('/checkout');
+  };
+
   return (
     <div className="flex min-h-[calc(100vh-200px)] items-center justify-center bg-gradient-to-br from-orange-100 via-blue-50 to-white p-4">
       <motion.div
@@ -29,33 +42,43 @@ export default function SignupPage() {
             <CardTitle className="text-3xl font-extrabold mt-4">Create an Account</CardTitle>
             <CardDescription>Join us and start shopping!</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="relative">
-                <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="name" placeholder="Full Name" className="pl-10"/>
-            </div>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input id="email" type="email" placeholder="Email" className="pl-10" />
-            </div>
-            <div className="relative">
-              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input id="password" type="password" placeholder="Password" className="pl-10" />
-            </div>
-             <div className="relative">
-              <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input id="confirm-password" type="password" placeholder="Confirm Password" className="pl-10" />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full text-lg font-bold py-6">Create Account</Button>
-            <div className="text-center text-sm text-muted-foreground">
-              Already have an account?{' '}
-              <Link href="/login" className="font-semibold text-primary hover:underline">
-                Login
-              </Link>
-            </div>
-          </CardFooter>
+          <form onSubmit={handleSignup}>
+            <CardContent className="space-y-6">
+              <div className="relative">
+                  <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input id="name" placeholder="Full Name" className="pl-10" required/>
+              </div>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="Email" 
+                  className="pl-10" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </div>
+              <div className="relative">
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input id="password" type="password" placeholder="Password" className="pl-10" required />
+              </div>
+              <div className="relative">
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input id="confirm-password" type="password" placeholder="Confirm Password" className="pl-10" required/>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button type="submit" className="w-full text-lg font-bold py-6">Create Account</Button>
+              <div className="text-center text-sm text-muted-foreground">
+                Already have an account?{' '}
+                <Link href="/login" className="font-semibold text-primary hover:underline">
+                  Login
+                </Link>
+              </div>
+            </CardFooter>
+          </form>
         </Card>
       </motion.div>
     </div>

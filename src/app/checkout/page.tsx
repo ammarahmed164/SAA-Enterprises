@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useCart } from "@/hooks/use-cart";
@@ -8,10 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
-import { CreditCard, Lock } from "lucide-react";
+import { CreditCard, Lock, AlertTriangle } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function CheckoutPage() {
   const { items, cartTotal, cartCount } = useCart();
+  const { user } = useAuth();
 
   if (cartCount === 0) {
     return (
@@ -37,7 +40,7 @@ export default function CheckoutPage() {
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2 space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="you@example.com" />
+                <Input id="email" type="email" placeholder="you@example.com" defaultValue={user?.email} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="first-name">First Name</Label>
@@ -125,10 +128,26 @@ export default function CheckoutPage() {
                         <span>${(cartTotal + 5).toFixed(2)}</span>
                       </div>
                     </div>
-                    <Button size="lg" className="w-full mt-6">
-                        <Lock className="mr-2 h-4 w-4" />
-                        Pay ${(cartTotal + 5).toFixed(2)}
-                    </Button>
+                    
+                    {!user ? (
+                        <div className="mt-6 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 text-sm">
+                            <div className="flex items-start gap-3">
+                                <AlertTriangle className="h-5 w-5 mt-0.5" />
+                                <div>
+                                    <p className="font-semibold">Please log in to complete your purchase.</p>
+                                    <p className="mt-1">You must have an account to place an order.</p>
+                                    <Button asChild size="sm" className="mt-3">
+                                        <Link href="/login">Login or Create Account</Link>
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <Button size="lg" className="w-full mt-6" disabled={!user}>
+                            <Lock className="mr-2 h-4 w-4" />
+                            Pay ${(cartTotal + 5).toFixed(2)}
+                        </Button>
+                    )}
                 </CardContent>
             </Card>
         </div>
