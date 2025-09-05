@@ -275,7 +275,7 @@ export default function Home() {
 
       {/* Why Choose Us Section */}
       <motion.section 
-        className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-orange-50"
+        className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-orange-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
