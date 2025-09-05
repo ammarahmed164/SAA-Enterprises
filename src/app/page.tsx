@@ -57,6 +57,70 @@ export default function Home() {
   return (
     <div className="flex flex-col overflow-hidden bg-background text-foreground">
 
+       {/* New Hero Section */}
+      <motion.section
+        className="w-full bg-slate-50"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer()}
+      >
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] items-center">
+            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh]">
+               <Image
+                src="https://picsum.photos/800/1000"
+                alt="Featured Product Background"
+                fill
+                className="object-cover rounded-lg"
+                data-ai-hint="dramatic landscape"
+              />
+              <motion.div 
+                className="absolute inset-0 flex items-center justify-center p-8"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
+              >
+                <Image
+                  src={products[0].image}
+                  alt={products[0].name}
+                  width={500}
+                  height={500}
+                  className="object-contain drop-shadow-2xl"
+                  data-ai-hint={products[0].dataAiHint}
+                />
+              </motion.div>
+            </motion.div>
+            <motion.div variants={fadeIn('left', 0.2)} className="p-8 md:p-16 text-center md:text-left">
+              <motion.p variants={fadeIn('down', 0.4)} className="text-sm uppercase tracking-widest text-muted-foreground font-semibold mb-4">
+                Signature SAA Collection
+              </motion.p>
+              <motion.h1 
+                variants={fadeIn('down', 0.6)}
+                className="text-4xl md:text-6xl font-bold tracking-tight text-primary leading-tight"
+              >
+                Comfort. Quality. Ready for Anything.
+              </motion.h1>
+              <motion.p 
+                variants={fadeIn('up', 0.8)}
+                className="mt-6 text-muted-foreground text-lg max-w-md mx-auto md:mx-0"
+              >
+                Our signature scrubs are crafted for healthcare professionals who value strength and sophistication. Engineered for performance, this is more than a uniform—it’s a statement.
+              </motion.p>
+              <motion.div 
+                variants={fadeIn('up', 1)}
+                className="mt-8"
+              >
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105 group text-base px-8 py-6 shadow-lg">
+                  <Link href="/products">
+                    Shop The Collection <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Featured Products Section */}
       <motion.section 
         className="py-16 lg:py-24 bg-gradient-to-b from-blue-50 to-orange-50"
