@@ -1,4 +1,6 @@
 
+import type { Timestamp } from "firebase/firestore";
+
 export type Product = {
   id: string;
   name: string;
@@ -21,11 +23,17 @@ export type Category = {
 };
 
 export type Order = {
-  id: string;
-  date: string;
+  id: string; // Document ID from Firestore
+  userId: string;
+  userName?: string;
+  userEmail: string;
+  date: string; // Should be ISO string
+  createdAt: Timestamp;
   status: 'Pending' | 'Shipped' | 'Delivered';
   total: number;
+  totalAmount: number;
   items: CartItem[];
+  orderItems: CartItem[];
 };
 
 export type CartItem = {
@@ -37,11 +45,12 @@ export type CartItem = {
 };
 
 export type User = {
-  id: string;
-  name: string;
+  id: string; // Firebase UID
+  name?: string;
   email: string;
 };
 
+// This type is for the signup form data
 export type StoredUser = {
   id: string;
   name: string;

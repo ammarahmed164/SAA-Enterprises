@@ -6,12 +6,27 @@ import { useOrders } from '@/hooks/use-orders';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, ShoppingBag, Truck } from 'lucide-react';
+import { ArrowRight, ShoppingBag, Truck, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function OrdersPage() {
-  const { orders } = useOrders();
+  const { orders, loading: ordersLoading } = useOrders();
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+        router.push('/login');
+    }
+  }, [authLoading, user, router]);
+
+  if (authLoading || ordersLoading) {
+    return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
+  }
 
   if (orders.length === 0) {
     return (
@@ -26,9 +41,6 @@ export default function OrdersPage() {
     )
   }
 
-  // Sort orders from most recent to oldest
-  const sortedOrders = [...orders].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
   return (
     <div className="bg-muted/30">
         <div className="container py-12 md:py-16">
@@ -40,7 +52,7 @@ export default function OrdersPage() {
         </div>
 
         <div className="space-y-8">
-            {sortedOrders.map(order => (
+            {orders.map(order => (
             <Card key={order.id} className="overflow-hidden shadow-lg hover:shadow-primary/10 transition-shadow duration-300">
                 <CardHeader className="bg-muted/50 p-4 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-sm w-full'>
@@ -54,7 +66,7 @@ export default function OrdersPage() {
                         </div>
                         <div>
                             <p className="text-muted-foreground font-semibold">TOTAL AMOUNT</p>
-                            <p className="font-bold">${order.total.toFixed(2)}</p>
+                            <p className="font-bold">${order.totalAmount.toFixed(2)}</p>
                         </div>
                         <div>
                             <p className="text-muted-foreground font-semibold">STATUS</p>
@@ -73,7 +85,7 @@ export default function OrdersPage() {
                 </CardHeader>
                 <CardContent className="p-4 md:p-6">
                     <div className="space-y-4">
-                    {order.items.slice(0, 2).map(item => (
+                    {order.orderItems.slice(0, 2).map(item => (
                         <div key={item.id} className="flex items-center gap-4">
                             <div className="relative w-20 h-20 rounded-md overflow-hidden bg-muted">
                                 <Image 
@@ -91,8 +103,8 @@ export default function OrdersPage() {
                             <p className="ml-auto font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                     ))}
-                    {order.items.length > 2 && (
-                      <p className="text-sm text-muted-foreground text-center pt-2">...and {order.items.length - 2} more items</p>
+                    {order.orderItems.length > 2 && (
+                      <p className="text-sm text-muted-foreground text-center pt-2">...and {order.orderItems.length - 2} more items</p>
                     )}
                     </div>
                 </CardContent>

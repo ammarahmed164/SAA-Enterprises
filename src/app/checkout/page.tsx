@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
-import { CreditCard, Lock, AlertTriangle } from "lucide-react";
+import { CreditCard, Lock, AlertTriangle, Loader2 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,15 +35,15 @@ type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 export default function CheckoutPage() {
   const { items, cartTotal, cartCount, clearCart } = useCart();
   const { addOrder } = useOrders();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       email: user?.email || '',
-      firstName: '',
-      lastName: '',
+      firstName: user?.name?.split(' ')[0] || '',
+      lastName: user?.name?.split(' ')[1] || '',
       address: '',
       city: '',
       zip: '',
@@ -54,7 +54,16 @@ export default function CheckoutPage() {
     mode: 'onChange', // Validate on change to enable button as user types
   });
 
-  const { formState } = form;
+  const { formState: { isValid, isSubmitting } } = form;
+
+  if (authLoading) {
+     return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
+  }
+
+  if (!authLoading && !user) {
+     router.push('/login');
+     return null;
+  }
 
   if (cartCount === 0) {
     return (
@@ -68,13 +77,18 @@ export default function CheckoutPage() {
     );
   }
 
-  const onSubmit = (data: CheckoutFormValues) => {
-    addOrder({
-      items: items,
-      total: cartTotal + 5,
-    });
-    clearCart();
-    router.push('/thank-you');
+  const onSubmit = async (data: CheckoutFormValues) => {
+    try {
+        await addOrder({
+            items: items,
+            total: cartTotal + 5,
+        });
+        clearCart();
+        router.push('/thank-you');
+    } catch (error) {
+        console.error("Failed to place order:", error);
+        // Optionally, show a toast notification for the error
+    }
   };
 
   return (
@@ -278,25 +292,14 @@ export default function CheckoutPage() {
                         </div>
                       </div>
                       
-                      {!user ? (
-                          <div className="mt-6 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 text-sm">
-                              <div className="flex items-start gap-3">
-                                  <AlertTriangle className="h-5 w-5 mt-0.5" />
-                                  <div>
-                                      <p className="font-semibold">Please log in to complete your purchase.</p>
-                                      <p className="mt-1">You must have an account to place an order.</p>
-                                      <Button asChild size="sm" className="mt-3">
-                                          <Link href="/login">Login or Create Account</Link>
-                                      </Button>
-                                  </div>
-                              </div>
-                          </div>
-                      ) : (
-                          <Button type="submit" size="lg" className="w-full mt-6" disabled={!user || !formState.isValid}>
-                              <Lock className="mr-2 h-4 w-4" />
-                              Pay ${(cartTotal + 5).toFixed(2)}
-                          </Button>
-                      )}
+                      <Button type="submit" size="lg" className="w-full mt-6" disabled={!isValid || isSubmitting}>
+                        {isSubmitting ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <Lock className="mr-2 h-4 w-4" />
+                        )}
+                        {isSubmitting ? 'Placing Order...' : `Pay ${(cartTotal + 5).toFixed(2)}`}
+                      </Button>
                   </CardContent>
               </Card>
           </div>

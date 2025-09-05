@@ -1,29 +1,46 @@
 
 'use client';
 
-import { useParams, notFound } from 'next/navigation';
+import { useParams, notFound, useRouter } from 'next/navigation';
 import { useOrders } from '@/hooks/use-orders';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, FileText, Truck, Package, CreditCard } from 'lucide-react';
+import { ArrowLeft, FileText, Truck, Package, CreditCard, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function OrderDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { id } = params;
-  const { orders } = useOrders();
+  const { orders, loading: ordersLoading } = useOrders();
+  const { user, loading: authLoading } = useAuth();
 
   const order = orders.find(o => o.id === id);
 
-  if (!order) {
+  useEffect(() => {
+    if (!authLoading && !user) {
+        router.push('/login');
+    }
+  }, [authLoading, user, router]);
+
+  if (ordersLoading || authLoading) {
+    return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
+  }
+  
+  if (!order && !ordersLoading) {
     notFound();
   }
+  
+  if (!order) {
+    return null;
+  }
 
-  const subtotal = order.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const subtotal = order.orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = 5.00; // Assuming a fixed shipping cost
 
   return (
@@ -63,7 +80,7 @@ export default function OrderDetailPage() {
               <div className="space-y-6">
                 <h2 className="text-lg font-semibold flex items-center gap-2"><Package className="h-5 w-5 text-primary" /> Items Ordered</h2>
                 <div className="space-y-4">
-                  {order.items.map(item => (
+                  {order.orderItems.map(item => (
                     <div key={item.id} className="flex items-center gap-4">
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-white border">
                         <Image
@@ -104,7 +121,7 @@ export default function OrderDetailPage() {
                          <Separator className="my-2" />
                         <div className="flex justify-between font-bold text-lg">
                             <span>Total</span>
-                            <span>${order.total.toFixed(2)}</span>
+                            <span>${order.totalAmount.toFixed(2)}</span>
                         </div>
                     </CardContent>
                    </Card>

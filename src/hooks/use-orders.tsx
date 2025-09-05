@@ -4,6 +4,8 @@
 import { createContext, useContext, useState, useMemo, useEffect, type ReactNode, useCallback } from 'react';
 import type { Order, CartItem } from '@/lib/types';
 import { useAuth } from './use-auth';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, query, where, onSnapshot, serverTimestamp, orderBy } from 'firebase/firestore';
 
 type NewOrderPayload = {
   items: CartItem[];
@@ -12,80 +14,62 @@ type NewOrderPayload = {
 
 type OrdersContextType = {
   orders: Order[];
-  addOrder: (payload: NewOrderPayload) => void;
-  clearOrders: () => void;
+  loading: boolean;
+  addOrder: (payload: NewOrderPayload) => Promise<void>;
 };
 
 const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
 
-const ORDERS_DB_KEY = 'userOrdersDatabase';
-
-type OrdersDatabase = {
-  [userId: string]: Order[];
-}
-
-const getOrdersDatabase = (): OrdersDatabase => {
-    try {
-        const db = localStorage.getItem(ORDERS_DB_KEY);
-        return db ? JSON.parse(db) : {};
-    } catch (error) {
-        console.error("Failed to parse orders database from localStorage", error);
-        return {};
-    }
-}
-
-const saveOrdersDatabase = (db: OrdersDatabase) => {
-    try {
-        localStorage.setItem(ORDERS_DB_KEY, JSON.stringify(db));
-    } catch (error) {
-        console.error("Failed to save orders database to localStorage", error);
-    }
-}
-
 export function OrdersProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      const db = getOrdersDatabase();
-      setOrders(db[user.id] || []);
+    if (user?.id) {
+      setLoading(true);
+      const ordersRef = collection(db, "orders");
+      const q = query(ordersRef, where("userId", "==", user.id), orderBy("createdAt", "desc"));
+      
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const userOrders: Order[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          userOrders.push({
+            id: doc.id,
+            ...data,
+            date: data.createdAt?.toDate().toISOString() || new Date().toISOString(),
+          } as Order);
+        });
+        setOrders(userOrders);
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
     } else {
       setOrders([]);
+      setLoading(false);
     }
   }, [user]);
 
-  const addOrder = useCallback((payload: NewOrderPayload) => {
-    if (!user) return;
+  const addOrder = useCallback(async (payload: NewOrderPayload) => {
+    if (!user) throw new Error("User must be logged in to place an order.");
 
-    const newOrder: Order = {
-      id: new Date().getTime().toString(),
-      date: new Date().toISOString(),
+    const newOrder = {
+      userId: user.id,
+      userName: user.name,
+      userEmail: user.email,
+      orderItems: payload.items,
+      totalAmount: payload.total,
       status: 'Pending',
-      total: payload.total,
-      items: payload.items,
+      createdAt: serverTimestamp(),
     };
     
-    const db = getOrdersDatabase();
-    const userOrders = db[user.id] || [];
-    const updatedUserOrders = [...userOrders, newOrder];
-    
-    const updatedDb = { ...db, [user.id]: updatedUserOrders };
-    saveOrdersDatabase(updatedDb);
-    setOrders(updatedUserOrders);
+    await addDoc(collection(db, 'orders'), newOrder);
+
   }, [user]);
   
-  const clearOrders = useCallback(() => {
-    if (!user) return;
-    const db = getOrdersDatabase();
-    if (db[user.id]) {
-      delete db[user.id];
-      saveOrdersDatabase(db);
-    }
-    setOrders([]);
-  }, [user]);
-
-  const value = useMemo(() => ({ orders, addOrder, clearOrders }), [orders, addOrder, clearOrders]);
+  const value = useMemo(() => ({ orders, loading, addOrder }), [orders, loading, addOrder]);
 
   return <OrdersContext.Provider value={value}>{children}</OrdersContext.Provider>;
 }
