@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { categories } from '@/lib/data';
-import { Github, Twitter, Linkedin, Send } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Send } from 'lucide-react';
 import Image from "next/image";
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'GitHub', icon: Github, href: '#' },
+    { name: 'Facebook', icon: Facebook, href: '#' },
+    { name: 'Instagram', icon: Instagram, href: '#' },
+    { name: 'X', icon: Twitter, href: '#' },
   ];
 
   return (
