@@ -8,8 +8,8 @@ import Image from "next/image";
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/ClassicSurgical' },
+    { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/saaenterprises/' },
     { name: 'X', icon: Twitter, href: '#' },
   ];
 
@@ -28,9 +28,11 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
                 {socialLinks.map((social) => (
-                    <Button key={social.name} variant="outline" size="icon" className="bg-white/5 border-white/10 text-white hover:bg-white/20 hover:text-white rounded-full">
-                        <social.icon className="h-5 w-5" />
-                        <span className="sr-only">{social.name}</span>
+                    <Button key={social.name} asChild variant="outline" size="icon" className="bg-white/5 border-white/10 text-white hover:bg-white/20 hover:text-white rounded-full">
+                        <a href={social.href} target="_blank" rel="noopener noreferrer">
+                            <social.icon className="h-5 w-5" />
+                            <span className="sr-only">{social.name}</span>
+                        </a>
                     </Button>
                 ))}
             </div>
