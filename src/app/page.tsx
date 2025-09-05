@@ -93,7 +93,7 @@ export default function Home() {
               </motion.div>
             </motion.div>
             <motion.div variants={fadeIn('left', 0.2)} className="p-8 md:p-16 text-center md:text-left">
-              <motion.p variants={fadeIn('down', 0.4)} className="text-sm uppercase tracking-widest text-muted-foreground font-semibold mb-4">
+              <motion.p variants={fadeIn('down', 0.4)} className="text-sm uppercase tracking-widest font-semibold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Signature SAA Collection
               </motion.p>
               <motion.h1 
