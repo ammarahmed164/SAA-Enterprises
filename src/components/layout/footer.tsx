@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { categories } from '@/lib/data';
-import { Facebook, Instagram, Twitter, Send } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Send } from 'lucide-react';
 import Image from "next/image";
 
 export default function Footer() {
   const socialLinks = [
     { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/ClassicSurgical' },
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/saaenterprises/' },
-    { name: 'X', icon: Twitter, href: '#' },
+    { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@SAA.Enterprises' },
   ];
 
   return (

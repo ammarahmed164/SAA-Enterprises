@@ -38,9 +38,9 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 });
 
 const contactInfo = [
-    { icon: Mail, label: 'Email Us', value: 'info@saa-scrubs.com', href: 'mailto:info@saa-scrubs.com' },
-    { icon: Phone, label: 'Call Us', value: '+92 314 2949734', href: 'tel:+923142949734' },
-    { icon: MapPin, label: 'Our Address', value: 'Shop No# 4, Plot SB-2/65, Al Maskan Building, Near CIA Flats, Lucky Star Saddar Karachi' },
+  { icon: Mail, label: 'Email Us', value: 'info@saa-scrubs.com', href: 'mailto:info@saa-scrubs.com' },
+  { icon: Phone, label: 'Call Us', value: '+92 314 2949734', href: 'tel:+923142949734' },
+  { icon: MapPin, label: 'Our Address', value: 'Shop No# 4, Plot SB-2/65, Al Maskan Building, Near CIA Flats, Lucky Star Saddar Karachi' },
 ];
 
 export default function ContactPage() {
@@ -64,15 +64,13 @@ export default function ContactPage() {
     setLoading(true);
 
     emailjs.send(
-      "service_vl3l8nt",   // 👈 apna service ID yahan
-      "template_8xecn28",  // 👈 apna template ID yahan
+      "service_mqd1ywc",   // 👈 service ID  
+      "template_7dojjxq",  // 👈 template ID 
       {
-        from_name: `${form.firstName} ${form.lastName}`,
-        reply_to: form.email,
-        subject: form.subject,
-        message: form.message,
+        email: form.email,       // 👈 template ka variable
+        message: form.message,   // 👈 template ka variable
       },
-      "CN8D3eAdkkGF-aTFo"    // 👈 apna public key yahan
+      "-46k9s2mWIu3yffC9"    // 👈 public key 
     )
     .then(() => {
       setLoading(false);
