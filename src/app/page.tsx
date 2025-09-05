@@ -44,7 +44,7 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 
 export default function Home() {
   const featuredProductsPlugin = React.useRef(
-      Autoplay({ delay: 4000, stopOnInteraction: true })
+      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
   )
 
   const whyChooseUsItems = [
@@ -59,7 +59,7 @@ export default function Home() {
 
       {/* Featured Products Section */}
       <motion.section 
-        className="py-16 lg:py-24 bg-background"
+        className="py-16 lg:py-24 bg-gradient-to-b from-blue-50 to-orange-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -80,8 +80,6 @@ export default function Home() {
             <Carousel
               plugins={[featuredProductsPlugin.current]}
               className="w-full"
-              onMouseEnter={featuredProductsPlugin.current.stop}
-              onMouseLeave={featuredProductsPlugin.current.reset}
               opts={{
                 loop: true,
                 align: 'start',

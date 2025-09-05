@@ -31,11 +31,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <motion.div
-      whileHover={{ y: -8, scale: 1.03 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      whileHover={{ y: -10, scale: 1.05 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
       className="h-full"
     >
-      <Card className="flex flex-col h-full overflow-hidden transition-shadow duration-300 shadow-md hover:shadow-xl group">
+      <Card className="flex flex-col h-full overflow-hidden transition-shadow duration-300 shadow-md hover:shadow-2xl hover:shadow-primary/20 group">
         <CardHeader className="p-0 border-b">
           <Link href={`/products/${product.id}`} className="block bg-muted/30">
             <div className="aspect-square relative overflow-hidden p-4">
