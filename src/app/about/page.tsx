@@ -70,7 +70,7 @@ export default function AboutPage() {
       >
         <div className="absolute inset-0 bg-black/30 z-10"></div>
         <Image
-            src="/PalmHeader.png"
+            src="https://picsum.photos/1920/1080"
             alt="About SAA Scrubs"
             fill
             className="object-cover"
