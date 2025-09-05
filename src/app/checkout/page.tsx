@@ -11,10 +11,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { CreditCard, Lock, AlertTriangle } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+const checkoutSchema = z.object({
+  email: z.string().email({ message: "Invalid email address." }),
+  firstName: z.string().min(1, { message: "First name is required." }),
+  lastName: z.string().min(1, { message: "Last name is required." }),
+  address: z.string().min(1, { message: "Address is required." }),
+  city: z.string().min(1, { message: "City is required." }),
+  zip: z.string().min(1, { message: "ZIP code is required." }),
+  cardNumber: z.string().min(16, { message: "Card number must be 16 digits." }).max(16),
+  expiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, { message: "Invalid expiry date (MM/YY)." }),
+  cvc: z.string().min(3, { message: "CVC must be 3 digits." }).max(4),
+});
+
+type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
   const { items, cartTotal, cartCount } = useCart();
   const { user } = useAuth();
+
+  const form = useForm<CheckoutFormValues>({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      email: user?.email || '',
+      firstName: '',
+      lastName: '',
+      address: '',
+      city: '',
+      zip: '',
+      cardNumber: '',
+      expiry: '',
+      cvc: '',
+    },
+    mode: 'onChange', // Validate on change to enable button as user types
+  });
+
+  const { formState } = form;
 
   if (cartCount === 0) {
     return (
@@ -28,130 +64,236 @@ export default function CheckoutPage() {
     );
   }
 
+  const onSubmit = (data: CheckoutFormValues) => {
+    console.log("Order submitted:", data);
+    // Here you would typically process the payment
+  };
+
   return (
     <div className="container py-12">
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 text-center">Checkout</h1>
-      <div className="grid lg:grid-cols-2 gap-12">
-        <div className="space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Shipping Information</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="sm:col-span-2 space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="you@example.com" defaultValue={user?.email} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="first-name">First Name</Label>
-                <Input id="first-name" placeholder="John" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="last-name">Last Name</Label>
-                <Input id="last-name" placeholder="Doe" />
-              </div>
-              <div className="sm:col-span-2 space-y-2">
-                <Label htmlFor="address">Address</Label>
-                <Input id="address" placeholder="123 Medical Lane" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="city">City</Label>
-                <Input id="city" placeholder="Healthcare City" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="zip">ZIP Code</Label>
-                <Input id="zip" placeholder="12345" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5" /> Payment Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="card-number">Card Number</Label>
-                <Input id="card-number" placeholder="**** **** **** 1234" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="expiry">Expiry Date</Label>
-                  <Input id="expiry" placeholder="MM/YY" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cvc">CVC</Label>
-                  <Input id="cvc" placeholder="123" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="space-y-8">
-            <Card className="sticky top-24">
-                <CardHeader>
-                    <CardTitle>Order Summary</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-4">
-                        {items.map(item => (
-                            <div key={item.id} className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className="relative w-16 h-16 rounded-md overflow-hidden">
-                                        <Image src={item.image} alt={item.name} fill className="object-cover"/>
-                                    </div>
-                                    <div>
-                                        <p className="font-medium">{item.name}</p>
-                                        <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
-                                    </div>
-                                </div>
-                                <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
-                            </div>
-                        ))}
-                    </div>
-                    <Separator className="my-4" />
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span>Subtotal</span>
-                        <span>${cartTotal.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Shipping</span>
-                        <span>$5.00</span>
-                      </div>
-                       <div className="flex justify-between text-muted-foreground">
-                        <span>Taxes</span>
-                        <span>Calculated at next step</span>
-                      </div>
-                      <Separator/>
-                       <div className="flex justify-between font-bold text-lg">
-                        <span>Total</span>
-                        <span>${(cartTotal + 5).toFixed(2)}</span>
-                      </div>
-                    </div>
-                    
-                    {!user ? (
-                        <div className="mt-6 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 text-sm">
-                            <div className="flex items-start gap-3">
-                                <AlertTriangle className="h-5 w-5 mt-0.5" />
-                                <div>
-                                    <p className="font-semibold">Please log in to complete your purchase.</p>
-                                    <p className="mt-1">You must have an account to place an order.</p>
-                                    <Button asChild size="sm" className="mt-3">
-                                        <Link href="/login">Login or Create Account</Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <Button size="lg" className="w-full mt-6" disabled={!user}>
-                            <Lock className="mr-2 h-4 w-4" />
-                            Pay ${(cartTotal + 5).toFixed(2)}
-                        </Button>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid lg:grid-cols-2 gap-12">
+          <div className="space-y-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Shipping Information</CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <Input placeholder="you@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                </CardContent>
+                  />
+                </div>
+                <div>
+                   <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="John" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Doe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Address</FormLabel>
+                        <FormControl>
+                          <Input placeholder="123 Medical Lane" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                   <FormField
+                    control={form.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>City</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Healthcare City" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="zip"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>ZIP Code</FormLabel>
+                        <FormControl>
+                          <Input placeholder="12345" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
             </Card>
-        </div>
-      </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5" /> Payment Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="cardNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Card Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="**** **** **** 1234" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="expiry"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Expiry Date</FormLabel>
+                          <FormControl>
+                            <Input placeholder="MM/YY" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>
+                     <FormField
+                      control={form.control}
+                      name="cvc"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>CVC</FormLabel>
+                          <FormControl>
+                            <Input placeholder="123" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="space-y-8">
+              <Card className="sticky top-24">
+                  <CardHeader>
+                      <CardTitle>Order Summary</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                      <div className="space-y-4">
+                          {items.map(item => (
+                              <div key={item.id} className="flex items-center justify-between">
+                                  <div className="flex items-center gap-4">
+                                      <div className="relative w-16 h-16 rounded-md overflow-hidden">
+                                          <Image src={item.image} alt={item.name} fill className="object-cover"/>
+                                      </div>
+                                      <div>
+                                          <p className="font-medium">{item.name}</p>
+                                          <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                                      </div>
+                                  </div>
+                                  <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                              </div>
+                          ))}
+                      </div>
+                      <Separator className="my-4" />
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span>Subtotal</span>
+                          <span>${cartTotal.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Shipping</span>
+                          <span>$5.00</span>
+                        </div>
+                         <div className="flex justify-between text-muted-foreground">
+                          <span>Taxes</span>
+                          <span>Calculated at next step</span>
+                        </div>
+                        <Separator/>
+                         <div className="flex justify-between font-bold text-lg">
+                          <span>Total</span>
+                          <span>${(cartTotal + 5).toFixed(2)}</span>
+                        </div>
+                      </div>
+                      
+                      {!user ? (
+                          <div className="mt-6 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 text-sm">
+                              <div className="flex items-start gap-3">
+                                  <AlertTriangle className="h-5 w-5 mt-0.5" />
+                                  <div>
+                                      <p className="font-semibold">Please log in to complete your purchase.</p>
+                                      <p className="mt-1">You must have an account to place an order.</p>
+                                      <Button asChild size="sm" className="mt-3">
+                                          <Link href="/login">Login or Create Account</Link>
+                                      </Button>
+                                  </div>
+                              </div>
+                          </div>
+                      ) : (
+                          <Button type="submit" size="lg" className="w-full mt-6" disabled={!user || !formState.isValid}>
+                              <Lock className="mr-2 h-4 w-4" />
+                              Pay ${(cartTotal + 5).toFixed(2)}
+                          </Button>
+                      )}
+                  </CardContent>
+              </Card>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }
