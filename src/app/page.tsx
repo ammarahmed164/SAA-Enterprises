@@ -66,16 +66,9 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] items-center">
-            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh]">
-               <Image
-                src="https://picsum.photos/800/1000"
-                alt="Featured Product Background"
-                fill
-                className="object-cover rounded-lg"
-                data-ai-hint="dramatic landscape"
-              />
+            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
               <motion.div 
-                className="absolute inset-0 flex items-center justify-center p-8"
+                className="relative w-full h-full"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
@@ -85,7 +78,7 @@ export default function Home() {
                   alt={products[0].name}
                   width={500}
                   height={500}
-                  className="object-contain drop-shadow-2xl"
+                  className="object-contain drop-shadow-2xl w-full h-full"
                   data-ai-hint={products[0].dataAiHint}
                 />
               </motion.div>
