@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -108,40 +110,47 @@ export default function Header() {
 
           {/* Right: Account + Cart */}
           <div className="flex w-1/3 justify-end items-center gap-2">
-             <Button
-              variant="ghost"
-              size="icon"
-              className="group relative"
-            >
-              <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
-                <User className="h-6 w-6" />
-              </div>
-              <span className="sr-only">Account</span>
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" className="group relative">
+                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                      <User className="h-6 w-6" />
+                    </div>
+                    <span className="sr-only">Account</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Account</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              asChild
-              className="group relative"
-            >
-              <Link href="/cart" className="relative">
-                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
-                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
-                    <ShoppingCart className="h-6 w-6" />
-                  </div>
-                {cartCount > 0 && (
-                  <Badge
-                    variant="destructive"
-                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs bg-orange-500 text-white border-2 border-white"
-                  >
-                    {cartCount}
-                  </Badge>
-                )}
-                <span className="sr-only">Shopping Cart</span>
-              </Link>
-            </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                   <Button variant="ghost" size="icon" asChild className="group relative">
+                      <Link href="/cart" className="relative">
+                        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+                          <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                            <ShoppingCart className="h-6 w-6" />
+                          </div>
+                        {cartCount > 0 && (
+                          <Badge
+                            variant="destructive"
+                            className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full p-0 text-xs bg-orange-500 text-white border-2 border-white"
+                          >
+                            {cartCount}
+                          </Badge>
+                        )}
+                        <span className="sr-only">Shopping Cart</span>
+                      </Link>
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Shopping Cart</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
 
