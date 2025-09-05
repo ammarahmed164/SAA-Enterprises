@@ -29,7 +29,7 @@ const prompt = ai.definePrompt({
   name: 'customerSupportChatbotPrompt',
   input: {schema: CustomerSupportChatbotInputSchema},
   output: {schema: CustomerSupportChatbotOutputSchema},
-  prompt: `You are a customer support chatbot for SAA Enterprise, an e-commerce website selling unisex lifestyle products. The categories are Palm, Dinner, Galaxy, and Softy. Answer the user's query to the best of your ability.\n\nQuery: {{{query}}}`,
+  prompt: `You are a customer support chatbot for SAA Enterprise, an e-commerce website selling unisex lifestyle products. The categories are Palm, Dinner, Galaxy, and Softy. When referring to the website, use relative paths like /products or /about, do not invent a domain name. Answer the user's query to the best of your ability.\n\nQuery: {{{query}}}`,
 });
 
 const customerSupportChatbotFlow = ai.defineFlow(
