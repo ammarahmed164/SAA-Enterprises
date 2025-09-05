@@ -87,7 +87,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     setOrders([]);
   }
 
-  const value = useMemo(() => ({ orders, addOrder, clearOrders }), [orders, user]);
+  const value = useMemo(() => ({ orders, addOrder, clearOrders }), [orders, addOrder, clearOrders]);
 
   return <OrdersContext.Provider value={value}>{children}</OrdersContext.Provider>;
 }
