@@ -149,7 +149,7 @@ export default function Home() {
               opts={{
                 loop: true,
                 align: 'start',
-                duration: 50,
+                duration: 100,
               }}
             >
               <CarouselContent className="-ml-4">
