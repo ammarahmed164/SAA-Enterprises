@@ -63,32 +63,38 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 text-foreground">
       <motion.section 
-        className="relative h-[60vh] min-h-[500px] flex flex-col items-center justify-center text-white bg-gradient-to-br from-gray-900 via-gray-800 to-black"
+        className="bg-muted/30 py-20 md:py-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
       >
-        <div className="absolute inset-0 opacity-20">
-          <Image
-              src="/product1Din.png"
-              alt="About SAA Scrubs Background"
-              fill
-              className="object-cover blur-md"
-              priority
-          />
-        </div>
-        <div className="container relative z-20 text-center flex flex-col items-center justify-center h-full">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white" style={{ textShadow: '2px 2px 12px rgba(0, 0, 0, 0.5)' }}>About SAA Scrubs</motion.h1>
-             <motion.div variants={fadeIn('up', 0.2)} className="relative w-full max-w-lg h-3/5 mt-4">
-              <Image
-                  src="/product1Din.png"
-                  alt="About SAA Scrubs"
-                  fill
-                  className="object-contain"
-                  priority
-                  data-ai-hint="medical scrub"
-              />
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div variants={fadeIn('right')} className="space-y-6 text-center md:text-left">
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  About SAA Scrubs
+                </span>
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                Pioneering the future of medical apparel with a commitment to quality, innovation, and the healthcare professionals we serve.
+              </p>
             </motion.div>
+            <motion.div variants={fadeIn('left', 0.2)} className="relative h-80 md:h-96">
+               <Card className="w-full h-full overflow-hidden shadow-2xl rounded-2xl border-0 bg-gradient-to-br from-blue-50 to-orange-50 p-4">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="/product1Din.png"
+                      alt="About SAA Scrubs"
+                      fill
+                      className="object-contain drop-shadow-2xl"
+                      priority
+                      data-ai-hint="medical scrub"
+                    />
+                  </div>
+                </Card>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
