@@ -12,20 +12,12 @@ export default function Footer() {
     { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@SAA.Enterprises' },
   ];
 
-  const paymentMethods = [
-    { name: "Visa", image: "/visa.svg" },
-    { name: "Mastercard", image: "/mastercard.svg" },
-    { name: "PayPal", image: "/paypal.svg" },
-    { name: "American Express", image: "/amex.svg" },
-  ];
-
-
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-accent/90 text-accent-foreground border-t border-accent/20">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand & Socials */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-3 space-y-6">
             <Link href="/" className="flex items-center gap-3">
               <Image src="/logo.png" alt="SAA Enterprises" width={56} height={56} className="h-14 w-14 rounded-full" />
               <span className="text-2xl font-bold text-white">SAA Enterprises</span>
@@ -45,26 +37,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Our Commitment & Payments */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
-             <div className="space-y-4">
-              <h4 className="font-semibold text-white tracking-wider uppercase flex items-center gap-2"><Award className="h-5 w-5 text-accent"/> Our Commitment</h4>
-              <p className="text-sm text-muted-foreground">
-                We are dedicated to providing the highest quality products with unparalleled service. Your satisfaction is our mission, and we stand behind every item we sell.
-              </p>
-            </div>
-             <div className="space-y-4">
-              <h4 className="font-semibold text-white tracking-wider uppercase flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-accent"/> Secure Payments</h4>
-               <div className="flex items-center gap-3">
-                {paymentMethods.map(method => (
-                  <div key={method.name} className="bg-gray-200/80 p-1.5 rounded-md flex items-center justify-center h-8">
-                     <Image src={`https://picsum.photos/48/32?random=${Math.random()}`} alt={method.name} width={32} height={20} className="object-contain" data-ai-hint="payment method"/>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Our Commitment */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="font-semibold text-white tracking-wider uppercase flex items-center gap-2"><Award className="h-5 w-5 text-accent"/> Our Commitment</h4>
+            <p className="text-sm text-muted-foreground">
+              We are dedicated to providing the highest quality products with unparalleled service. Your satisfaction is our mission, and we stand behind every item we sell.
+            </p>
           </div>
-          
         </div>
       </div>
       <div className="bg-black/30 py-6">
