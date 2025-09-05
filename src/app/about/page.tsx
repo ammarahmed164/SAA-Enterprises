@@ -63,22 +63,32 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 text-foreground">
       <motion.section 
-        className="relative h-[50vh] min-h-[400px] flex items-center justify-center text-white"
+        className="relative h-[60vh] min-h-[500px] flex flex-col items-center justify-center text-white bg-gradient-to-br from-gray-900 via-gray-800 to-black"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
       >
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <Image
-            src="/product1Din.png"
-            alt="About SAA Scrubs"
-            fill
-            className="object-cover"
-            priority
-            data-ai-hint="medical team working"
-        />
-        <div className="container relative z-20 text-center">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-gradient-to-r from-orange-400 to-blue-500 bg-clip-text text-transparent" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)' }}>About SAA Scrubs</motion.h1>
+        <div className="absolute inset-0 opacity-20">
+          <Image
+              src="/product1Din.png"
+              alt="About SAA Scrubs Background"
+              fill
+              className="object-cover blur-md"
+              priority
+          />
+        </div>
+        <div className="container relative z-20 text-center flex flex-col items-center justify-center h-full">
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-white" style={{ textShadow: '2px 2px 12px rgba(0, 0, 0, 0.5)' }}>About SAA Scrubs</motion.h1>
+             <motion.div variants={fadeIn('up', 0.2)} className="relative w-full max-w-lg h-3/5 mt-4">
+              <Image
+                  src="/product1Din.png"
+                  alt="About SAA Scrubs"
+                  fill
+                  className="object-contain"
+                  priority
+                  data-ai-hint="medical scrub"
+              />
+            </motion.div>
         </div>
       </motion.section>
 
