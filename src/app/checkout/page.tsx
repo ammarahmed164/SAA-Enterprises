@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 
 const checkoutSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -31,8 +32,9 @@ const checkoutSchema = z.object({
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
-  const { items, cartTotal, cartCount } = useCart();
+  const { items, cartTotal, cartCount, clearCart } = useCart();
   const { user } = useAuth();
+  const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -67,6 +69,8 @@ export default function CheckoutPage() {
   const onSubmit = (data: CheckoutFormValues) => {
     console.log("Order submitted:", data);
     // Here you would typically process the payment
+    clearCart();
+    router.push('/thank-you');
   };
 
   return (
