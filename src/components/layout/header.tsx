@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -14,6 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -82,15 +84,20 @@ export default function Header() {
           {/* Middle: Logo */}
           <div className="flex w-1/3 justify-center items-center">
             <Link href="/" className="flex items-center group">
-              <div className="p-1 rounded-full bg-white/50 shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-white/80">
+              <motion.div 
+                className="p-1.5 rounded-full bg-white/50 shadow-lg group-hover:shadow-xl border-2 border-white/80"
+                whileHover={{ scale: 1.05 }}
+                animate={{ scale: [1, 1.03, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <Image
                   src="/logo.png"
                   alt="SAA Scrubs Logo"
-                  width={90}
-                  height={90}
-                  className="h-20 w-20 object-contain"
+                  width={110}
+                  height={110}
+                  className="h-24 w-24 object-contain"
                 />
-              </div>
+              </motion.div>
             </Link>
           </div>
 
