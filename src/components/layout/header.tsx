@@ -108,12 +108,15 @@ export default function Header() {
 
           {/* Right: Account + Cart */}
           <div className="flex w-1/3 justify-end items-center gap-2">
-            <Button
+             <Button
               variant="ghost"
               size="icon"
-              className="hover:bg-white/50 rounded-full transition-colors"
+              className="group relative"
             >
-              <User className="h-6 w-6 text-blue-700" />
+              <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                <User className="h-6 w-6" />
+              </div>
               <span className="sr-only">Account</span>
             </Button>
 
@@ -121,10 +124,13 @@ export default function Header() {
               variant="ghost"
               size="icon"
               asChild
-              className="hover:bg-white/50 rounded-full transition-colors"
+              className="group relative"
             >
               <Link href="/cart" className="relative">
-                <ShoppingCart className="h-6 w-6 text-blue-700" />
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                    <ShoppingCart className="h-6 w-6" />
+                  </div>
                 {cartCount > 0 && (
                   <Badge
                     variant="destructive"
