@@ -111,7 +111,7 @@ export default function Footer() {
       </div>
       <div className="bg-black/30 py-4 relative z-20">
         <div className="container text-center text-sm text-gray-500">
-          <span>&copy; {new Date().getFullYear()} SAA Enterprises. All Rights Reserved.</span>
+          <span className="font-semibold tracking-wider text-gray-400">&copy; {new Date().getFullYear()} SAA Enterprises. All Rights Reserved.</span>
         </div>
       </div>
     </footer>
