@@ -209,7 +209,7 @@ export default function Home() {
 
       {/* Why Choose Us Section */}
       <motion.section 
-        className="py-16 lg:py-24 bg-slate-50"
+        className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-100"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -217,7 +217,7 @@ export default function Home() {
       >
         <div className="container">
           <motion.div variants={fadeIn('up')} className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Why Choose SAA Scrubs?</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Why Choose SAA Enterprises?</h2>
             <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
               Precision, quality, and reliability you can depend on for every shift.
             </p>
@@ -225,10 +225,14 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUsItems.map((item, index) => (
               <motion.div variants={fadeIn('up', index * 0.1)} key={item.title}>
-                 <Card className="text-center p-8 flex flex-col items-center h-full bg-card shadow-lg hover:shadow-accent/10 transition-all duration-300 border-border/50 transform hover:-translate-y-2">
-                    <div className="p-5 bg-accent/10 rounded-full mb-5 transition-transform duration-300 transform group-hover:scale-110">
-                        <item.icon className="h-8 w-8 text-accent" />
-                    </div>
+                 <Card className="text-center p-8 flex flex-col items-center h-full bg-card shadow-lg hover:shadow-accent/10 transition-all duration-300 border-border/50 transform hover:-translate-y-2 group">
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 10 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="p-5 bg-accent/10 rounded-full mb-5 transition-colors duration-300 group-hover:bg-accent"
+                    >
+                        <item.icon className="h-8 w-8 text-accent transition-colors duration-300 group-hover:text-accent-foreground" />
+                    </motion.div>
                     <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
                     <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
                 </Card>
