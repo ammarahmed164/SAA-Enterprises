@@ -70,7 +70,7 @@ export default function Home() {
           fill
           className="object-cover"
           priority
-          data-ai-hint="modern scrubs professional"
+          data-ai-hint="surgical operating room"
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative container mx-auto px-4">
