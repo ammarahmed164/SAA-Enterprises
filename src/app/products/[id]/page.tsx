@@ -49,10 +49,13 @@ const imageVariants = {
   },
 };
 
+const sizes = ['Small', 'Medium', 'Large'];
+
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
   const { toast } = useToast();
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [isZoomVisible, setIsZoomVisible] = useState(false);
@@ -69,10 +72,18 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast({
+        title: "Please select a size",
+        description: "You must choose a size before adding to the cart.",
+        variant: "destructive",
+      });
+      return;
+    }
     addItem({ id: product.id, name: product.name, price: product.price, image: product.image }, quantity);
     toast({
       title: `${quantity} x ${product.name} added`,
-      description: "Item(s) have been added to your cart.",
+      description: `Size: ${selectedSize}. Item(s) have been added to your cart.`,
       action: <Button variant="link" size="sm">View Cart</Button>,
     });
   };
@@ -175,18 +186,37 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           </div>
           <p className="text-3xl font-bold text-primary">${product.price.toFixed(2)}</p>
           <p className="text-muted-foreground whitespace-pre-line">{product.longDescription}</p>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center border rounded-md">
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(q => Math.max(1, q - 1))}>
-                <Minus className="h-4 w-4" />
-              </Button>
-              <span className="w-12 text-center">{quantity}</span>
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(q => q + 1)}>
-                <Plus className="h-4 w-4" />
-              </Button>
+          
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-medium mb-2">Size</h3>
+              <div className="flex items-center gap-2">
+                {sizes.map(size => (
+                  <Button
+                    key={size}
+                    variant={selectedSize === size ? 'default' : 'outline'}
+                    onClick={() => setSelectedSize(size)}
+                    className="transition-all duration-200"
+                  >
+                    {size}
+                  </Button>
+                ))}
+              </div>
             </div>
-            <Button size="lg" onClick={handleAddToCart} className="flex-1">Add to Cart</Button>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center border rounded-md">
+                <Button variant="ghost" size="icon" onClick={() => setQuantity(q => Math.max(1, q - 1))}>
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <span className="w-12 text-center">{quantity}</span>
+                <Button variant="ghost" size="icon" onClick={() => setQuantity(q => q + 1)}>
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <Button size="lg" onClick={handleAddToCart} className="flex-1">Add to Cart</Button>
+            </div>
           </div>
+
           <div className="space-y-2 pt-4">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-green-600" />
