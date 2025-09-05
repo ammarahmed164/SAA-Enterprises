@@ -44,7 +44,7 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 
 export default function Home() {
   const featuredProductsPlugin = React.useRef(
-      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+      Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
   )
 
   const whyChooseUsItems = [
@@ -275,8 +275,7 @@ export default function Home() {
 
       {/* Why Choose Us Section */}
       <motion.section 
-        className="py-16 lg:py-24"
-        style={{ backgroundColor: '#e879f9' }}
+        className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 via-white to-orange-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -284,26 +283,26 @@ export default function Home() {
       >
         <div className="container">
           <motion.div variants={fadeIn('up')} className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight text-white">Why Choose SAA Enterprises?</h2>
-            <p className="mt-3 text-white/80 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tight text-primary">Why Choose SAA Enterprises?</h2>
+            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
               Precision, quality, and reliability you can depend on for every shift.
             </p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUsItems.map((item, index) => (
               <motion.div variants={fadeIn('up', index * 0.1)} key={item.title}>
-                 <Card className="relative text-center p-8 flex flex-col items-center h-full bg-white/10 text-white shadow-lg transition-all duration-300 border-white/20 transform hover:-translate-y-2 group overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                 <Card className="relative text-center p-8 flex flex-col items-center h-full bg-card shadow-lg transition-all duration-300 border-border/20 group overflow-hidden hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2">
+                    <div className="absolute top-0 left-0 w-0 h-0 transition-all duration-500 ease-out bg-primary/10 group-hover:w-full group-hover:h-full"></div>
+                    <div className="absolute inset-0 w-full h-full border-2 border-transparent group-hover:border-primary/20 rounded-lg transition-all duration-300"></div>
+
                     <motion.div 
-                      whileHover={{ scale: 1.1, rotate: 10 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                      className="relative z-10 p-5 bg-white/20 rounded-full mb-5 transition-colors duration-300 group-hover:bg-white"
+                      className="relative z-10 p-5 bg-primary/10 rounded-full mb-5 transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
                     >
-                        <item.icon className="h-8 w-8 text-white transition-colors duration-300 group-hover:text-primary" />
+                        <item.icon className="h-8 w-8 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
                     </motion.div>
                     <div className="relative z-10">
-                      <h3 className="font-semibold text-xl mb-2 text-white">{item.title}</h3>
-                      <p className="text-white/80 text-sm flex-grow">{item.description}</p>
+                      <h3 className="font-semibold text-xl mb-2 text-foreground">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
                     </div>
                 </Card>
               </motion.div>
