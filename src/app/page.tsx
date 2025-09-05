@@ -58,7 +58,7 @@ export default function Home() {
     <div className="flex flex-col overflow-hidden bg-background text-foreground">
 
        {/* New Hero Section */}
-      <motion.section
+       <motion.section
         className="w-full bg-slate-50"
         initial="hidden"
         animate="visible"
@@ -68,19 +68,28 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] items-center">
             <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
               <motion.div 
-                className="relative w-full h-full"
-                animate={{ y: ["0%", "-3%", "0%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-full h-full p-8"
+                animate={{ 
+                  y: ["0%", "-4%", "0%"],
+                  rotate: [0, 2, -2, 0]
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
               >
-                <Image
-                  src={products[0].image}
-                  alt={products[0].name}
-                  width={500}
-                  height={500}
-                  className="object-contain drop-shadow-2xl w-full h-full"
-                  data-ai-hint={products[0].dataAiHint}
-                  priority
-                />
+                <div className="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-orange-400 via-blue-500 to-teal-400 animate-pulse">
+                  <Image
+                    src={products[0].image}
+                    alt={products[0].name}
+                    width={600}
+                    height={600}
+                    className="object-contain drop-shadow-2xl w-full h-full"
+                    data-ai-hint={products[0].dataAiHint}
+                    priority
+                  />
+                </div>
               </motion.div>
             </motion.div>
             <motion.div variants={fadeIn('left', 0.2)} className="p-8 md:p-16 text-center md:text-left">
