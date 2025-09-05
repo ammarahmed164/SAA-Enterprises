@@ -66,9 +66,9 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] items-center">
-            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
+            <motion.div variants={fadeIn('right')} className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center">
               <motion.div 
-                className="relative w-full h-full p-8"
+                className="relative w-full h-full p-4"
                 animate={{ 
                   y: ["0%", "-4%", "0%"],
                   rotate: [0, 2, -2, 0]
@@ -83,8 +83,8 @@ export default function Home() {
                   <Image
                     src={products[0].image}
                     alt={products[0].name}
-                    width={600}
-                    height={600}
+                    width={800}
+                    height={800}
                     className="object-contain drop-shadow-2xl w-full h-full"
                     data-ai-hint={products[0].dataAiHint}
                     priority
