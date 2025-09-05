@@ -113,16 +113,18 @@ export default function Header() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="group relative">
-                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
-                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
-                      <User className="h-6 w-6" />
-                    </div>
-                    <span className="sr-only">Account</span>
+                  <Button variant="ghost" size="icon" asChild className="group relative">
+                    <Link href="/login">
+                      <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
+                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
+                        <User className="h-6 w-6" />
+                      </div>
+                      <span className="sr-only">Account</span>
+                    </Link>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Account</p>
+                  <p>Login / Signup</p>
                 </TooltipContent>
               </Tooltip>
 
