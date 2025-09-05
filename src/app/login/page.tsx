@@ -19,7 +19,8 @@ export default function LoginPage() {
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    login({ email }); // Mock login
+    const nameFromEmail = email.split('@')[0];
+    login({ name: nameFromEmail, email }); // Mock login
     router.push('/checkout');
   };
 

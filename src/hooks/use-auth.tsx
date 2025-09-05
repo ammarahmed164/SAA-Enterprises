@@ -4,6 +4,7 @@
 import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from 'react';
 
 type User = {
+  name: string;
   email: string;
 };
 

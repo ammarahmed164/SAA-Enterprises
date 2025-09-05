@@ -15,11 +15,12 @@ import { useState, FormEvent } from 'react';
 export default function SignupPage() {
   const { login } = useAuth();
   const router = useRouter();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   const handleSignup = (e: FormEvent) => {
     e.preventDefault();
-    login({ email }); // Mock signup and login
+    login({ name, email }); // Mock signup and login
     router.push('/checkout');
   };
 
@@ -46,7 +47,14 @@ export default function SignupPage() {
             <CardContent className="space-y-6">
               <div className="relative">
                   <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input id="name" placeholder="Full Name" className="pl-10" required/>
+                  <Input 
+                    id="name" 
+                    placeholder="Full Name" 
+                    className="pl-10" 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
               </div>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />

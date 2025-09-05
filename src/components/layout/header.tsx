@@ -18,6 +18,8 @@ import { useState, type FormEvent, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/use-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 
 const navLinks = [
@@ -30,6 +32,7 @@ const navLinks = [
 
 export default function Header() {
   const { cartCount } = useCart();
+  const { user } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,6 +47,13 @@ export default function Header() {
     e.preventDefault();
     if (!searchQuery.trim()) return;
     router.push(`/products?q=${searchQuery}`);
+  };
+  
+  const getUserInitial = () => {
+    if (user && user.name) {
+      return user.name.charAt(0).toUpperCase();
+    }
+    return <User className="h-6 w-6" />;
   };
 
   return (
@@ -131,17 +141,19 @@ export default function Header() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button variant="ghost" size="icon" asChild className="group relative">
-                    <Link href="/login">
+                    <Link href={user ? "/orders" : "/login"}>
                       <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200 animate-pulse"></div>
                       <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white">
-                        <User className="h-6 w-6" />
+                        <Avatar className="h-10 w-10">
+                           <AvatarFallback className="bg-slate-900 text-white font-bold">{getUserInitial()}</AvatarFallback>
+                        </Avatar>
                       </div>
                       <span className="sr-only">Account</span>
                     </Link>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Login / Signup</p>
+                  <p>{user ? "My Account" : "Login / Signup"}</p>
                 </TooltipContent>
               </Tooltip>
 
