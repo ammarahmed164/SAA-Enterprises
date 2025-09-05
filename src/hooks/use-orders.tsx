@@ -1,7 +1,7 @@
 
 'use client';
 
-import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useMemo, useEffect, type ReactNode, useCallback } from 'react';
 import type { Order, CartItem } from '@/lib/types';
 import { useAuth } from './use-auth';
 
@@ -59,7 +59,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
-  const addOrder = (payload: NewOrderPayload) => {
+  const addOrder = useCallback((payload: NewOrderPayload) => {
     if (!user) return; // Can't add an order without a logged-in user
 
     const newOrder: Order = {
@@ -77,15 +77,15 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     const updatedDb = { ...db, [user.id]: updatedUserOrders };
     saveOrdersDatabase(updatedDb);
     setOrders(updatedUserOrders);
-  };
+  }, [user]);
   
-  const clearOrders = () => {
+  const clearOrders = useCallback(() => {
     if (!user) return;
     const db = getOrdersDatabase();
     delete db[user.id];
     saveOrdersDatabase(db);
     setOrders([]);
-  }
+  }, [user]);
 
   const value = useMemo(() => ({ orders, addOrder, clearOrders }), [orders, addOrder, clearOrders]);
 
