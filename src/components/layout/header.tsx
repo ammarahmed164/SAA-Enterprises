@@ -29,12 +29,12 @@ export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-300 via-rose-200 to-blue-300 shadow-md backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-400 via-rose-300 to-blue-400 shadow-md backdrop-blur-lg">
       <div className="container flex flex-col">
         {/* -------- Row 1: Search | Logo | Icons -------- */}
         <div className="flex h-24 items-center w-full">
           {/* Left: Search Bar (Desktop) / Hamburger (Mobile) */}
-          <div className="flex flex-1 items-center md:flex-none">
+          <div className="flex w-1/3 items-center">
              <div className="md:hidden">
               <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <SheetTrigger asChild>
@@ -63,7 +63,7 @@ export default function Header() {
                 </SheetContent>
               </Sheet>
             </div>
-            <div className="hidden md:flex flex-1 items-center">
+            <div className="hidden md:flex items-center">
                 <input
                 type="text"
                 placeholder="Search for products..."
@@ -80,9 +80,9 @@ export default function Header() {
           </div>
 
           {/* Middle: Logo */}
-          <div className="flex flex-1 justify-center items-center">
+          <div className="flex w-1/3 justify-center items-center">
             <Link href="/" className="flex items-center group">
-              <div className="p-1 rounded-full bg-white/50 shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
+              <div className="p-1 rounded-full bg-white/50 shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-white/80">
                 <Image
                   src="/logo.png"
                   alt="SAA Scrubs Logo"
@@ -95,7 +95,7 @@ export default function Header() {
           </div>
 
           {/* Right: Account + Cart */}
-          <div className="flex flex-1 justify-end items-center gap-2">
+          <div className="flex w-1/3 justify-end items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
