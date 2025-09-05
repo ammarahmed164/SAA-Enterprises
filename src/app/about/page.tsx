@@ -63,7 +63,7 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 text-foreground">
       <motion.section 
-        className="bg-muted/30 py-20 md:py-28"
+        className="bg-gradient-to-br from-blue-50 via-white to-orange-50 py-20 md:py-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
@@ -99,7 +99,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section
-        className="py-16 lg:py-24"
+        className="py-16 lg:py-24 bg-background"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -185,7 +185,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section
-        className="py-16 lg:py-24"
+        className="py-16 lg:py-24 bg-gradient-to-tl from-blue-50 via-white to-orange-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -218,7 +218,7 @@ export default function AboutPage() {
       </motion.section>
 
        <motion.section 
-        className="py-16 lg:py-24 bg-muted/20"
+        className="py-16 lg:py-24 bg-muted/40"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -259,7 +259,7 @@ export default function AboutPage() {
       </motion.section>
       
       <motion.section
-        className="py-16 lg:py-24"
+        className="py-16 lg:py-24 bg-gradient-to-tr from-orange-50 via-white to-blue-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
