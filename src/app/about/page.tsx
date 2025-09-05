@@ -61,7 +61,7 @@ const facts = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-slate-50 text-foreground">
+    <div className="bg-background text-foreground">
       <motion.section 
         className="bg-gradient-to-br from-blue-50 via-white to-orange-50 py-20 md:py-28"
         initial="hidden"
@@ -115,7 +115,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section
-        className="py-16 lg:py-24 bg-background"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -172,7 +172,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section 
-        className="py-16 lg:py-24 bg-gradient-to-br from-orange-100 via-background to-background"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -201,7 +201,7 @@ export default function AboutPage() {
       </motion.section>
 
       <motion.section
-        className="py-16 lg:py-24 bg-gradient-to-tl from-blue-50 via-white to-orange-50"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -234,7 +234,7 @@ export default function AboutPage() {
       </motion.section>
 
        <motion.section 
-        className="py-16 lg:py-24 bg-muted/40"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -262,7 +262,7 @@ export default function AboutPage() {
                           <p className="text-muted-foreground">{item.event}</p>
                         </div>
                         <div className="w-1/2 flex justify-center absolute left-1/2 -translate-x-1/2">
-                           <div className="z-10 w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center border-4 border-slate-50">
+                           <div className="z-10 w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center border-4 border-background">
                                 <item.icon className="h-8 w-8" />
                             </div>
                         </div>
@@ -275,7 +275,7 @@ export default function AboutPage() {
       </motion.section>
       
       <motion.section
-        className="py-16 lg:py-24 bg-gradient-to-tr from-orange-50 via-white to-blue-50"
+        className="py-16 lg:py-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
