@@ -7,16 +7,17 @@ import { Search, ShoppingCart, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, type FormEvent, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Input } from "@/components/ui/input";
 
 
 const navLinks = [
@@ -30,7 +31,20 @@ const navLinks = [
 export default function Header() {
   const { cartCount } = useCart();
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+
+  useEffect(() => {
+    setSearchQuery(searchParams.get('q') || '');
+  }, [searchParams]);
+
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    router.push(`/products?q=${searchQuery}`);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-400 via-rose-300 to-blue-400 shadow-md backdrop-blur-lg">
@@ -67,20 +81,23 @@ export default function Header() {
                 </SheetContent>
               </Sheet>
             </div>
-            <div className="hidden md:flex items-center">
-                <input
-                type="text"
-                placeholder="Search for products..."
-                className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all"
+            <form onSubmit={handleSearch} className="hidden md:flex items-center">
+                <Input
+                  type="text"
+                  placeholder="Search for products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all h-auto"
                 />
                 <Button
-                variant="default"
-                size="icon"
-                className="rounded-r-full bg-blue-500 hover:bg-blue-600 text-white shadow-md transition-all"
+                  type="submit"
+                  variant="default"
+                  size="icon"
+                  className="rounded-r-full bg-blue-500 hover:bg-blue-600 text-white shadow-md transition-all"
                 >
-                <Search className="h-5 w-5" />
+                  <Search className="h-5 w-5" />
                 </Button>
-            </div>
+            </form>
           </div>
 
           {/* Middle: Logo */}

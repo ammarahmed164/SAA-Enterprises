@@ -1,12 +1,13 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import ProductCard from '@/components/product-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { LayoutGrid, Check } from 'lucide-react';
+import { LayoutGrid, Check, SearchX } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,15 +32,26 @@ const itemVariants = {
   },
 };
 
-export default function ProductsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+function ProductsContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category');
+  const searchQuery = searchParams.get('q');
+
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
 
   const filteredProducts = useMemo(() => {
-    if (!selectedCategory) {
-      return products;
+    let prods = products;
+
+    if (selectedCategory) {
+      prods = prods.filter(p => p.category.toLowerCase().replace(/ /g, '-') === selectedCategory);
     }
-    return products.filter(p => p.category.toLowerCase().replace(/ /g, '-') === selectedCategory);
-  }, [selectedCategory]);
+
+    if (searchQuery) {
+      prods = prods.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+    
+    return prods;
+  }, [selectedCategory, searchQuery]);
 
   return (
     <div className="bg-background text-foreground">
@@ -51,7 +63,7 @@ export default function ProductsPage() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl font-extrabold tracking-tighter !font-headline"
           >
-            Our Curated Collection
+            {searchQuery ? `Searching for "${searchQuery}"` : "Our Curated Collection"}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +71,10 @@ export default function ProductsPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground"
           >
-            Discover unique and stylish products designed for your lifestyle.
+            {searchQuery 
+              ? `Found ${filteredProducts.length} products.`
+              : "Discover unique and stylish products designed for your lifestyle."
+            }
           </motion.p>
         </div>
 
@@ -109,22 +124,46 @@ export default function ProductsPage() {
         </motion.div>
 
         <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory || 'all'}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0, y: -30 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10"
-          >
-            {filteredProducts.map((product) => (
-              <motion.div key={product.id} variants={itemVariants}>
-                 <ProductCard product={product} />
-              </motion.div>
-            ))}
-          </motion.div>
+          {filteredProducts.length > 0 ? (
+            <motion.div
+              key={selectedCategory || 'all'}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, y: -30 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10"
+            >
+              {filteredProducts.map((product) => (
+                <motion.div key={product.id} variants={itemVariants}>
+                   <ProductCard product={product} />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+             <motion.div
+              key="no-results"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-16"
+            >
+              <SearchX className="mx-auto h-24 w-24 text-muted-foreground/50" />
+              <h2 className="mt-6 text-2xl font-semibold">No Products Found</h2>
+              <p className="mt-2 text-muted-foreground">
+                Try adjusting your search or category filters.
+              </p>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </div>
   );
+}
+
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductsContent />
+    </Suspense>
+  )
 }
