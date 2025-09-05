@@ -58,43 +58,55 @@ export default function Home() {
     <div className="flex flex-col overflow-hidden bg-background text-foreground">
 
       {/* Hero Section */}
-      <motion.section 
-        className="w-full bg-slate-50"
+       <motion.section
+        className="relative w-full h-screen min-h-[700px] flex items-center justify-center"
         initial="hidden"
         animate="visible"
         variants={staggerContainer()}
       >
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 items-center min-h-[80vh]">
-            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] lg:h-[80vh]">
-              <Image
-                  src="https://picsum.photos/800/1000"
-                  alt="Signature Steel Timepiece"
-                  fill
-                  className="object-cover"
-                  priority
-                  data-ai-hint="luxury watch"
-              />
+        <Image
+          src="https://picsum.photos/1920/1080"
+          alt="Modern scrubs"
+          fill
+          className="object-cover"
+          priority
+          data-ai-hint="modern scrubs professional"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative container mx-auto px-4">
+          <motion.div 
+            variants={staggerContainer(0.3, 0.2)}
+            className="max-w-2xl text-left bg-black/30 backdrop-blur-lg border border-white/20 rounded-2xl p-8 md:p-12"
+          >
+            <motion.p 
+              variants={fadeIn('down')}
+              className="text-sm uppercase tracking-widest text-white/80 font-semibold mb-4"
+            >
+              Unmatched Comfort & Style
+            </motion.p>
+            <motion.h1 
+              variants={fadeIn('down', 0.2)}
+              className="text-4xl md:text-6xl font-bold tracking-tight text-white"
+            >
+              Elevate Your Professional Look
+            </motion.h1>
+            <motion.p 
+              variants={fadeIn('up', 0.4)}
+              className="mt-6 text-white/90 text-lg"
+            >
+              Discover our premium collection of scrubs, designed for the modern healthcare professional. Engineered for performance, comfort, and durability.
+            </motion.p>
+            <motion.div 
+              variants={fadeIn('up', 0.6)}
+              className="mt-8"
+            >
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 transform hover:scale-105 group text-lg px-8 py-6 shadow-lg">
+                <Link href="/products">
+                  Shop The Collection <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Button>
             </motion.div>
-            <motion.div variants={fadeIn('left')} className="text-left p-8 md:p-16">
-              <p className="text-sm uppercase tracking-widest text-muted-foreground font-semibold mb-4">Exclusive Offer for This Collection</p>
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
-                D24 Steel –<br/>
-                Bold. Precise.<br/>
-                Timeless.
-              </h1>
-              <p className="mt-6 max-w-md text-muted-foreground text-lg">
-                Our signature steel timepiece is crafted for visionaries who value strength and sophistication. With its sleek steel strap and dial, the D24 Planet is more than a watch—it's a statement.
-              </p>
-              <div className="mt-8">
-                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 transition-all duration-300 transform hover:scale-105 group text-lg px-8 py-6">
-                    <Link href="/products">
-                        Shop Now <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
