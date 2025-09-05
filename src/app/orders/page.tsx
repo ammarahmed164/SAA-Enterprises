@@ -73,7 +73,7 @@ export default function OrdersPage() {
                 </CardHeader>
                 <CardContent className="p-4 md:p-6">
                     <div className="space-y-4">
-                    {order.items.map(item => (
+                    {order.items.slice(0, 2).map(item => (
                         <div key={item.id} className="flex items-center gap-4">
                             <div className="relative w-20 h-20 rounded-md overflow-hidden bg-muted">
                                 <Image 
@@ -91,12 +91,17 @@ export default function OrdersPage() {
                             <p className="ml-auto font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                     ))}
+                    {order.items.length > 2 && (
+                      <p className="text-sm text-muted-foreground text-center pt-2">...and {order.items.length - 2} more items</p>
+                    )}
                     </div>
                 </CardContent>
                 <CardFooter className="bg-muted/50 p-4 md:p-6 flex justify-end gap-3">
-                    <Button variant="outline">
+                    <Button variant="outline" asChild>
+                      <Link href={`/orders/${order.id}`}>
                         <ArrowRight className="mr-2 h-4 w-4"/>
                         View Details
+                      </Link>
                     </Button>
                     {order.status === 'Shipped' && (
                         <Button>
