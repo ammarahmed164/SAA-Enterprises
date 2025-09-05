@@ -22,7 +22,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-100 via-white to-blue-100 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-orange-200 to-blue-200 backdrop-blur">
       <div className="container flex flex-col">
         {/* -------- Row 1: Search | Logo | Icons -------- */}
         <div className="flex h-20 items-center w-full">
@@ -111,5 +111,3 @@ export default function Header() {
     </header>
   );
 }
-
-
