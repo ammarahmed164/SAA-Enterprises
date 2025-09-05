@@ -11,7 +11,7 @@ type AuthContextType = {
   user: User | null;
   login: (email: string, password?: string) => Promise<boolean>;
   logout: () => void;
-  signup: (userData: Omit<StoredUser, 'id'>) => Promise<boolean>;
+  signup: (userData: Omit<StoredUser, 'id' | 'password'> & { password?: string }) => Promise<boolean>;
   error: string | null;
   clearError: () => void;
 };
@@ -77,14 +77,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const users = getStoredUsers();
     const foundUser = users.find(u => u.email === email);
 
-    // For this mock implementation, we'll check password if it's provided.
-    // In a real app, you would hash and compare passwords.
     if (!foundUser || (password && foundUser.password !== password)) {
       setError("Invalid email or password.");
       return false;
     }
 
-    const loggedInUser: User = { name: foundUser.name, email: foundUser.email };
+    const loggedInUser: User = { id: foundUser.id, name: foundUser.name, email: foundUser.email };
     setUser(loggedInUser);
     try {
       localStorage.setItem(AUTH_USER_STORAGE_KEY, JSON.stringify(loggedInUser));
