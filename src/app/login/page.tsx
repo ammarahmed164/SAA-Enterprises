@@ -5,23 +5,44 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { KeyRound, Mail } from 'lucide-react';
+import { KeyRound, Mail, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from 'next/navigation';
-import { useState, FormEvent } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, FormEvent, useEffect } from 'react';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, error, clearError } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleLogin = (e: FormEvent) => {
+  useEffect(() => {
+    if (searchParams.get('signedUp')) {
+      setShowSuccess(true);
+      const timer = setTimeout(() => setShowSuccess(false), 5000);
+      // Clean up the URL without reloading the page
+      window.history.replaceState(null, '', '/login');
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    // Clear errors when the component unmounts or the email/password changes
+    return () => {
+      clearError();
+    };
+  }, [email, password, clearError]);
+
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    const nameFromEmail = email.split('@')[0];
-    login({ name: nameFromEmail, email }); // Mock login
-    router.push('/checkout');
+    clearError();
+    const success = await login(email, password);
+    if (success) {
+      router.push('/checkout');
+    }
   };
 
   return (
@@ -44,7 +65,18 @@ export default function LoginPage() {
             <CardDescription>Sign in to access your account</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
+              {showSuccess && (
+                <div className="bg-green-100 border border-green-300 text-green-800 rounded-lg p-3 text-sm text-center">
+                  Account created successfully! You can now log in.
+                </div>
+              )}
+              {error && (
+                <div className="bg-destructive/10 border border-destructive/30 text-destructive rounded-lg p-3 text-sm flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4" />
+                  {error}
+                </div>
+              )}
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input 
@@ -59,7 +91,15 @@ export default function LoginPage() {
               </div>
               <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="Password" className="pl-10" required />
+                <Input 
+                  id="password" 
+                  type="password" 
+                  placeholder="Password" 
+                  className="pl-10" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
               </div>
               <div className="flex items-center justify-end">
                   <Link href="#" className="text-sm text-primary hover:underline">

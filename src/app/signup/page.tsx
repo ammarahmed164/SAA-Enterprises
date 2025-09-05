@@ -5,23 +5,41 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { UserPlus, Mail, KeyRound } from 'lucide-react';
+import { UserPlus, Mail, KeyRound, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 
 export default function SignupPage() {
-  const { login } = useAuth();
+  const { signup, error, clearError } = useAuth();
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  const handleSignup = (e: FormEvent) => {
+  useEffect(() => {
+    return () => {
+      clearError();
+    };
+  }, [clearError]);
+
+  const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
-    login({ name, email }); // Mock signup and login
-    router.push('/checkout');
+    clearError();
+    setPasswordError('');
+
+    if (password !== confirmPassword) {
+      setPasswordError("Passwords do not match.");
+      return;
+    }
+
+    const success = await signup({ name, email, password });
+    if (success) {
+      router.push('/login?signedUp=true');
+    }
   };
 
   return (
@@ -44,7 +62,13 @@ export default function SignupPage() {
             <CardDescription>Join us and start shopping!</CardDescription>
           </CardHeader>
           <form onSubmit={handleSignup}>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
+              {(error || passwordError) && (
+                  <div className="bg-destructive/10 border border-destructive/30 text-destructive rounded-lg p-3 text-sm flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4" />
+                    {error || passwordError}
+                  </div>
+              )}
               <div className="relative">
                   <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input 
@@ -70,11 +94,27 @@ export default function SignupPage() {
               </div>
               <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="Password" className="pl-10" required />
+                <Input 
+                  id="password" 
+                  type="password" 
+                  placeholder="Password" 
+                  className="pl-10" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
               </div>
               <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="confirm-password" type="password" placeholder="Confirm Password" className="pl-10" required/>
+                <Input 
+                  id="confirm-password" 
+                  type="password" 
+                  placeholder="Confirm Password" 
+                  className="pl-10" 
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
