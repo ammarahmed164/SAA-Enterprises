@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, ShieldCheck, Truck, Award, Sparkles, Youtube } from 'lucide-react';
-import { products, categories } from '@/lib/data';
+import { products } from '@/lib/data';
 import ProductCard from '@/components/product-card';
 import { motion } from 'framer-motion';
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
@@ -47,10 +47,6 @@ export default function Home() {
       Autoplay({ delay: 4000, stopOnInteraction: true })
   )
 
-  const heroPlugin = React.useRef(
-      Autoplay({ delay: 5000, stopOnInteraction: true })
-  )
-
   const whyChooseUsItems = [
     { icon: Award, title: 'Superior Quality', description: 'Meticulously crafted scrubs using the finest fabrics for durability and comfort.' },
     { icon: Sparkles, title: 'Modern Designs', description: 'Professional, functional, and stylish apparel for the modern healthcare hero.' },
@@ -59,71 +55,47 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col overflow-hidden bg-slate-50 text-foreground">
+    <div className="flex flex-col overflow-hidden bg-background text-foreground">
 
       {/* Hero Section */}
       <motion.section 
-        className="relative w-full h-[85vh] min-h-[600px] text-white"
+        className="w-full bg-slate-50"
         initial="hidden"
         animate="visible"
-        variants={fadeIn('down')}
+        variants={staggerContainer()}
       >
-        <Carousel
-          plugins={[heroPlugin.current]}
-          className="w-full h-full"
-          opts={{ loop: true }}
-          onMouseEnter={heroPlugin.current.stop}
-          onMouseLeave={heroPlugin.current.reset}
-        >
-          <CarouselContent className="h-full">
-            {categories.map((category, index) => (
-              <CarouselItem key={index} className="h-full">
-                <div className="relative w-full h-full">
-                   <div className="absolute inset-0 bg-black/40 z-10"></div>
-                  <Image
-                      src={category.image}
-                      alt={category.name}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                      data-ai-hint={category.dataAiHint}
-                  />
-                  <div className="container relative z-20 flex flex-col items-center justify-center h-full text-center">
-                      <motion.h1 
-                          key={category.name}
-                          initial={{ opacity: 0, y: 40 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-                          className="text-4xl md:text-7xl font-extrabold tracking-tighter" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>
-                          {category.name}
-                      </motion.h1>
-                      <motion.p
-                          key={`${category.name}-p`}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-                          className="max-w-2xl mt-4 text-lg md:text-xl text-white/90"
-                          style={{ textShadow: '1px 1px 4px rgba(0, 0, 0, 0.6)' }}
-                      >
-                          Discover unparalleled comfort and style, designed for medical professionals who demand the best.
-                      </motion.p>
-                      <motion.div
-                        key={`${category.name}-btn`}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.7, ease: 'backOut' }}
-                        className="mt-8"
-                      >
-                        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 transition-transform hover:scale-105 shadow-lg text-lg px-8 py-6">
-                            <Link href={`/products?category=${category.slug}`}>Explore {category.name}</Link>
-                        </Button>
-                      </motion.div>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        <div className="container mx-auto">
+          <div className="grid lg:grid-cols-2 items-center min-h-[80vh]">
+            <motion.div variants={fadeIn('right')} className="relative w-full h-[50vh] lg:h-[80vh]">
+              <Image
+                  src="https://picsum.photos/800/1000"
+                  alt="Signature Steel Timepiece"
+                  fill
+                  className="object-cover"
+                  priority
+                  data-ai-hint="luxury watch"
+              />
+            </motion.div>
+            <motion.div variants={fadeIn('left')} className="text-left p-8 md:p-16">
+              <p className="text-sm uppercase tracking-widest text-muted-foreground font-semibold mb-4">Exclusive Offer for This Collection</p>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+                D24 Steel –<br/>
+                Bold. Precise.<br/>
+                Timeless.
+              </h1>
+              <p className="mt-6 max-w-md text-muted-foreground text-lg">
+                Our signature steel timepiece is crafted for visionaries who value strength and sophistication. With its sleek steel strap and dial, the D24 Planet is more than a watch—it's a statement.
+              </p>
+              <div className="mt-8">
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 transition-all duration-300 transform hover:scale-105 group text-lg px-8 py-6">
+                    <Link href="/products">
+                        Shop Now <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </motion.section>
 
       {/* Featured Products Section */}
