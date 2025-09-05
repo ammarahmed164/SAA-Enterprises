@@ -68,9 +68,9 @@ export default function AboutPage() {
         animate="visible"
         variants={staggerContainer()}
       >
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
         <Image
-            src="https://picsum.photos/1920/1080"
+            src="/product1Din.png"
             alt="About SAA Scrubs"
             fill
             className="object-cover"
@@ -78,7 +78,7 @@ export default function AboutPage() {
             data-ai-hint="medical team working"
         />
         <div className="container relative z-20 text-center">
-            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter text-accent" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)' }}>About SAA Scrubs</motion.h1>
+            <motion.h1 variants={fadeIn('down')} className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-gradient-to-r from-orange-400 to-blue-500 bg-clip-text text-transparent" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)' }}>About SAA Scrubs</motion.h1>
         </div>
       </motion.section>
 
