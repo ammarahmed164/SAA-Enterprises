@@ -141,7 +141,7 @@ export default function CheckoutPage() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</Form-Label>
+                        <FormLabel>Last Name</FormLabel>
                         <FormControl>
                           <Input placeholder="Doe" {...field} />
                         </FormControl>
