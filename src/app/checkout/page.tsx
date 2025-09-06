@@ -17,6 +17,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { useOrders } from "@/hooks/use-orders";
+import { useEffect } from "react";
 
 const checkoutSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -56,16 +57,18 @@ export default function CheckoutPage() {
 
   const { formState: { isValid, isSubmitting } } = form;
 
-  if (authLoading) {
+  useEffect(() => {
+    if (!authLoading && !user) {
+        router.push('/login');
+    }
+  }, [authLoading, user, router]);
+
+
+  if (authLoading || !user) {
      return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
   }
 
-  if (!authLoading && !user) {
-     router.push('/login');
-     return null;
-  }
-
-  if (cartCount === 0) {
+  if (cartCount === 0 && !isSubmitting) {
     return (
       <div className="container py-24 text-center">
           <h1 className="text-3xl font-bold">Your cart is empty</h1>
