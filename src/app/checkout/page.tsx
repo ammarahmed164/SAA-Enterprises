@@ -26,9 +26,9 @@ const checkoutSchema = z.object({
   address: z.string().min(1, { message: "Address is required." }),
   city: z.string().min(1, { message: "City is required." }),
   zip: z.string().min(1, { message: "ZIP code is required." }),
-  cardNumber: z.string().min(16, { message: "Card number must be 16 digits." }).max(16),
-  expiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, { message: "Invalid expiry date (MM/YY)." }),
-  cvc: z.string().min(3, { message: "CVC must be 3 digits." }).max(4),
+  cardNumber: z.string().min(1, { message: "Card number is required." }),
+  expiry: z.string().min(1, { message: "Expiry date is required." }),
+  cvc: z.string().min(1, { message: "CVC is required." }),
 });
 
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel>Last Name</Form-Label>
                         <FormControl>
                           <Input placeholder="Doe" {...field} />
                         </FormControl>
