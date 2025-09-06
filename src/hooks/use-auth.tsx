@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         } catch (e) {
             console.error("Failed to fetch user document, using auth data as fallback:", e);
-            // If there's an error fetching (like offline), use the auth data.
+            // If there's an error fetching (like offline or DB not created), use the auth data.
             setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
         }
       } else {
