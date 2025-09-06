@@ -38,19 +38,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
             setUser({
-                id: firebaseUser.uid,
+                uid: firebaseUser.uid,
                 ...userDoc.data()
               } as User);
           } else {
-            // If the user document doesn't exist in Firestore,
-            // create a user object from the auth data as a fallback.
-            // This prevents login failures if the user doc creation failed or is delayed.
-            setUser({ id: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
+            // Fallback for when the user doc doesn't exist yet.
+            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
           }
         } catch (e) {
             console.error("Failed to fetch user document, using auth data as fallback:", e);
-            // If there's an error fetching (like offline or DB not created), use the auth data.
-            setUser({ id: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
+             // If there's an error (e.g., Firestore not set up), use auth data as a fallback.
+            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
         }
       } else {
         setUser(null);

@@ -26,10 +26,10 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user?.id) {
+    if (user?.uid) {
       setLoading(true);
       const ordersRef = collection(db, "orders");
-      const q = query(ordersRef, where("userId", "==", user.id), orderBy("createdAt", "desc"));
+      const q = query(ordersRef, where("userId", "==", user.uid), orderBy("createdAt", "desc"));
       
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const userOrders: Order[] = [];
@@ -59,7 +59,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     if (!user) throw new Error("User must be logged in to place an order.");
 
     const newOrder = {
-      userId: user.id,
+      userId: user.uid,
       userName: user.name,
       userEmail: user.email,
       orderItems: payload.items,

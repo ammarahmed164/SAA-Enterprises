@@ -43,7 +43,7 @@ export type CartItem = {
 };
 
 export type User = {
-  id: string; // Firebase UID
+  uid: string; // Firebase UID
   name?: string;
   email: string;
 };
