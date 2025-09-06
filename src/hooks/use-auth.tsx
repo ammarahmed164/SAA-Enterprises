@@ -33,18 +33,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
-        // Fetch user profile from Firestore
-        const userDocRef = doc(db, "users", firebaseUser.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-           setUser({
-              id: firebaseUser.uid,
-              ...userDoc.data()
-            } as User);
-        } else {
-           // This case can happen if the Firestore doc wasn't created
-           // or if you're using an existing Firebase Auth user without a Firestore doc.
-           setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
+        try {
+          const userDocRef = doc(db, "users", firebaseUser.uid);
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            setUser({
+                id: firebaseUser.uid,
+                ...userDoc.data()
+              } as User);
+          } else {
+            // If the user document doesn't exist in Firestore,
+            // create a user object from the auth data.
+            // This is a fallback to prevent login failures.
+            setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
+          }
+        } catch (e) {
+            console.error("Failed to fetch user document, using auth data as fallback:", e);
+            // If there's an error fetching (like offline), use the auth data.
+            setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
         }
       } else {
         setUser(null);
@@ -61,13 +67,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signup = useCallback(async (userData: Omit<StoredUser, 'id'>): Promise<boolean> => {
-    clearError(); // Clear previous errors
+    clearError();
     if (!userData.password) {
         setError("Password is required.");
         return false;
     }
     setLoading(true);
-    setError(null);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
       const firebaseUser = userCredential.user;
@@ -88,13 +93,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [clearError]);
 
   const login = useCallback(async (email: string, password?: string): Promise<boolean> => {
-     clearError(); // Clear previous errors
+     clearError();
      if (!password) {
         setError("Password is required.");
         return false;
     }
     setLoading(true);
-    setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       return true;
