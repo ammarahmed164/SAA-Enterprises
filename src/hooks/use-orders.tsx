@@ -42,7 +42,10 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
           } as Order);
         });
         setOrders(userOrders);
-        setLoading(false);
+        setLoading(false); // Ensure loading is set to false after processing
+      }, (error) => {
+        console.error("Error fetching orders: ", error);
+        setLoading(false); // Also set loading to false on error
       });
 
       return () => unsubscribe();
