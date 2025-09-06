@@ -85,7 +85,7 @@ export default function OrdersPage() {
                 </CardHeader>
                 <CardContent className="p-4 md:p-6">
                     <div className="space-y-4">
-                    {order.orderItems.slice(0, 2).map(item => (
+                    {order.orderItems.map(item => (
                         <div key={item.id} className="flex items-center gap-4">
                             <div className="relative w-20 h-20 rounded-md overflow-hidden bg-muted">
                                 <Image 
@@ -103,9 +103,6 @@ export default function OrdersPage() {
                             <p className="ml-auto font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                         </div>
                     ))}
-                    {order.orderItems.length > 2 && (
-                      <p className="text-sm text-muted-foreground text-center pt-2">...and {order.orderItems.length - 2} more items</p>
-                    )}
                     </div>
                 </CardContent>
                 <CardFooter className="bg-muted/50 p-4 md:p-6 flex justify-end gap-3">
