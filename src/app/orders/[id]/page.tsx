@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/use-auth';
+import { useEffect } from 'react';
 
 export default function OrderDetailPage() {
   const params = useParams();

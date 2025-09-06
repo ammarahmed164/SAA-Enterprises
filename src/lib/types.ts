@@ -30,9 +30,7 @@ export type Order = {
   date: string; // Should be ISO string
   createdAt: Timestamp;
   status: 'Pending' | 'Shipped' | 'Delivered';
-  total?: number;
   totalAmount: number;
-  items: CartItem[];
   orderItems: CartItem[];
 };
 

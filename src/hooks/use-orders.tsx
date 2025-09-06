@@ -39,7 +39,6 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
             id: doc.id,
             ...data,
             date: data.createdAt?.toDate().toISOString() || new Date().toISOString(),
-            total: data.totalAmount,
           } as Order);
         });
         setOrders(userOrders);
