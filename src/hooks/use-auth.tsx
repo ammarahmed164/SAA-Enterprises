@@ -61,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signup = useCallback(async (userData: Omit<StoredUser, 'id'>): Promise<boolean> => {
+    clearError(); // Clear previous errors
     if (!userData.password) {
         setError("Password is required.");
         return false;
@@ -84,9 +85,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [clearError]);
 
   const login = useCallback(async (email: string, password?: string): Promise<boolean> => {
+     clearError(); // Clear previous errors
      if (!password) {
         setError("Password is required.");
         return false;
@@ -96,13 +98,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       return true;
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: any)
+      {
+      const friendlyMessage = err.code === 'auth/invalid-credential' 
+        ? 'Invalid email or password. Please try again.'
+        : err.message;
+      setError(friendlyMessage);
       return false;
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [clearError]);
 
   const logout = useCallback(async () => {
     setLoading(true);
