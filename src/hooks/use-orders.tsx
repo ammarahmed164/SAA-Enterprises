@@ -39,13 +39,14 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
             id: doc.id,
             ...data,
             date: data.createdAt?.toDate().toISOString() || new Date().toISOString(),
+            total: data.totalAmount,
           } as Order);
         });
         setOrders(userOrders);
-        setLoading(false); // Ensure loading is set to false after processing
+        setLoading(false);
       }, (error) => {
         console.error("Error fetching orders: ", error);
-        setLoading(false); // Also set loading to false on error
+        setLoading(false);
       });
 
       return () => unsubscribe();
