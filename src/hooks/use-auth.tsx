@@ -43,14 +43,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               } as User);
           } else {
             // If the user document doesn't exist in Firestore,
-            // create a user object from the auth data.
-            // This is a fallback to prevent login failures.
-            setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
+            // create a user object from the auth data as a fallback.
+            // This prevents login failures if the user doc creation failed or is delayed.
+            setUser({ id: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
           }
         } catch (e) {
             console.error("Failed to fetch user document, using auth data as fallback:", e);
             // If there's an error fetching (like offline or DB not created), use the auth data.
-            setUser({ id: firebaseUser.uid, email: firebaseUser.email! });
+            setUser({ id: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
         }
       } else {
         setUser(null);
@@ -77,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userCredential = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
       const firebaseUser = userCredential.user;
       
-      // Create a user document in Firestore
+      // Create a user document in Firestore to store additional info
       await setDoc(doc(db, "users", firebaseUser.uid), {
         name: userData.name,
         email: userData.email,
@@ -85,7 +85,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       return true;
     } catch (err: any) {
-      setError(err.message);
+      if (err.code === 'auth/email-already-in-use') {
+        setError('This email address is already registered. Please log in or use a different email.');
+      } else {
+        setError(err.message);
+      }
       return false;
     } finally {
       setLoading(false);
