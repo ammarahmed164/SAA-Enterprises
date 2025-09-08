@@ -63,18 +63,25 @@ export default function CheckoutPage() {
             email: user.email || '',
             firstName: user.name?.split(' ')[0] || '',
             lastName: user.name?.split(' ')[1] || '',
+            address: '',
+            city: '',
+            zip: '',
+            cardNumber: '',
+            expiry: '',
+            cvc: '',
         });
     }
   }, [user, authLoading, form]);
 
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [authLoading, user, router]);
 
-  if (authLoading) {
+
+  if (authLoading || !user) {
      return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
-  }
-
-  if (!user) {
-    router.push('/login');
-    return null;
   }
 
   if (cartCount === 0 && !isSubmitting) {
