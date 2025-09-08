@@ -39,6 +39,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
           userOrders.push({
             id: doc.id,
             ...data,
+            // Convert Firestore Timestamp to ISO string date
             date: data.createdAt?.toDate().toISOString() || new Date().toISOString(),
           } as Order);
         });
