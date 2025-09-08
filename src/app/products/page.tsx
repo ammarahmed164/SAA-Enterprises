@@ -5,7 +5,7 @@ import { useState, useMemo, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import ProductCard from '@/components/product-card';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LayoutGrid, Check, SearchX, Tag } from 'lucide-react';
 import Image from 'next/image';
@@ -33,6 +33,97 @@ const itemVariants = {
   },
 };
 
+function CategoryCard({ category, selectedCategory, onSelectCategory }: { category: any, selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10.5deg", "-10.5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10.5deg", "10.5deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+  
+  const isSelected = selectedCategory === category.slug;
+
+  return (
+     <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => onSelectCategory(category.slug)}
+      style={{
+        rotateY,
+        rotateX,
+        transformStyle: "preserve-3d",
+      }}
+      className={cn(
+        "relative h-40 w-64 shrink-0 rounded-2xl transition-all duration-300",
+        "bg-gradient-to-br from-gray-800 to-gray-900",
+        isSelected ? 'ring-4 ring-primary ring-offset-4 ring-offset-background' : 'ring-2 ring-transparent'
+      )}
+    >
+       <div
+        style={{
+          transform: "translateZ(50px)",
+          transformStyle: "preserve-3d",
+        }}
+        className="absolute inset-2 grid place-content-center rounded-xl bg-gray-900/80 shadow-lg"
+      >
+        <Image
+          src={category.image}
+          alt={category.name}
+          fill
+          className={cn(
+            "object-cover rounded-xl transition-all duration-300",
+            isSelected ? 'opacity-30' : 'opacity-20 group-hover:opacity-30'
+          )}
+          data-ai-hint={category.dataAiHint}
+        />
+        <div 
+          className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all duration-300"
+        />
+
+        <p
+          style={{
+            transform: "translateZ(50px)",
+          }}
+          className={cn(
+            "text-center text-xl font-bold text-white transition-colors duration-300",
+            isSelected ? "text-primary" : "group-hover:text-white"
+          )}
+        >
+          {category.name}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+
 function ProductsContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category');
@@ -54,7 +145,7 @@ function ProductsContent() {
     return prods;
   }, [selectedCategory, searchQuery]);
 
-  const allCategories = [{ slug: null, name: 'All Products' }, ...categories];
+  const allCategories = [{ slug: null, name: 'All Products', image: 'https://picsum.photos/300/200?random=0', dataAiHint: 'all products' }, ...categories];
 
   return (
     <div className="bg-background text-foreground">
@@ -92,32 +183,16 @@ function ProductsContent() {
             variants={containerVariants}
             className="flex items-center justify-center"
           >
-            <div className="w-full max-w-5xl overflow-x-auto pb-4">
-              <div className="flex justify-start sm:justify-center items-center gap-3 px-4 relative bg-muted p-2 rounded-full">
+            <div className="w-full max-w-7xl overflow-x-auto pb-4">
+              <div className="flex justify-start items-center gap-8 px-4 relative">
                 {allCategories.map(category => (
-                   <motion.button
-                    key={category.slug || 'all'}
-                    variants={itemVariants}
-                    onClick={() => setSelectedCategory(category.slug)}
-                    className={cn(
-                      "relative z-10 flex items-center gap-2.5 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
-                      selectedCategory === category.slug 
-                        ? "text-primary-foreground" 
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {category.slug === null ? <LayoutGrid className="h-4 w-4" /> : <Tag className="h-4 w-4" />}
-                    <span>{category.name}</span>
-                    {selectedCategory === category.slug && (
-                      <motion.div
-                        layoutId="category-highlight"
-                        className="absolute inset-0 bg-primary rounded-full -z-10"
-                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                      />
-                    )}
-                  </motion.button>
+                   <motion.div variants={itemVariants} key={category.slug || 'all'} className="group">
+                    <CategoryCard 
+                      category={category}
+                      selectedCategory={selectedCategory}
+                      onSelectCategory={setSelectedCategory}
+                    />
+                  </motion.div>
                 ))}
               </div>
             </div>
