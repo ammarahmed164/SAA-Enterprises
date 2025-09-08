@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, Suspense } from 'react';
+import { useState, useMemo, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import ProductCard from '@/components/product-card';
@@ -93,21 +93,30 @@ function ProductsContent() {
             className="flex items-center justify-center"
           >
             <div className="w-full max-w-5xl overflow-x-auto pb-4">
-              <div className="flex justify-start sm:justify-center items-center gap-3 px-4">
+              <div className="flex justify-start sm:justify-center items-center gap-3 px-4 relative bg-muted p-2 rounded-full">
                 {allCategories.map(category => (
                    <motion.button
                     key={category.slug || 'all'}
                     variants={itemVariants}
                     onClick={() => setSelectedCategory(category.slug)}
                     className={cn(
-                      "flex items-center gap-2.5 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
+                      "relative z-10 flex items-center gap-2.5 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
                       selectedCategory === category.slug 
-                        ? "bg-primary text-primary-foreground shadow-lg scale-105" 
-                        : "bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                        ? "text-primary-foreground" 
+                        : "text-muted-foreground hover:text-foreground"
                     )}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {category.slug === null ? <LayoutGrid className="h-4 w-4" /> : <Tag className="h-4 w-4" />}
                     <span>{category.name}</span>
+                    {selectedCategory === category.slug && (
+                      <motion.div
+                        layoutId="category-highlight"
+                        className="absolute inset-0 bg-primary rounded-full -z-10"
+                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                      />
+                    )}
                   </motion.button>
                 ))}
               </div>
