@@ -46,6 +46,7 @@ export type User = {
   uid: string; // Firebase UID
   name?: string;
   email: string;
+  role?: 'admin' | 'customer';
 };
 
 // This type is for the signup form data

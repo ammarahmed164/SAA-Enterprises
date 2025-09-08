@@ -37,18 +37,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const userDocRef = doc(db, "users", firebaseUser.uid);
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
+            const userData = userDoc.data();
             setUser({
                 uid: firebaseUser.uid,
-                ...userDoc.data()
-              } as User);
+                email: firebaseUser.email!,
+                name: userData.name,
+                role: userData.role || 'customer', // Default role to customer
+              });
           } else {
             // Fallback for when the user doc doesn't exist yet.
-            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
+            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email, role: 'customer' });
           }
         } catch (e) {
             console.error("Failed to fetch user document, using auth data as fallback:", e);
              // If there's an error (e.g., Firestore not set up), use auth data as a fallback.
-            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email });
+            setUser({ uid: firebaseUser.uid, email: firebaseUser.email!, name: firebaseUser.displayName || firebaseUser.email, role: 'customer' });
         }
       } else {
         setUser(null);
@@ -79,6 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await setDoc(doc(db, "users", firebaseUser.uid), {
         name: userData.name,
         email: userData.email,
+        role: 'customer', // Assign default role on signup
       });
 
       return true;
