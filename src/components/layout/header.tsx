@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart, User, Menu, LogOut, Package } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, LogOut, Package, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
@@ -170,6 +170,14 @@ export default function Header() {
                       <p className="text-xs text-muted-foreground font-normal truncate">{user.email}</p>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    {user.role === 'admin' && (
+                       <DropdownMenuItem asChild>
+                        <Link href="/admin/orders">
+                          <ShieldCheck className="mr-2 h-4 w-4" />
+                          Admin Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem asChild>
                       <Link href="/orders">
                         <Package className="mr-2 h-4 w-4" />
