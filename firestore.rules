@@ -1,15 +1,19 @@
+
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /orders/{orderId} {
-      // Single document access
-      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
 
-      // List query access for My Orders page
-      allow list: if request.auth != null &&
-                  request.query.where("userId", "==", request.auth.uid) &&
-                  request.query.orderBy("createdAt");
+    // Allow users to read and update their own user document
+    match /users/{userId} {
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow users to manage their own orders
+    match /orders/{document=**} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+      allow list: if request.auth != null && request.query.resource.data.userId == request.auth.uid;
     }
   }
 }
-
