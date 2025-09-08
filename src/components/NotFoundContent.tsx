@@ -13,13 +13,19 @@ export default function NotFoundContent() {
         setIsClient(true);
     }, []);
 
+    // This check avoids a hydration mismatch by ensuring the dynamic rendering of the button
+    // only happens on the client-side after the initial server render.
     if (!isClient) {
         return (
             <div className="flex min-h-[calc(100vh-200px)] flex-col items-center justify-center text-center p-4">
-                <div className="h-24 w-24 bg-gray-200 animate-pulse rounded-full mb-6"></div>
-                <div className="h-12 w-64 bg-gray-200 animate-pulse rounded mb-4"></div>
-                <div className="h-6 w-80 bg-gray-200 animate-pulse rounded mb-8"></div>
-                <div className="h-12 w-40 bg-gray-200 animate-pulse rounded"></div>
+                <AlertTriangle className="h-24 w-24 text-primary mb-6" />
+                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+                    404 | Page Not Found
+                </h1>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-md">
+                    Sorry, the page you are looking for doesn’t exist or has been moved.
+                </p>
+                {/* Render a placeholder or nothing for the button on the server */}
             </div>
         );
     }
