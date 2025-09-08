@@ -1,19 +1,20 @@
-
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Users can only read and update their own user document.
+    // Users collection
     match /users/{userId} {
-      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Users can create orders for themselves.
-    // Users can only read and query orders that belong to them.
-    match /orders/{document=**} {
-      allow create: if request.auth != null;
-      allow read, list: if request.auth != null && request.auth.uid == resource.data.userId;
+    // Orders collection
+    match /orders/{orderId} {
+      // allow create only if authenticated user is creating order with their uid
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+
+      // allow read/update only if order belongs to current user
+      allow read, update: if request.auth != null && resource.data.userId == request.auth.uid;
     }
   }
 }
+

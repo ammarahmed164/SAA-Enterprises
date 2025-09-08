@@ -29,7 +29,8 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     if (user?.uid) {
       setLoading(true);
       const ordersRef = collection(db, "orders");
-      const q = query(ordersRef, where("userId", "==", user.uid), orderBy("createdAt", "desc"));
+      // Query without orderBy to avoid needing a composite index. We will sort on the client.
+      const q = query(ordersRef, where("userId", "==", user.uid));
       
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const userOrders: Order[] = [];
@@ -41,6 +42,10 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
             date: data.createdAt?.toDate().toISOString() || new Date().toISOString(),
           } as Order);
         });
+        
+        // Sort the orders on the client-side by date, descending
+        userOrders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
         setOrders(userOrders);
         setLoading(false);
       }, (error) => {
