@@ -5,7 +5,8 @@ import { AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
 
-export default function NotFoundContent() {
+// Yeh inner component banaye jo useSearchParams() use kare
+function NotFoundContentInner() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
 
@@ -33,5 +34,12 @@ export default function NotFoundContent() {
         </Link>
       </Button>
     </div>
+  );
+}
+
+// Ab main component ko Suspense ke andar wrap karo
+export default function NotFoundContent() {
+  return (
+    <NotFoundContentInner />
   );
 }
