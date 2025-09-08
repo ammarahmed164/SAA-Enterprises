@@ -1,14 +1,13 @@
 
 'use client';
 
-import { useState, useMemo, Suspense, useRef } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import ProductCard from '@/components/product-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { LayoutGrid, Check, SearchX, Tag } from 'lucide-react';
-import Image from 'next/image';
+import { SearchX } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,32 +32,46 @@ const itemVariants = {
   },
 };
 
-function AnimatedTabs({ categories, selectedCategory, onSelectCategory }: { categories: any[], selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
+function CreativeTabs({ categories, selectedCategory, onSelectCategory }: { categories: any[], selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
   return (
-    <div className="flex justify-center space-x-2 p-2 bg-muted rounded-full">
-      {categories.map((tab) => (
-        <button
-          key={tab.slug || 'all'}
-          onClick={() => onSelectCategory(tab.slug)}
-          className={cn(
-            "relative rounded-full px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-            { "hover:text-primary": selectedCategory !== tab.slug }
-          )}
-        >
-          {selectedCategory === tab.slug && (
-            <motion.span
-              layoutId="bubble"
-              className="absolute inset-0 z-10 bg-primary text-primary-foreground rounded-full"
-              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-            />
-          )}
-          <span className="relative z-20">{tab.name}</span>
-        </button>
-      ))}
+    <div className="relative flex justify-center items-center">
+      {/* This SVG filter creates the "gooey" effect */}
+      <svg width="0" height="0">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+      <div className="flex justify-center items-center space-x-2 p-2 bg-muted rounded-full" style={{ filter: 'url(#goo)' }}>
+        {categories.map((tab) => (
+          <button
+            key={tab.slug || 'all'}
+            onClick={() => onSelectCategory(tab.slug)}
+            className={cn(
+              "relative rounded-full px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+              { "hover:text-primary": selectedCategory !== tab.slug }
+            )}
+          >
+            {selectedCategory === tab.slug && (
+              <motion.div
+                layoutId="bubble"
+                className="absolute inset-0 z-10 bg-primary"
+                style={{ borderRadius: 9999 }}
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-20 transition-colors" style={{ color: selectedCategory === tab.slug ? 'hsl(var(--primary-foreground))' : '' }}>
+              {tab.name}
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
-
 
 function ProductsContent() {
   const searchParams = useSearchParams();
@@ -114,7 +127,7 @@ function ProductsContent() {
           animate="visible"
           className="mb-16 flex justify-center"
         >
-          <AnimatedTabs 
+          <CreativeTabs
             categories={allCategories}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
