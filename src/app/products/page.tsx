@@ -35,15 +35,27 @@ const itemVariants = {
 
 
 function AuroraTabs({ categories, selectedCategory, onSelectCategory }: { categories: any[], selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springMouseX = useSpring(mouseX, { stiffness: 500, damping: 100 });
+  const springMouseY = useSpring(mouseY, { stiffness: 500, damping: 100 });
+
+  const maskImage = useTransform(
+    [springMouseX, springMouseY],
+    ([x, y]) => `radial-gradient(200px 100px at ${x}px ${y}px, black, transparent)`
+  );
+
+  const backgroundPositionX = useTransform(mouseX, (x) => `${x}px`);
+  const backgroundPositionY = useTransform(mouseY, (y) => `${y}px`);
+
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
-    let { left, top } = currentTarget.getBoundingClientRect()
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
   }
 
   const icons: { [key: string]: React.ElementType } = {
@@ -66,8 +78,8 @@ function AuroraTabs({ categories, selectedCategory, onSelectCategory }: { catego
           <motion.div
             className="absolute h-[300%] w-[200%] -left-[50%] -top-[100%] z-0 bg-[radial-gradient(45rem_45rem_at_var(--x)_var(--y),#ff7e5f_0%,#feb47b_20%,#00a8c6_40%,#9cecfb_60%,#64dfdf_80%,#806bff_100%)] opacity-30"
             style={{
-              "--x": useTransform(mouseX, (x) => `${x}px`),
-              "--y": useTransform(mouseY, (y) => `${y}px`),
+              "--x": backgroundPositionX,
+              "--y": backgroundPositionY,
               animation: "aurora 10s linear infinite",
             }}
           />
@@ -108,8 +120,8 @@ function AuroraTabs({ categories, selectedCategory, onSelectCategory }: { catego
                   <motion.div
                     className="absolute inset-0 h-full w-full bg-white/10 rounded-lg"
                     style={{
-                      maskImage: `radial-gradient(200px 100px at ${useSpring(mouseX, { stiffness: 500, damping: 100 })}px ${useSpring(mouseY, { stiffness: 500, damping: 100 })}px, black, transparent)`,
-                      WebkitMaskImage: `radial-gradient(200px 100px at ${useSpring(mouseX, { stiffness: 500, damping: 100 })}px ${useSpring(mouseY, { stiffness: 500, damping: 100 })}px, black, transparent)`,
+                      maskImage: maskImage,
+                      WebkitMaskImage: maskImage,
                     }}
                   />
                 </motion.div>
