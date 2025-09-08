@@ -1,14 +1,20 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { useEffect, useState } from 'react';
 
-// Yeh inner component banaye jo useSearchParams() use kare
-function NotFoundContentInner() {
-  const searchParams = useSearchParams();
-  const error = searchParams.get('error');
+export default function NotFoundContent() {
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Client-side pe hi URL params check karo
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search);
+      setError(searchParams.get('error'));
+    }
+  }, []);
 
   return (
     <div className="flex min-h-[calc(100vh-200px)] flex-col items-center justify-center text-center p-4">
@@ -34,12 +40,5 @@ function NotFoundContentInner() {
         </Link>
       </Button>
     </div>
-  );
-}
-
-// Ab main component ko Suspense ke andar wrap karo
-export default function NotFoundContent() {
-  return (
-    <NotFoundContentInner />
   );
 }
