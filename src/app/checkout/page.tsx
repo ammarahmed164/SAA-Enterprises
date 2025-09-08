@@ -58,14 +58,23 @@ export default function CheckoutPage() {
   const { formState: { isValid, isSubmitting } } = form;
 
   useEffect(() => {
-    if (!authLoading && !user) {
-        router.push('/login');
+    if (!authLoading && user) {
+        form.reset({
+            email: user.email || '',
+            firstName: user.name?.split(' ')[0] || '',
+            lastName: user.name?.split(' ')[1] || '',
+        });
     }
-  }, [authLoading, user, router]);
+  }, [user, authLoading, form]);
 
 
-  if (authLoading || !user) {
+  if (authLoading) {
      return <div className="container py-24 text-center"><Loader2 className="h-12 w-12 animate-spin mx-auto" /></div>
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
   }
 
   if (cartCount === 0 && !isSubmitting) {
