@@ -1,3 +1,4 @@
+// app/not-found.tsx
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -6,7 +7,7 @@ import { Loader2 } from 'lucide-react';
 
 const NotFoundContent = dynamic(
   () => import('@/components/NotFoundContent'),
-  { ssr: false } // <- important: disables server-side rendering
+  { ssr: false } // <- disable server-side rendering
 );
 
 export default function NotFoundPage() {
@@ -22,4 +23,5 @@ export default function NotFoundPage() {
     </Suspense>
   );
 }
+
 
