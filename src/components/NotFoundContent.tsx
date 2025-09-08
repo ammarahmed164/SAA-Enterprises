@@ -7,14 +7,26 @@ import { useEffect, useState } from 'react';
 
 export default function NotFoundContent() {
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     // Client-side pe hi URL params check karo
-    if (typeof window !== 'undefined') {
-      const searchParams = new URLSearchParams(window.location.search);
-      setError(searchParams.get('error'));
-    }
+    const searchParams = new URLSearchParams(window.location.search);
+    setError(searchParams.get('error'));
   }, []);
+
+  // Server-side rendering ke time loading state show karo
+  if (!isClient) {
+    return (
+      <div className="flex min-h-[calc(100vh-200px)] flex-col items-center justify-center text-center p-4">
+        <div className="h-24 w-24 bg-gray-200 animate-pulse rounded-full mb-6"></div>
+        <div className="h-12 w-64 bg-gray-200 animate-pulse rounded mb-4"></div>
+        <div className="h-6 w-80 bg-gray-200 animate-pulse rounded mb-8"></div>
+        <div className="h-12 w-40 bg-gray-200 animate-pulse rounded"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-[calc(100vh-200px)] flex-col items-center justify-center text-center p-4">
