@@ -41,7 +41,7 @@ export default function LoginPage() {
     clearError();
     const success = await login(email, password);
     if (success) {
-      router.push('/checkout');
+      router.push('/');
     }
   };
 
