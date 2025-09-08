@@ -5,7 +5,7 @@ import { useState, useMemo, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { products, categories } from '@/lib/data';
 import ProductCard from '@/components/product-card';
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LayoutGrid, Check, SearchX, Tag } from 'lucide-react';
 import Image from 'next/image';
@@ -33,93 +33,29 @@ const itemVariants = {
   },
 };
 
-function CategoryCard({ category, selectedCategory, onSelectCategory }: { category: any, selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10.5deg", "-10.5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10.5deg", "10.5deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-  
-  const isSelected = selectedCategory === category.slug;
-
+function AnimatedTabs({ categories, selectedCategory, onSelectCategory }: { categories: any[], selectedCategory: string | null, onSelectCategory: (slug: string | null) => void }) {
   return (
-     <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={() => onSelectCategory(category.slug)}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className={cn(
-        "relative h-40 w-64 shrink-0 rounded-2xl transition-all duration-300",
-        "bg-gradient-to-br from-gray-800 to-gray-900",
-        isSelected ? 'ring-4 ring-primary ring-offset-4 ring-offset-background' : 'ring-2 ring-transparent'
-      )}
-    >
-       <div
-        style={{
-          transform: "translateZ(50px)",
-          transformStyle: "preserve-3d",
-        }}
-        className="absolute inset-2 grid place-content-center rounded-xl bg-gray-900/80 shadow-lg"
-      >
-        <Image
-          src={category.image}
-          alt={category.name}
-          fill
+    <div className="flex justify-center space-x-2 p-2 bg-muted rounded-full">
+      {categories.map((tab) => (
+        <button
+          key={tab.slug || 'all'}
+          onClick={() => onSelectCategory(tab.slug)}
           className={cn(
-            "object-cover rounded-xl transition-all duration-300",
-            isSelected ? 'opacity-30' : 'opacity-20 group-hover:opacity-30'
-          )}
-          data-ai-hint={category.dataAiHint}
-        />
-        <div 
-          className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all duration-300"
-        />
-
-        <p
-          style={{
-            transform: "translateZ(50px)",
-          }}
-          className={cn(
-            "text-center text-xl font-bold text-white transition-colors duration-300",
-            isSelected ? "text-primary" : "group-hover:text-white"
+            "relative rounded-full px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+            { "hover:text-primary": selectedCategory !== tab.slug }
           )}
         >
-          {category.name}
-        </p>
-      </div>
-    </motion.div>
+          {selectedCategory === tab.slug && (
+            <motion.span
+              layoutId="bubble"
+              className="absolute inset-0 z-10 bg-primary text-primary-foreground rounded-full"
+              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+            />
+          )}
+          <span className="relative z-20">{tab.name}</span>
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -145,7 +81,7 @@ function ProductsContent() {
     return prods;
   }, [selectedCategory, searchQuery]);
 
-  const allCategories = [{ slug: null, name: 'All Products', image: 'https://picsum.photos/300/200?random=0', dataAiHint: 'all products' }, ...categories];
+  const allCategories = [{ slug: null, name: 'All Products' }, ...categories];
 
   return (
     <div className="bg-background text-foreground">
@@ -176,27 +112,13 @@ function ProductsContent() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mb-16"
+          className="mb-16 flex justify-center"
         >
-          <motion.h2 variants={itemVariants} className="text-xl font-bold mb-6 text-center text-primary">Shop by Category</motion.h2>
-           <motion.div 
-            variants={containerVariants}
-            className="flex items-center justify-center"
-          >
-            <div className="w-full max-w-7xl overflow-x-auto pb-4">
-              <div className="flex justify-start items-center gap-8 px-4 relative">
-                {allCategories.map(category => (
-                   <motion.div variants={itemVariants} key={category.slug || 'all'} className="group">
-                    <CategoryCard 
-                      category={category}
-                      selectedCategory={selectedCategory}
-                      onSelectCategory={setSelectedCategory}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+          <AnimatedTabs 
+            categories={allCategories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
         </motion.div>
 
         <AnimatePresence mode="wait">
