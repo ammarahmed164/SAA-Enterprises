@@ -3,17 +3,15 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Allow users to read and update their own user document
     match /users/{userId} {
       allow read, update: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // Allow users to manage their own orders
-    match /orders/{document=**} {
-      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
       allow create: if request.auth != null;
-      allow list: if request.auth != null && request.query.resource.data.userId == request.auth.uid;
+    }
+    match /orders/{orderId} {
+      allow read, create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+    match /orders/{orderId} {
+      allow list: if request.auth != null && request.query.limit <= 10 && request.query.filters.size() == 1 && request.query.filters[0].field.string_value == 'userId' && request.query.filters[0].value.string_value == request.auth.uid;
     }
   }
 }
