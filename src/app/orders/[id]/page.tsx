@@ -141,10 +141,6 @@ export default function OrderDetailPage() {
             <CardFooter className="bg-muted/50 p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-sm text-muted-foreground">Thank you for your purchase!</p>
               <div className="flex gap-3">
-                <Button variant="outline">
-                  <FileText className="mr-2 h-4 w-4" />
-                  View Invoice
-                </Button>
                  {order.status === 'Shipped' && (
                     <Button>
                         <Truck className="mr-2 h-4 w-4"/>
