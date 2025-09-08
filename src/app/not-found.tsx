@@ -1,15 +1,8 @@
-// app/not-found.tsx
-'use client'; // 🔑 client-side only
+'use client'; // 🔑 Make this a pure client component
 
-import dynamic from 'next/dynamic';
+import NotFoundContent from '@/components/NotFoundContent';
 import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
-
-// NotFoundContent ko dynamically import karo, SSR disable
-const NotFoundContent = dynamic(
-  () => import('@/components/NotFoundContent'),
-  { ssr: false } // server-side rendering disable
-);
 
 export default function NotFoundPage() {
   return (
@@ -24,3 +17,4 @@ export default function NotFoundPage() {
     </Suspense>
   );
 }
+

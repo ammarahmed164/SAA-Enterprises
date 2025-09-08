@@ -1,5 +1,4 @@
-// components/NotFoundContent.tsx
-'use client';
+'use client'; // 🔑 client-only
 
 import { AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
@@ -22,3 +21,4 @@ export default function NotFoundContent() {
     </div>
   );
 }
+
