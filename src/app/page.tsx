@@ -43,10 +43,6 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 
 
 export default function Home() {
-  const featuredProductsPlugin = React.useRef(
-      Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
-  )
-
   const whyChooseUsItems = [
     { icon: Award, title: 'Superior Quality', description: 'Meticulously crafted scrubs using the finest fabrics for durability and comfort.' },
     { icon: Sparkles, title: 'Modern Designs', description: 'Professional, functional, and stylish apparel for the modern healthcare hero.' },
@@ -144,12 +140,17 @@ export default function Home() {
 
           <motion.div variants={fadeIn('up', 0.2)}>
             <Carousel
-              plugins={[featuredProductsPlugin.current]}
+              plugins={[
+                Autoplay({
+                  delay: 2000,
+                  stopOnInteraction: true,
+                  stopOnMouseEnter: true,
+                }),
+              ]}
               className="w-full"
               opts={{
                 loop: true,
                 align: 'start',
-                duration: 50,
               }}
             >
               <CarouselContent className="-ml-4">
