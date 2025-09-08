@@ -8,6 +8,7 @@ import ProductCard from '@/components/product-card';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LayoutGrid, Check, SearchX } from 'lucide-react';
+import Image from 'next/image';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -82,42 +83,51 @@ function ProductsContent() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mb-12"
+          className="mb-16"
         >
-          <motion.h2 variants={itemVariants} className="text-xl font-bold mb-4 text-center">Shop by Category</motion.h2>
-          <motion.div 
+          <motion.h2 variants={itemVariants} className="text-xl font-bold mb-6 text-center text-primary">Shop by Category</motion.h2>
+           <motion.div 
             variants={containerVariants}
-            className="flex flex-wrap justify-center gap-3 md:gap-4">
-            <motion.button
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
+          >
+            {/* All Products Card */}
+             <motion.button
               variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory(null)}
               className={cn(
-                "px-4 py-2 text-sm font-semibold rounded-full border transition-all duration-300 flex items-center gap-2",
-                selectedCategory === null
-                  ? "bg-primary text-primary-foreground border-primary shadow-lg"
-                  : "bg-background text-foreground hover:bg-muted/50 border-border"
+                "relative group col-span-1 lg:col-span-1 h-32 rounded-xl overflow-hidden transition-all duration-500 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
+                selectedCategory === null ? "ring-4 ring-primary ring-offset-2" : "ring-1 ring-border"
               )}
             >
-              <LayoutGrid className="h-4 w-4" />
-              All Products
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-orange-100"></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/70 backdrop-blur-sm group-hover:bg-white/50 transition-all duration-300">
+                <LayoutGrid className="h-8 w-8 mb-2 text-primary transition-transform duration-300 group-hover:scale-110" />
+                <span className="font-bold text-lg text-primary">All Products</span>
+              </div>
             </motion.button>
+            
+            {/* Category Cards */}
             {categories.map(category => (
               <motion.button
                 key={category.slug}
                 variants={itemVariants}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category.slug)}
                 className={cn(
-                  "px-4 py-2 text-sm font-semibold rounded-full border transition-all duration-300",
-                  selectedCategory === category.slug
-                    ? "bg-primary text-primary-foreground border-primary shadow-lg"
-                    : "bg-background text-foreground hover:bg-muted/50 border-border"
+                  "relative group col-span-1 lg:col-span-1 h-32 rounded-xl overflow-hidden transition-all duration-500 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
+                  selectedCategory === category.slug ? "ring-4 ring-primary ring-offset-2" : "ring-1 ring-border"
                 )}
               >
-                {category.name}
+                <Image
+                  src={category.image}
+                  alt={category.name}
+                  fill
+                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  data-ai-hint={category.dataAiHint}
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-all duration-300"></div>
+                 <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <h3 className="font-bold text-xl text-white text-center tracking-tight transition-transform duration-300 group-hover:scale-105">{category.name}</h3>
+                </div>
               </motion.button>
             ))}
           </motion.div>
