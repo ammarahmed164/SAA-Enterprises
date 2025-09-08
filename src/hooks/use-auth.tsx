@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return true;
     } catch (err: any) {
       if (err.code === 'auth/email-already-in-use') {
-        setError('This email address is already registered. Please log in or use a different email.');
+        setError('This email account already created.');
       } else {
         setError(err.message);
       }
