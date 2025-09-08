@@ -153,10 +153,10 @@ export default function AboutPage() {
                   >
                     <iframe
                       className="w-full h-full rounded-2xl"
-                      src="https://www.youtube.com/embed/6JBtgw1Ib2Q?controls=0&modestbranding=1&rel=0&showinfo=0&autoplay=1&mute=1&loop=1&playlist=6JBtgw1Ib2Q"
+                      src="https://www.youtube-nocookie.com/embed/6JBtgw1Ib2Q?controls=0&modestbranding=1&rel=0&showinfo=0&autoplay=1&mute=1&loop=1&playlist=6JBtgw1Ib2Q"
                       title="Promotional Video"
                       frameBorder="0"
-                      allow="autoplay; encrypted-media;"
+                      allow="autoplay; encrypted-media; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </motion.div>
@@ -321,3 +321,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
