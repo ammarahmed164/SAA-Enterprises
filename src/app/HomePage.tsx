@@ -142,7 +142,7 @@ function HomeComponent() {
             <Carousel
               plugins={[
                 Autoplay({
-                  delay: 2000,
+                  delay: 4000,
                   stopOnInteraction: true,
                   stopOnMouseEnter: true,
                 }),
@@ -151,6 +151,7 @@ function HomeComponent() {
               opts={{
                 loop: true,
                 align: 'start',
+                duration: 40,
               }}
             >
               <CarouselContent className="-ml-4">
@@ -255,24 +256,15 @@ function HomeComponent() {
               >
                 <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0 group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
-                  <a href="https://youtu.be/6JBtgw1Ib2Q?si=dzu9P9bOS9610Mdt" target="_blank" rel="noopener noreferrer" className="block">
-                    <motion.div 
-                      className="aspect-video bg-black rounded-2xl relative overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    >
-                      <Image
-                        src="https://img.youtube.com/vi/6JBtgw1Ib2Q/maxresdefault.jpg"
-                        alt="Video thumbnail"
-                        fill
-                        className="object-cover"
-                        data-ai-hint="video thumbnail"
-                      />
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <Youtube className="h-16 w-16 text-white/80 group-hover:text-white group-hover:scale-110 transition-all" />
-                      </div>
-                    </motion.div>
-                  </a>
+                  <div className="aspect-video bg-black rounded-2xl overflow-hidden">
+                    <iframe
+                      src="https://www.youtube.com/embed/6JBtgw1Ib2Q"
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
+                  </div>
                 </Card>
               </motion.div>
           </div>
