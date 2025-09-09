@@ -134,7 +134,7 @@ export default function AboutPageContent() {
                 We believe that performance and presentation go hand-in-hand. Watch our video to see the craftsmanship, durability, and thoughtful design that goes into every SAA Scrub, ensuring you look and feel your best.
               </p>
                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 transition-all duration-300 transform hover:scale-105">
-                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" target="_blank" rel="noopener noreferrer">
+                <a href="https://youtu.be/6JBtgw1Ib2Q?si=dzu9P9bOS9610Mdt" target="_blank" rel="noopener noreferrer">
                   <Youtube className="mr-2 h-5 w-5" />
                   Watch Our Story
                 </a>
@@ -146,22 +146,24 @@ export default function AboutPageContent() {
               >
                 <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0 group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
-                  <motion.div 
-                    className="aspect-video bg-black rounded-2xl relative overflow-hidden"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <video
-                      className="w-full h-full object-cover"
-                      src="/videos/hero-video.mp4"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
+                  <a href="https://youtu.be/6JBtgw1Ib2Q?si=dzu9P9bOS9610Mdt" target="_blank" rel="noopener noreferrer" className="block">
+                    <motion.div 
+                      className="aspect-video bg-black rounded-2xl relative overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     >
-                      Your browser does not support the video tag.
-                    </video>
-                  </motion.div>
+                      <Image
+                        src="https://img.youtube.com/vi/6JBtgw1Ib2Q/maxresdefault.jpg"
+                        alt="Video thumbnail"
+                        fill
+                        className="object-cover"
+                        data-ai-hint="video thumbnail"
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <Youtube className="h-16 w-16 text-white/80 group-hover:text-white group-hover:scale-110 transition-all" />
+                      </div>
+                    </motion.div>
+                  </a>
                 </Card>
               </motion.div>
           </div>
