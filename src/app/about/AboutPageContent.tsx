@@ -134,7 +134,7 @@ export default function AboutPageContent() {
                 We believe that performance and presentation go hand-in-hand. Watch our video to see the craftsmanship, durability, and thoughtful design that goes into every SAA Scrub, ensuring you look and feel your best.
               </p>
                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 transition-all duration-300 transform hover:scale-105">
-                <a href="https://www.youtube.com/watch?v=6JBtgw1Ib2Q" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" target="_blank" rel="noopener noreferrer">
                   <Youtube className="mr-2 h-5 w-5" />
                   Watch Our Story
                 </a>
@@ -153,10 +153,10 @@ export default function AboutPageContent() {
                   >
                     <iframe
                       className="w-full h-full rounded-2xl"
-                      src="https://www.youtube-nocookie.com/embed/6JBtgw1Ib2Q?controls=0&modestbranding=1&rel=0&showinfo=0&autoplay=1&mute=1&loop=1&playlist=6JBtgw1Ib2Q"
+                      src="https://www.youtube-nocookie.com/embed/LXb3EKWsInQ?autoplay=1&mute=1&loop=1&playlist=LXb3EKWsInQ"
                       title="Promotional Video"
                       frameBorder="0"
-                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </motion.div>
