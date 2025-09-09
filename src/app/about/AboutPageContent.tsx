@@ -153,7 +153,7 @@ export default function AboutPageContent() {
                   >
                     <video
                       className="w-full h-full object-cover"
-                      src="https://videos.pexels.com/video-files/4784333/4784333-hd_1920_1080_25fps.mp4"
+                      src="/videos/hero-video.mp4"
                       autoPlay
                       loop
                       muted
