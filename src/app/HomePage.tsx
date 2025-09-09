@@ -256,18 +256,20 @@ function HomeComponent() {
                 <Card className="overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0 group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
                   <motion.div 
-                    className="aspect-video bg-black rounded-2xl relative"
+                    className="aspect-video bg-black rounded-2xl relative overflow-hidden"
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   >
-                    <iframe
-                      className="w-full h-full rounded-2xl"
-                      src="https://www.youtube-nocookie.com/embed/LXb3EKWsInQ?autoplay=1&mute=1&loop=1&playlist=LXb3EKWsInQ"
-                      title="Promotional Video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
+                    <video
+                      className="w-full h-full object-cover"
+                      src="https://videos.pexels.com/video-files/4784333/4784333-hd_1920_1080_25fps.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      Your browser does not support the video tag.
+                    </video>
                   </motion.div>
                 </Card>
               </motion.div>

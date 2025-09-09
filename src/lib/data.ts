@@ -353,7 +353,7 @@ export const products: Product[] = [
     image: '/product1Sof.png',
     images: ['/product1Sof.png', '/product1AS.png', '/product1BS.png', '/product1CS.png', '/product1DS.png','/product1ES.png'],
     dataAiHint: 'soft blanket',
-    category: ' Softy Black',
+    category: 'Unisex Softy',
     rating: 4.9,
     reviews: 300,
   },
