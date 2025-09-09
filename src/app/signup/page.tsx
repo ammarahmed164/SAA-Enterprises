@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -9,9 +8,9 @@ import { motion } from 'framer-motion';
 import { UserPlus, Mail, KeyRound, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, Suspense } from 'react';
 
-export default function SignupPage() {
+function SignupPageContent() {
   const { signup, error, clearError } = useAuth();
   const router = useRouter();
   const [name, setName] = useState('');
@@ -131,4 +130,12 @@ export default function SignupPage() {
       </motion.div>
     </div>
   );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignupPageContent />
+    </Suspense>
+  )
 }

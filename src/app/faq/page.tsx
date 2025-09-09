@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/accordion"
 import { motion } from 'framer-motion';
 import { HelpCircle } from "lucide-react";
+import { Suspense } from "react";
 
 const faqItems = [
     {
@@ -25,7 +25,7 @@ const faqItems = [
     }
 ]
 
-export default function FAQPage() {
+function FAQPageComponent() {
   return (
     <div className="bg-background text-foreground">
        <motion.section 
@@ -80,4 +80,13 @@ export default function FAQPage() {
       </motion.section>
     </div>
   );
+}
+
+
+export default function FAQPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FAQPageComponent />
+    </Suspense>
+  )
 }

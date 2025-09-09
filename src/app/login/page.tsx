@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -9,9 +8,9 @@ import { motion } from 'framer-motion';
 import { KeyRound, Mail, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, Suspense } from 'react';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { login, error, clearError } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -121,4 +120,12 @@ export default function LoginPage() {
       </motion.div>
     </div>
   );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginPageContent />
+    </Suspense>
+  )
 }

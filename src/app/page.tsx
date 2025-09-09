@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -42,7 +41,7 @@ const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => ({
 });
 
 
-export default function Home() {
+function HomeComponent() {
   const whyChooseUsItems = [
     { icon: Award, title: 'Superior Quality', description: 'Meticulously crafted scrubs using the finest fabrics for durability and comfort.' },
     { icon: Sparkles, title: 'Modern Designs', description: 'Professional, functional, and stylish apparel for the modern healthcare hero.' },
@@ -348,4 +347,12 @@ export default function Home() {
   );
 }
 
-    
+import { Suspense } from 'react';
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeComponent />
+    </Suspense>
+  );
+}

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -6,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Suspense } from "react";
 
-export default function ThankYouPage() {
+function ThankYouPageComponent() {
   return (
     <div className="container flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
       <motion.div
@@ -49,4 +49,13 @@ export default function ThankYouPage() {
       </motion.div>
     </div>
   );
+}
+
+
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ThankYouPageComponent />
+    </Suspense>
+  )
 }
