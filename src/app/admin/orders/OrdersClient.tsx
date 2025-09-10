@@ -1,4 +1,4 @@
-// src/app/admin/orders/OrdersClient.tsx
+
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -39,7 +39,10 @@ export default function OrdersClient() {
       router.push('/login');
       return;
     }
-    if (user.role !== 'admin') return;
+    if (user.role !== 'admin') {
+      setLoading(false);
+      return;
+    };
 
     const ordersRef = collection(db, "orders");
     const q = query(ordersRef, orderBy("createdAt", "desc"));
